@@ -1,0 +1,557 @@
+---
+title: "Iris Autoencoder with a knn classifier. Test one"
+author: "Adrian de Luis García"
+output:
+  pdf_document: 
+  df_print: paged
+---
+
+This vignette has the purpose to use a normal knn classifier with a 5 fold validation on the iris dataset
+
+# Environment construction
+
+```{r, message=F, warning=F, environment , echo=FALSE}
+
+library(dplyr)
+library(entropies)
+library(RSNNS)
+library(keras)
+library(nnet)
+library(tidyverse) # That (in)famous Mr. Wickham!
+library(caret)    # To build the classifiers.
+library(mlbench)  # Many databases for ML tasks
+library(vcd)       # Categorical benchmarks
+library(candisc)   # Wine dataset
+library(compositions)# Statistics work differently on compositional data
+library(ggtern) 
+library(class)
+
+
+```
+Some top level switches and options gathered in one place. 
+
+```{r switches}
+fancy <- TRUE  # set this for nicer on-screen visualization.
+# FVA: changed to new interface: first call in the frame of datasets
+data(datasets)
+#datasets <- loadDataset()
+datasets
+splitShapesForTypes <- c("X"=4, "Y"=4, "XY"=20) #To draw split diagrams
+# Naive transformation from factors to numbers in 0 to num.factors - 1
+factor.as.numeric <- function(f){
+  nums <- as.numeric(f)
+  return(nums - min(nums))
+}
+```
+
+## Choosing the iris dataset from the available options
+
+```{r dataset choice}
+dsName <- "iris"
+dsRecord <-  filter(datasets, name == dsName)
+# FVA: changed to use new primitive, loadDataset q.v.
+ds <- loadDataset(dsRecord$name,pkg=dsRecord$packName)
+#ds <- evalDataset(dsName) 
+
+if (!is.na(dsRecord$idNumber)){
+  ds <- ds[,-dsRecord$idNumber]
+}
+```
+
+# Classifier design
+
+## Basic data from the set for classification
+
+```{r}
+#class column
+ds.classNum <- which(names(ds)==dsRecord$className)
+#take away the class, but keep it just in case.
+class.ds <- ds[, ds.classNum]#saving the class. Warning A FACTOR!
+ds <- ds[,-ds.classNum]
+ds <- ds %>%     
+  #transform factors to number
+  mutate_if(is.factor,factor.as.numeric) %>%
+  # Dispose of columns with NaN
+  select_if(function(v) !any(is.na(v))) %>% 
+  # Dispose of constant columns: they carry no information
+  select_if(function(v)(var(v) > 0))
+ncols <- ncol(ds)#Mnemonic shortcut: num of columns
+dsDiscretized <- infotheo::discretize(ds, disc="equalwidth")
+if (dsName != "Ionosphere"){
+  log.ds <- log(ds)#this has to be made conditional on the database
+  log.dsDiscretized <- infotheo::discretize(log.ds)
+  #TODO: try to get rid of annoying warnings each time entropy is called. 
+}
+X <- as.matrix(ds)
+Y <- class.ds
+classes <- unique(Y)
+numC <- length(classes)
+print(sprintf("%s has %d classes with distribution: ", dsName, numC))
+summary(Y)
+```
+
+
+## FVA: Normalize vars
+
+```{r normalization}
+#ggplot(ds,aes())
+#X <- normalize(x = X, method = "standarize", range = c(0, 1))
+iris.cntn <- iris[,-5] 
+iris.trans <- preProcess(x = iris.cntn,method = c("BoxCox","center","scale"))
+iris.preproc <- predict(iris.trans,newdata = iris.cntn)
+X <- cbind(iris.preproc,iris[5])
+
+#X <- scale(X)
+# FVA: summaries of cross plots
+
+panel.hist <- function(x, ...)
+{
+    usr <- par("usr"); on.exit(par(usr))
+    par(usr = c(usr[1:2], 0, 1.5) )
+    h <- hist(x, plot = FALSE)
+    breaks <- h$breaks; nB <- length(breaks)
+    y <- h$counts; y <- y/max(y)
+    rect(breaks[-nB], 0, breaks[-1], y, col = "black", ...)
+}
+
+pairs(X[,1:4],diag.panel = panel.hist ,pch = 19)
+
+```
+
+## Design the classifier and the 5 folds with train and test 
+
+
+```{r random split}
+
+X <- as.matrix(X)
+
+set.seed(27)
+#FVA: specify #of folds
+kfolds <- 5
+#sample <- createDataPartition(y = Y, p=0.8, list=FALSE,times = kfolds)
+sample <- createFolds(Y, k=kfolds,list=TRUE)#Tries to keep proportions in folds
+
+#Species <- decodeClassLabels(Species)
+#experiments <- 1
+results <- frame()# FVA: look for appropriate syntax for empty frame
+tabla <-matrix(data = c(0,0,0,0,0,0,0,0,0),nrow = 3, ncol = 3)
+teCM_Total_auto_knn <- as.table(tabla)
+teCM_Total_auto_mlp <- as.table(tabla)
+teCM_Total_pca_knn <- as.table(tabla)
+teCM_Total_pca_mlp <- as.table(tabla)
+
+N = 40
+
+vectorOfTables <- vector(mode = "list", length = N)
+
+
+for(i in (1:kfolds)){# i selects the active fold in "sample"
+    # FVA: cambiar train por test
+  x <- paste("I am on the compilation number ",i)
+  x
+  trainX <- X[-sample[[i]],-5]
+  trainY <- Y[-sample[[i]]]
+  testX <- X[sample[[i]],-5]
+  testY <- Y[sample[[i]]]
+  
+  trainX <- mapply(trainX, FUN = as.numeric)
+  trainX <- matrix(data=trainX, ncol=4, nrow=120)
+  testX <- mapply(testX, FUN = as.numeric)
+  testX <- matrix(data=testX, ncol=4, nrow=30)
+  
+  testY_numeric <- toNumericClassLabels(testY)
+  hot_label_test <- to_categorical(testY_numeric)
+  hot_label_test <- hot_label_test[,-1]
+
+  
+  trainY_numeric <- toNumericClassLabels(trainY)
+  hot_label <- to_categorical(trainY_numeric)
+  hot_label <- hot_label[,-1]
+  # FVA: Pasar a bucle o comentar. 
+  # encoding_dim <- 4
+  # encoding_dim <- 8
+  # encoding_dim <- 16
+  encoding_dim4 <- 4
+  encoding_dim16 <- 16
+  encoding_dim8 <- 8
+  
+  # FVA: Define the architecture
+  # FVA: Change this accordingly
+  input_img <- layer_input(shape = c(4))
+  
+  encoded_input <- layer_dense(unit = encoding_dim16,activation='relu',input_img)
+  
+  encoded <- layer_dense(unit = encoding_dim8,activation = 'relu',encoded_input)
+  
+  encoded <- layer_dense(unit = 3,activation = 'relu',encoded)
+  
+  
+  
+  decoded_input <- layer_dense(unit = encoding_dim8,activation='relu',encoded)
+  
+  decoded <- layer_dense(unit = encoding_dim16,activation = 'relu',decoded_input)
+  
+  decoded <- layer_dense(unit = encoding_dim4,activation = 'sigmoid',decoded)
+  
+  # FVA: I do not think this defines an AutoEncoder architecture, but 
+  # only the encoder. 
+  autoencoder <- keras_model(input = input_img, output = decoded)
+  
+  
+  # FVA: falta el encoder!
+  encoder <- keras_model(input = input_img, output = encoded)
+  
+  # FVA: therefore, this is trying to encode the input X into the intermediate layer and then to decode it with the layer "encoded"
+  autoencoder %>% compile(
+    optimizer='adam',
+    #loss='binary_crossentropy',
+    loss ='mean_squared_error',
+    metrics = 'accuracy'
+  )
+  
+  history <- autoencoder %>% fit(
+    trainX,trainX,
+    epochs= 10,#FVA
+    #batch_size=24,# FVA: select 
+    steps_per_epoch=120,#FVA
+    shuffle=TRUE
+  )
+  print(history)
+  # FVA: this generates the X'
+  
+  x_train_predicted <- autoencoder %>% predict(trainX)
+  x_test_predicted <- autoencoder %>% predict(testX)
+  
+  # FVA: this should instead generate the Z's
+  # AT PRESENT THEY CANNOT BE GENERATED, because the SAE architecture is wrong.
+  
+  # FVA: I don't understand this rewriting: 
+  # Is this trying to obtain the Zs?
+  # Why systematically rewrite the 1:4 folds?
+  # This should take into consideration the "i" variable for the active fold.
+
+  # FVA: A) Predict Z
+  # FVA: B) class9fy
+  trainZ <- encoder %>% predict(trainX)
+  testZ<- encoder %>% predict(testX)
+  train_matrixZ <- as.matrix(trainZ)
+  test_matrixZ <- as.matrix(testZ)
+  #Let's do a comparison between iris with a knn-classifier and an MLP
+  # FVA: infer KNN classifier
+  # FVA: usar un MLP diseñado con Keras.
+  
+  #####################################################################################
+  
+  colnames(train_matrixZ) <- c("1st","2nd","3rd")
+  colnames(test_matrixZ) <- c("1st","2nd","3rd")
+  fit <- caret::train(x=train_matrixZ, y=trainY, 
+                 method="knn",
+                 preProcess = c("center","scale"),
+               tuneLength = 15
+               )
+  print(fit)
+  
+  trCM <- table(predict(fit,train_matrixZ), trainY)
+  
+  trCoords <- jentropies(t(trCM))
+  
+  teCM <- table(predict(fit,test_matrixZ),testY)
+
+  teCoords <- jentropies(t(teCM))
+  
+  teCM_Total_auto_knn <- teCM_Total_auto_knn + teCM
+  
+  vectorOfTables[[((i-1)*8) + 1]] <- trCM
+  vectorOfTables[[((i-1)*8) + 2]] <- teCM
+  
+  results <- rbind(results,
+                    cbind(
+                        dSet="iris", fold=i, method="knn",
+                        rbind(
+                            cbind(trCoords,Phase="train"), 
+                            cbind(teCoords, Phase="test")
+                            )
+                        )
+              )
+  
+  ###################################################################################
+  
+  batch_size_pca <- 128
+  num_classes_pca <- 3
+  epochs_pca <- 500
+  
+  
+  pca <- prcomp(trainX) 
+  
+  train_pca <- predict(pca, newdata=trainX)
+  
+  test_pca <- predict(pca, newdata=testX)
+  
+  fit_pca <- caret::train(x=train_pca, y=trainY, 
+                      method="knn",
+                      preProcess = c("center","scale"),
+                      tuneLength = 15
+  )
+  
+  print(fit_pca)
+  
+  trCM <- table(predict(fit_pca,train_pca), trainY)
+  
+  trCoords <- jentropies(t(trCM))
+  
+  teCM <- table(predict(fit_pca,test_pca),testY)
+  
+  teCoords <- jentropies(t(teCM))
+  
+  teCM_Total_pca_knn <- teCM_Total_pca_knn + teCM
+  
+  vectorOfTables[[((i-1)*8) + 3]] <- trCM
+  vectorOfTables[[((i-1)*8) + 4]] <- teCM
+  
+  results <- rbind(results,
+                   cbind(
+                     dSet="iris", fold=i, method="knn_pca",
+                     rbind(
+                       cbind(trCoords,Phase="train"), 
+                       cbind(teCoords, Phase="test")
+                     )
+                   )
+  )
+  
+  ##### MLP IN PCA #######
+  
+  mlp_pca <- keras_model_sequential()
+  mlp_pca %>% 
+    layer_dense(units = 5, activation = 'relu', input_shape = c(4)) %>% 
+    layer_dense(units = 4, activation = 'sigmoid') %>%
+    layer_dense(units = 3, activation = 'softmax')
+  
+  
+  mlp_pca %>% compile(
+    loss = 'categorical_crossentropy',
+    optimizer = 'adam',
+    metrics = c('accuracy')
+  )
+  
+  history <- mlp_pca %>% fit(
+    train_pca, hot_label,
+    batch_size = batch_size_pca,
+    epochs = epochs_pca
+  )
+  
+  print(mlp_pca)
+  
+   
+  prediction <- predict(mlp_pca,train_pca)
+  prediction2 <- predict(mlp_pca,test_pca)
+  
+  prediction_train <- matrix(1:nrow(prediction),nrow = nrow(prediction),ncol = 1)
+  prediction_test <- matrix(1:nrow(prediction2),nrow = nrow(prediction2),ncol = 1)
+
+
+  for(m in 1:nrow(prediction)){
+  l <- which.is.max(prediction[m,]) 
+  prediction_train[m] <- (l) 
+  }
+
+  for(m in 1:nrow(prediction2)){
+  l <- which.is.max(prediction2[m,]) 
+  prediction_test[m] <- (l) 
+  }
+  
+  trCM <- table(prediction_train, trainY_numeric)
+  
+  trCoords <- jentropies(t(trCM))
+  
+  teCM <- table(prediction_test,testY_numeric)
+  
+  teCoords <- jentropies(t(teCM))
+  
+  teCM_Total_pca_mlp <- teCM_Total_pca_mlp + teCM
+  
+  vectorOfTables[[((i-1)*8) + 7]] <- trCM
+  vectorOfTables[[((i-1)*8) + 8]] <- teCM
+  
+  results <- rbind(results,
+                   cbind(
+                     dSet="iris", fold=i, method="mlp_pca",
+                     rbind(
+                       cbind(trCoords,Phase="train"), 
+                       cbind(teCoords, Phase="test")
+                     )
+                   )
+  )
+  
+  
+  
+  
+    
+  
+############################################################################################################################################
+  
+  batch_size <- 128
+  num_classes <- 3
+  epochs <- 750
+  
+  
+ #El mlp es donde estoy atascado, siempre esta prediciendo lo mismo y me presenta  #con un clasificador que solo elige un tipo de clase, por lo que calcular la     #entropia no está funcionando
+  
+
+  
+  summary(train_matrixZ)
+# train_matrixZ <- normalize(x = train_matrixZ, method = "range", range = c(0, 1))
+# FVA: summaries of cross plots
+mlp <- keras_model_sequential()
+mlp %>% 
+  layer_dense(units = 5, activation = 'relu', input_shape = c(3)) %>% 
+  layer_dense(units = 4, activation = 'sigmoid') %>%
+  layer_dense(units = 3, activation = 'softmax')
+
+#  input_mlp <- layer_input(shape = c(4))
+  
+#  input_layer_mlp <- layer_dense(unit = 5,activation='relu',input_mlp)
+  
+#  middle_layer_mlp <- layer_dense(unit = 4,activation = 'sigmoid',input_layer_mlp)
+  
+#  output_layer_mlp <- layer_dense(unit = 3,activation = 'sigmoid',middle_layer_mlp) 
+   
+#  mlp <- keras_model(input = input_mlp, output = output_layer_mlp)
+  
+  mlp %>% compile(
+    loss = 'categorical_crossentropy',
+    optimizer = 'adam',
+    metrics = c('accuracy')
+  )
+  
+  history <- mlp %>% fit(
+    train_matrixZ, hot_label,
+    batch_size = batch_size,
+    epochs = 750
+  )
+  
+  print(mlp)
+  
+  prediction <- predict(mlp,train_matrixZ)
+  prediction2 <- predict(mlp,test_matrixZ)
+  
+  prediction_train <- matrix(1:nrow(prediction),nrow = nrow(prediction),ncol = 1)
+  prediction_test <- matrix(1:nrow(prediction2),nrow = nrow(prediction2),ncol = 1)
+
+
+  for(m in 1:nrow(prediction)){
+  l <- which.is.max(prediction[m,]) 
+  prediction_train[m] <- (l) 
+  }
+
+  for(m in 1:nrow(prediction2)){
+  l <- which.is.max(prediction2[m,]) 
+  prediction_test[m] <- (l) 
+  }
+  
+  trCM <- table(prediction_train, trainY_numeric)
+  
+  trCoords <- jentropies(t(trCM))
+  
+  teCM <- table(prediction_test, testY_numeric)
+
+  teCoords <- jentropies(t(teCM))
+  
+  teCM_Total_auto_mlp <- teCM_Total_auto_mlp + teCM
+  
+  vectorOfTables[[((i-1)*8) + 5]] <- trCM
+  vectorOfTables[[((i-1)*8) + 6]] <- teCM
+  
+  results <- rbind(results,
+                    cbind(
+                        dSet="iris", fold=i, method="mlp",
+                        rbind(
+                            cbind(trCoords,Phase="train"), 
+                            cbind(teCoords, Phase="test")
+                            )
+                        )
+                )
+ 
+}
+
+Total_Resultado_knn <- frame()
+Total_Resultado_knn <- rbind(Total_Resultado_knn,
+                    cbind(
+                         dSet="iris", method="knn-pca",
+                        rbind(
+                            cbind(jentropies(t(teCM_Total_pca_knn)), Phase="test")
+                            )
+                        )
+                )
+Total_Resultado_knn <- rbind(Total_Resultado_knn,
+                    cbind(
+                         dSet="iris", method="knn",
+                        rbind(
+                            cbind(jentropies(t(teCM_Total_auto_knn)), Phase="test")
+                            )
+                        )
+                )
+Total_Resultado_knn <- rbind(Total_Resultado_knn,
+                    cbind(
+                         dSet="iris", method="mlp-pca",
+                        rbind(
+                            cbind(jentropies(t(teCM_Total_pca_mlp)), Phase="test")
+                            )
+                        )
+                )
+Total_Resultado_knn <- rbind(Total_Resultado_knn,
+                    cbind(
+                         dSet="iris", method="mlp",
+                        rbind(
+                            cbind(jentropies(t(teCM_Total_auto_mlp)), Phase="test")
+                            )
+                        )
+                )
+
+
+```
+
+## Evaluation using the CBET
+
+ 
+```{r random split model}
+#experiments <- rbind(experiments_1,experiments_2,experiments_3,experiments_4,experiments_5)
+
+
+
+
+gp_Total <- ggmetern(ed = (Total_Resultado_knn %>% filter(type == "XY")), fancy = TRUE) +
+    geom_point(aes(colour=Phase, shape = method), size=2) + labs(shape="Methods") + 
+    scale_colour_brewer(palette="Set1")
+
+
+gp <- ggmetern(ed = (results %>% filter(type == "XY") %>% filter(method == "knn")), fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape =as.character(fold)), size=2)  +
+  labs(shape="Folds") + 
+  scale_colour_brewer(palette="Set1")
+
+gp2 <- ggmetern(ed = (results %>% filter(type == "XY") %>% filter(method == "mlp")), fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape =as.character(fold)), size=2)  +
+  labs(shape="Folds") + 
+  scale_colour_brewer(palette="Set1")
+
+gp3 <- ggmetern(ed = (results %>% filter(type == "XY") %>% filter(method == "knn_pca")), fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape =as.character(fold)), size=2)  +
+  labs(shape="Folds") + 
+  scale_colour_brewer(palette="Set1")
+
+gp4 <- ggmetern(ed = (results %>% filter(type == "XY") %>% filter(method == "mlp_pca")), fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape =as.character(fold)), size=2)  +
+  labs(shape="Folds") + 
+  scale_colour_brewer(palette="Set1")
+
+gp_Total
+
+gp
+
+gp2
+
+gp3
+
+gp4
+```
+

@@ -1,0 +1,466 @@
+---
+title: "Autoencoder on other datasets"
+author: "Adrian de Luis García"
+output:
+  word_document: default
+  html_document: default
+---
+
+This vignette has the purpose to instruct in the use of an autoencoder on different types of datasets available for study in the internet
+
+# Environment construction
+
+```{r, message=F, warning=F, environment}
+rm(list=ls())
+gc()
+library(keras)
+library(nnet)
+library(tidyverse) # That (in)famous Mr. Wickham!
+library(caret)    # To build the classifiers.
+library(mlbench)  # Many databases for ML tasks
+library(vcd)       # Categorical benchmarks
+library(candisc)   # Wine dataset
+library(entropies) # Processing and visualizing joint entropies
+library(compositions)# Statistics work differently on compositional data
+library(ggtern) 
+library(class)
+library(dplyr)
+
+```
+
+Let's do a simple visualization of the data involved in this analysis
+
+```{r switches}
+fancy <- TRUE  # set this for nicer on-screen visualization.
+# FVA: changed to new interface: first call in the frame of datasets
+data(datasets)
+#datasets <- loadDataset()
+datasets
+splitShapesForTypes <- c("X"=4, "Y"=4, "XY"=20) #To draw split diagrams
+# Naive transformation from factors to numbers in 0 to num.factors - 1
+factor.as.numeric <- function(f){
+  nums <- as.numeric(f)
+  return(nums - min(nums))
+}
+```
+
+## Choosing the Ionosphere dataset from the available options
+
+```{r dataset choice}
+dsName <- "Ionosphere"
+dsRecord <-  filter(datasets, name == dsName)
+# FVA: changed to use new primitive, loadDataset q.v.
+ds <- loadDataset(dsRecord$name,pkg=dsRecord$packName)
+#ds <- evalDataset(dsName) 
+
+if (!is.na(dsRecord$idNumber)){
+  ds <- ds[,-dsRecord$idNumber]
+}
+```
+
+## Basic data from the set for classification
+
+```{r}
+#class column
+ds.classNum <- which(names(ds)==dsRecord$className)
+#take away the class, but keep it just in case.
+class.ds <- ds[, ds.classNum]#saving the class. Warning A FACTOR!
+ds <- ds[,-ds.classNum]
+ds <- ds %>%     
+  #transform factors to number
+  mutate_if(is.factor,factor.as.numeric) %>%
+  # Dispose of columns with NaN
+  select_if(function(v) !any(is.na(v))) %>% 
+  # Dispose of constant columns: they carry no information
+  select_if(function(v)(var(v) > 0))
+ncols <- ncol(ds)#Mnemonic shortcut: num of columns
+dsDiscretized <- infotheo::discretize(ds, disc="equalwidth")
+if (dsName != "Ionosphere"){
+  log.ds <- log(ds)#this has to be made conditional on the database
+  log.dsDiscretized <- infotheo::discretize(log.ds)
+  #TODO: try to get rid of annoying warnings each time entropy is called. 
+}
+X <- as.matrix(ds)
+Y <- class.ds
+classes <- unique(Y)
+numC <- length(classes)
+print(sprintf("%s has %d classes with distribution: ", dsName, numC))
+summary(Y)
+```
+
+
+## Design the classifier and the 5 folds with train and test 
+
+
+```{r random split}
+
+
+set.seed(27)
+#FVA: specify #of folds
+kfolds <- 5
+#sample <- createDataPartition(y = Y, p=0.8, list=FALSE,times = kfolds)
+sample <- createFolds(Y, k=kfolds,list=TRUE)#Tries to keep proportions in folds
+
+#Species <- decodeClassLabels(Species)
+#experiments <- 1
+results <- frame()# FVA: look for appropriate syntax for empty frame
+
+matriz <- matrix(c(0,0,0,0),nrow=2,ncol=2)
+teCM_total_auto_mlp <- as.table(matriz)
+teCM_total_auto_knn <- as.table(matriz)
+teCM_total_pca_knn <- as.table(matriz)
+ teCM_total_pca_mlp <- as.table(matriz)
+
+accuracy_pca <- matrix(1:5,nrow = 5,ncol = 1)
+accuracy_auto <- matrix(1:5,nrow = 5,ncol = 1)
+for(i in (1:kfolds)){# i selects the active fold in "sample"
+    # FVA: cambiar train por test
+  set.seed(67)
+  lm <- paste("I am on the compilation number ",i)
+  lm
+  trainX <- X[-sample[[i]],]
+  trainY <- Y[-sample[[i]]]
+  testX <- X[sample[[i]],]
+  testY <- Y[sample[[i]]]
+  
+  hot_label_test <- toNumericClassLabels(testY)
+  hot_label_test <- to_categorical(hot_label_test)
+  hot_label_test <- hot_label_test[,-1]
+  
+  hot_label_ <- toNumericClassLabels(trainY)
+  hot_label <- to_categorical(hot_label_)
+  hot_label <- hot_label[,-1]
+  
+  batch_size <- 128
+  num_classes <- 2
+ 
+  
+  encoding_dim33 <- 33
+  encoding_dim50 <- 50
+  encoding_dim20 <- 20
+  
+  input_img <- layer_input(shape = c(33))
+  
+  encoded_input <- layer_dense(unit = encoding_dim50,activation='relu',input_img)
+  
+  encoded <- layer_dense(unit = encoding_dim20,activation = 'relu',encoded_input)
+  
+  encoded <- layer_dense(unit = 8,activation = 'relu',encoded)
+  
+  
+  
+  decoded_input <- layer_dense(unit = encoding_dim20,activation='relu',encoded)
+  
+  decoded <- layer_dense(unit = encoding_dim50,activation = 'relu',decoded_input)
+  
+  decoded <- layer_dense(unit = encoding_dim33,activation = 'sigmoid',decoded)
+  
+  # FVA: I do not think this defines an AutoEncoder architecture, but 
+  # only the encoder. 
+  autoencoder <- keras_model(input = input_img, output = decoded)
+  
+  
+  # FVA: falta el encoder!
+  encoder <- keras_model(input = input_img, output = encoded)
+  
+  # FVA: therefore, this is trying to encode the input X into the intermediate layer and then to decode it with the layer "encoded"
+  autoencoder %>% compile(
+    optimizer='adam',
+    #loss='binary_crossentropy',
+    loss ='mean_squared_error',
+    metrics = 'accuracy'
+  )
+  
+  history <- autoencoder %>% fit(
+    trainX,trainX,
+    epochs=30,#FVA
+    #batch_size=24,# FVA: select 
+    steps_per_epoch=nrow(trainX),#FVA
+    shuffle=TRUE
+  )
+  
+  # FVA: this generates the X'
+  
+  x_train_predicted <- autoencoder %>% predict(trainX)
+  x_test_predicted <- autoencoder %>% predict(testX)
+  
+  # FVA: this should instead generate the Z's
+  # AT PRESENT THEY CANNOT BE GENERATED, because the SAE architecture is wrong.
+  
+  # FVA: I don't understand this rewriting: 
+  # Is this trying to obtain the Zs?
+  # Why systematically rewrite the 1:4 folds?
+  # This should take into consideration the "i" variable for the active fold.
+
+  # FVA: A) Predict Z
+  # FVA: B) class9fy
+  trainZ <- encoder %>% predict(trainX)
+  testZ<- encoder %>% predict(testX)
+  
+  train_matrixZ <- as.matrix(trainZ)
+  test_matrixZ <- as.matrix(testZ)
+  
+  #####################################################################################
+  
+  colnames(train_matrixZ) <- c("1st","2nd","3rd","4rd","5th","6th","7th","8th")
+  colnames(test_matrixZ) <- c("1st","2nd","3rd","4rd","5th","6th","7th","8th")
+  fit <- caret::train(x=train_matrixZ, y=trainY, 
+                 method="knn",
+                 preProcess = c("center","scale"),
+               tuneLength = 15
+               )
+
+  trCM <- confusionMatrix(predict(fit,train_matrixZ), trainY)
+  
+  trCoords <- jentropies(t(trCM))
+  
+  teCM <- confusionMatrix(predict(fit,test_matrixZ), testY)
+  
+  teCoords <- jentropies(t(teCM))
+  
+  
+  
+  teCM_total_auto_knn <- teCM_total_auto_knn + teCM
+  
+  results <- rbind(results,
+                    cbind(
+                        dSet="Ionosphere", fold=i, method="knn",
+                        rbind(
+                            cbind(trCoords,Phase="train"), 
+                            cbind(teCoords, Phase="test")
+                            )
+                        )
+              )
+  
+  ###################################################################################
+
+     pca <- prcomp(trainX) 
+  
+     train_pca <- predict(pca,newdata = trainX)
+     test_pca <- predict(pca,newdata = testX)
+
+     fit_pca <- caret::train(x=predict(pca,newdata = trainX), y=trainY, 
+                 method="knn",
+                 preProcess = c("center","scale"),
+               tuneLength = 15
+               )
+  
+  
+  trCM <- confusionMatrix(predict(fit_pca,train_pca), trainY)
+  
+  trCoords <- jentropies(t(trCM))
+  
+  teCM <- confusionMatrix(predict(fit_pca,test_pca), testY)
+  
+  teCoords <- jentropies(t(teCM))
+  
+  
+  
+  teCM_total_pca_knn <- teCM_total_pca_knn + teCM
+  
+  results <- rbind(results,
+                    cbind(
+                        dSet="Ionosphere", fold=i, method="knn_pca",
+                        rbind(
+                            cbind(trCoords,Phase="train"), 
+                            cbind(teCoords, Phase="test")
+                            )
+                        )
+              )
+  
+  
+# train_matrixZ <- normalize(x = train_matrixZ, method = "range", range = c(0, 1))
+# FVA: summaries of cross plots
+mlp_pca <- keras_model_sequential()
+mlp_pca %>% 
+  layer_dense(units = 40, activation = 'relu', input_shape = c(33)) %>% 
+  layer_dense(units = 20, activation = 'relu') %>%
+  layer_dense(units = 10, activation = 'sigmoid') %>%
+  layer_dense(units = 2, activation = 'softmax')
+
+    mlp_pca %>% compile(
+    loss = 'binary_crossentropy',
+    optimizer = 'adam',
+    metrics = c('accuracy')
+  )
+  
+  history <- mlp_pca %>% fit(
+    train_pca, hot_label,
+    batch_size = batch_size,
+    epochs = 40
+  )
+
+  accuracy_pca[i] <- max(history$metrics$acc)
+                           
+  trCM <- confusionMatrix(predict(mlp_pca,train_pca), hot_label)
+  
+  trCoords <- jentropies(t(trCM))
+  
+  teCM <- confusionMatrix(predict(mlp_pca,test_pca),hot_label_test)
+  
+  teCoords <- jentropies(t(teCM))
+  
+ 
+  
+   teCM_total_pca_mlp <- teCM_total_pca_mlp + teCM
+   
+  results <- rbind(results,
+                    cbind(
+                        dSet="Ionosphere", fold=i, method="mlp_pca",
+                        rbind(
+                            cbind(trCoords,Phase="train"), 
+                            cbind(teCoords, Phase="test")
+                            )
+                        )
+                )
+  
+  
+  
+  
+############################################################################################################################################
+
+  
+  hot_label_test <- toNumericClassLabels(testY)
+  hot_label_ <- toNumericClassLabels(trainY)
+  hot_label <- to_categorical(hot_label_)
+  hot_label <- hot_label[,-1]
+  
+  summary(train_matrixZ)
+# train_matrixZ <- normalize(x = train_matrixZ, method = "range", range = c(0, 1))
+# FVA: summaries of cross plots
+mlp <- keras_model_sequential()
+mlp %>% 
+  layer_dense(units = 12, activation = 'relu', input_shape = c(8)) %>% 
+  layer_dense(units = 6, activation = 'sigmoid') %>%
+  layer_dense(units = 2, activation = 'softmax')
+
+#  input_mlp <- layer_input(shape = c(4))
+  
+#  input_layer_mlp <- layer_dense(unit = 5,activation='relu',input_mlp)
+  
+#  middle_layer_mlp <- layer_dense(unit = 4,activation = 'sigmoid',input_layer_mlp)
+  
+#  output_layer_mlp <- layer_dense(unit = 3,activation = 'sigmoid',middle_layer_mlp) 
+   
+#  mlp <- keras_model(input = input_mlp, output = output_layer_mlp)
+  
+  mlp %>% compile(
+    loss = 'binary_crossentropy',
+    optimizer = 'adam',
+    metrics = c('accuracy')
+  )
+  
+  history <- mlp %>% fit(
+    train_matrixZ, hot_label,
+    batch_size = batch_size,
+    epochs = 100
+  )
+  
+  accuracy_auto[i] <- max(history$metrics$acc)
+  
+  test_mlp <- predict(mlp,train_matrixZ)
+  
+  #trCM <- confusionMatrix(predict(mlp,train_matrixZ), hot_label_)
+  
+  #trCoords <- jentropies(t(trCM))
+      
+                         
+  trCM <- confusionMatrix(predict(mlp,train_matrixZ), hot_label)
+  
+  trCoords <- jentropies(t(trCM))
+  
+  teCM <- confusionMatrix(predict(mlp,test_matrixZ),hot_label_test)
+  
+  teCoords <- jentropies(t(teCM))
+  
+  
+  
+  teCM_total_auto_mlp <- teCM_total_auto_mlp + teCM
+  
+  results <- rbind(results,
+                    cbind(
+                        dSet="Ionosphere", fold=i, method="mlp",
+                        rbind(
+                            cbind(trCoords,Phase="train"), 
+                            cbind(teCoords, Phase="test")
+                            )
+                        )
+                )
+ 
+}
+```
+
+## Including Plots from the first autoencoder and the mlp
+
+You can also embed plots, for example:
+
+```{r plots}
+Total_Resultado_mlp <- frame()
+Total_Resultado_mlp <- rbind(Total_Resultado_mlp,
+                    cbind(
+                         dSet="Ionosphere", method="mlp",
+                        rbind(
+                            cbind(jentropies(t(teCM_total_pca_mlp)), Classifier="pca")
+                            )
+                        )
+                )
+Total_Resultado_mlp <- rbind(Total_Resultado_mlp,
+                    cbind(
+                         dSet="Ionosphere", method="mlp",
+                        rbind(
+                            cbind(jentropies(t(teCM_total_auto_mlp)),Classifier="auto")
+                            )
+                        )
+                )
+
+Total_Resultado_mlp <- rbind(Total_Resultado_mlp,
+                    cbind(
+                         dSet="Ionosphere", method="knn",
+                        rbind(
+                            cbind(jentropies(t(teCM_total_pca_knn)), Classifier="pca")
+                            )
+                        )
+                )
+
+Total_Resultado_mlp <- rbind(Total_Resultado_mlp,
+                    cbind(
+                         dSet="Ionosphere", method="knn",
+                        rbind(
+                           cbind(jentropies(t(teCM_total_auto_knn)),Classifier="auto")
+                            )
+                        )
+                )
+gp_Total <- ggmetern(ed = (Total_Resultado_mlp %>% filter(type == "XY")), fancy = TRUE) +
+    geom_point(aes(colour=Classifier, shape = method), size=2) + labs(shape="Methods") + 
+    scale_colour_brewer(palette="Set1")
+
+
+gp <- ggmetern(ed= (results %>% filter(type == "XY") %>% filter(method == "knn") %>% filter(dSet == "Ionosphere")) , fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape=as.character(fold)), size=2)  +
+  labs(shape="Fold") + 
+  scale_colour_brewer(palette="Set1")
+gp1 <- ggmetern(ed= (results %>% filter(type == "XY") %>% filter(method == "mlp") %>% filter(dSet == "Ionosphere")) , fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape=as.character(fold)), size=2)  +
+  labs(shape="Fold") + 
+  scale_colour_brewer(palette="Set1")
+gp3 <- ggmetern(ed= (results %>% filter(type == "XY") %>% filter(method == "knn_pca") %>% filter(dSet == "Ionosphere")) , fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape=as.character(fold)), size=2)  +
+  labs(shape="Fold") + 
+  scale_colour_brewer(palette="Set1")
+
+gp4 <- ggmetern(ed= (results %>% filter(type == "XY") %>% filter(method == "mlp_pca") %>% filter(dSet == "Ionosphere")) , fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape=as.character(fold)), size=2)  +
+  labs(shape="Fold") + 
+  scale_colour_brewer(palette="Set1")
+gp
+
+gp1
+
+gp3
+
+gp4
+
+gp_Total
+
+```
+

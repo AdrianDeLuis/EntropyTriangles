@@ -1,0 +1,345 @@
+---
+title: "Autoencoder mlp MNIST"
+author: "Adrian de Luis Garcia"
+date: "July 16h 2019"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+
+---
+# Environment construction
+
+```{r, echo=FALSE, environment}
+rm(list=ls())
+gc()
+library(tensorflow)
+library(keras)
+library(nnet)
+library(tidyverse) # That (in)famous Mr. Wickham!
+library(caret)    # To build the classifiers.
+library(mlbench)  # Many databases for ML tasks
+library(vcd)       # Categorical benchmarks
+library(candisc)   # Wine dataset
+library(entropies) # Processing and visualizing joint entropies
+library(entropy)
+library(compositions)# Statistics work differently on compositional data
+library(ggtern) 
+
+knitr::opts_chunk$set(comment=NA, fig.width=6, fig.height=4)
+```
+
+## R Autoencoder
+
+```{r preparating the autoencoder}
+
+set.seed(11)
+
+encoding_dim784 <- 784 #(28x28)
+encoding_dim1000 <- 1000 #factor of 6.125
+encoding_dim500 <- 500 #factor of 12.25
+encoding_dim250 <- 250 #factor of 24.5
+
+input_img <- layer_input(shape = c(784))#input placeholder
+
+# "encoder" structure
+encoded_layer1 <- layer_dense(unit = encoding_dim1000,activation='relu',input_img)
+encoded_layer2 <- layer_dense(unit = encoding_dim500,activation='relu', encoded_layer1)
+encoded_layer3 <- layer_dense(unit  = encoding_dim250,activation='relu',encoded_layer2)
+encoded_img <- layer_dense(unit = 64,activation='relu',encoded_layer3)
+
+# "decoded" is the lossy reconstruction of the input
+
+decoded1 <- layer_dense(unit = encoding_dim250,activation='relu', encoded_img)
+decoded2 <- layer_dense(unit = encoding_dim500, activation='relu',decoded1)
+decoded3 <- layer_dense(unit = encoding_dim1000, activation='relu',decoded2)
+decoded <- layer_dense(unit = encoding_dim784, activation='sigmoid',decoded3)
+
+
+autoencoder <- keras_model(input = input_img, output = decoded)
+encoder <- keras_model(input = input_img,output = encoded_img)
+
+#Using the mse, we dont need the accuracy
+autoencoder %>% compile(
+  optimizer='adadelta',
+  loss='mse'
+)
+
+```
+
+## Data preparation
+
+```{r}
+
+#El mismo procedimiento que habiamos aplicado hasta hoy
+zero_matrix <- c(0,0,0,0,0,0,0,0,0,0)
+
+mnist <- dataset_mnist()
+x_train <- mnist$train$x
+y_train <- mnist$train$y
+x_test <- mnist$test$x
+y_test <- mnist$test$y
+kfolds = 5
+
+y_train_factor <- as.factor(y_train)
+y_test_factor <- as.factor(y_test)
+
+set.seed(27)
+sample_train <- createFolds(y_train_factor, k=kfolds,list=TRUE)
+sample_test <- createFolds(y_test_factor, k=kfolds,list=TRUE)
+
+matriz_zero <- matrix(1:100, nrow=10, ncol=10)
+matriz_zero[] <- 0L
+teCMTotalauto <- as.table(matriz_zero)
+teCMTotalpca <- as.table(matriz_zero)
+
+
+results <- frame()
+
+for(i in 1:5){
+# reshape
+  
+  train_x <- x_train[-sample_train[[i]],,]
+  train_y <-y_train[-sample_train[[i]]]
+  test_x <- x_test[sample_test[[i]],,]
+  test_y <- y_test[sample_test[[i]]]
+  
+  train_factor_y <- y_train_factor[-sample_train[[i]]]
+  test_factor_y <- y_test_factor[sample_test[[i]]]
+  
+dim(train_x) <- c(nrow(train_x), 784)
+dim(test_x) <- c(nrow(test_x), 784)
+train_x <- train_x / 255
+test_x <- test_x / 255
+#to binary for training
+train_y <- to_categorical(train_y, 10)
+test_y <- to_categorical(test_y, 10)
+
+
+##Fitting the data through the autoencoder
+
+#Entrenando el autoencoder y luego usando el encoder para hallar el valor de #train y test en la capa Z
+history <- autoencoder %>% fit(
+  train_x, train_x,
+  epochs=10,
+  batch_size=256,
+  shuffle=TRUE
+)
+x_train_Z <- encoder %>% predict(train_x)
+x_test_Z <- encoder %>% predict(test_x)
+
+
+##Using the mlp
+
+#Usando el mlp para clasificar la capa Z y entrenandolo con lo predecido en la #capa Z (especificamente con el train)
+x_train_Z <- as.matrix(x_train_Z)
+model <- keras_model_sequential()
+model %>% 
+  layer_dense(units = 128, activation = 'relu', input_shape = c(64)) %>% 
+  layer_dense(units = 64, activation = 'sigmoid') %>%
+  layer_dense(units = 10, activation = 'softmax')
+
+summary(model)
+
+model %>% compile(
+  loss = 'categorical_crossentropy',
+  optimizer = optimizer_rmsprop(),
+  metrics = c('accuracy')
+)
+
+# Training & Evaluation ----------------------------------------------------
+
+# Fit model to data
+history <- model %>% fit(
+  x_train_Z, train_y,
+  batch_size = 128,
+  epochs = 60
+)
+
+plot(history)
+
+
+
+## Including Plots from the first autoencoder and the mlp
+
+
+
+#Construyendo las matrices de confusión y sacando la entropía
+
+
+prediction <-predict(model,x_train_Z)
+prediction2 <-predict(model,x_test_Z)
+
+
+prediction_train <- matrix(1:nrow(prediction),nrow = nrow(prediction),ncol = 1)
+prediction_test <- matrix(1:nrow(prediction2),nrow = nrow(prediction2),ncol = 1)
+
+
+for(m in 1:nrow(prediction)){
+  l <- which.is.max(prediction[m,]) 
+  prediction_train[m] <- (l - 1) 
+}
+
+for(m in 1:nrow(prediction2)){
+ l <- which.is.max(prediction2[m,]) 
+  prediction_test[m] <- (l - 1) 
+}
+
+trCM <- table(prediction_train,train_factor_y)
+
+trCoords<- jentropies(t(trCM))
+ 
+teCM <- table(prediction_test,test_factor_y)
+
+teCoords <- jentropies(t(teCM)) 
+
+teCMTotalauto <- teCMTotalauto + teCM
+
+results <- rbind(results,
+                    cbind(
+                        dSet="MNIST",fold = i, method="mlp",
+                        rbind(
+                            cbind(trCoords,Phase="train"), 
+                            cbind(teCoords, Phase="test")
+                            )
+                        )
+                )
+
+
+##Using the pca 
+
+ pca <- prcomp(train_x)
+ train_pca <- predict(pca,train_x)
+ test_pca <- predict(pca,test_x)
+ 
+ train_pca <- as.matrix(train_pca)
+ 
+ model_pca <- keras_model_sequential()
+ model_pca %>% 
+  layer_dense(units = 1000, activation = 'relu', input_shape = c(784)) %>% 
+  layer_dense(units = 500, activation = 'relu') %>%
+  layer_dense(units = 125, activation = 'relu') %>%
+  layer_dense(units = 64, activation = 'sigmoid') %>%
+  layer_dense(units = 10, activation = 'softmax')
+
+summary(model_pca)
+
+model_pca %>% compile(
+  loss = 'categorical_crossentropy',
+  optimizer = optimizer_rmsprop(),
+  metrics = c('accuracy')
+)
+
+# Training & Evaluation ----------------------------------------------------
+
+# Fit model to data
+history <- model_pca %>% fit(
+  train_pca, train_y,
+  batch_size = 128,
+  epochs = 5
+)
+
+plot(history)
+
+prediction <-predict(model_pca,train_pca)
+prediction2 <-predict(model_pca,test_pca)
+
+
+prediction_train <- matrix(1:nrow(prediction),nrow = nrow(prediction),ncol = 1)
+prediction_test <- matrix(1:nrow(prediction2),nrow = nrow(prediction2),ncol = 1)
+
+
+for(m in 1:nrow(prediction)){
+  l <- which.is.max(prediction[m,]) 
+  prediction_train[m] <- (l - 1) 
+}
+
+for(m in 1:nrow(prediction2)){
+ l <- which.is.max(prediction2[m,]) 
+  prediction_test[m] <- (l - 1) 
+}
+
+trCM <- table(prediction_train,train_factor_y)
+
+trCoords<- jentropies(t(trCM))
+ 
+teCM <- table(prediction_test,test_factor_y)
+
+teCoords <- jentropies(t(teCM)) 
+
+teCMTotalpca <- teCMTotalpca + teCM
+
+results <- rbind(results,
+                    cbind(
+                        dSet="MNIST",fold = i, method="mlp_pca",
+                        rbind(
+                            cbind(trCoords,Phase="train"), 
+                            cbind(teCoords, Phase="test")
+                            )
+                        )
+                )
+
+
+
+#gp <- ggmetern(ed=results , fancy = TRUE) +
+#  geom_point(aes(colour=dSet, shape=Phase), size=2)  +
+#  labs(shape="Dataset") + 
+#  scale_colour_brewer(palette="Set1")
+#gp
+}
+```
+
+## Evaluation using the CBET
+
+ 
+```{r random split model}
+#experiments <- rbind(experiments_1,experiments_2,experiments_3,experiments_4,experiments_
+
+results_Total <- frame()
+
+results_Total <- rbind(results_Total,
+                    cbind(
+                        dSet="MNIST",fold = i, Method="mlp",
+                        rbind(
+                            
+                            cbind(jentropies(teCMTotalpca), Phase="test_pca")
+                            )
+                        )
+                )
+
+results_Total <- rbind(results_Total,
+                    cbind(
+                        dSet="MNIST",fold = i, Method="mlp",
+                        rbind(
+                            
+                            cbind(jentropies(teCMTotalauto), Phase="test_auto")
+                            )
+                        )
+                )
+gp_Total <- ggmetern(ed = (results_Total %>% filter(type == "XY") %>% filter(Method == "mlp")), fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape = Method), size=2)  +
+  labs(shape="Method") + 
+  scale_colour_brewer(palette="Set1")
+
+
+gp <- ggmetern(ed = (results %>% filter(type == "XY") %>% filter(method == "mlp")), fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape =as.character(fold)), size=2)  +
+  labs(shape="Fold") + 
+  scale_colour_brewer(palette="Set1")
+
+gp2 <- ggmetern(ed = (results %>% filter(type == "XY") %>% filter(method == "mlp_pca")), fancy = TRUE) +
+  geom_point(aes(colour=Phase, shape =as.character(fold)), size=2)  +
+  labs(shape="Fold") + 
+  scale_colour_brewer(palette="Set1")
+
+gp
+
+gp2
+
+gp_Total
+
+```
+
+
+
+
