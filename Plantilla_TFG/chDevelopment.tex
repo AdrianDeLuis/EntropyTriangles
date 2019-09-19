@@ -1,0 +1,148 @@
+\section{Exploratory Analysis}
+
+Before diving into the application of the Autocoder, we firstly have to take a look into the data that we will be using on our project. We want to use a wide variety of them to test our tool in order to find out if the assesments made on the previous section hold when applied on some of the most commonly datasets used in the industry. When selecting between the huge amounts of information available online, it was in our interest to prioritise them according to a series of qualities. They needed to:
+ 
+\begin{description}
+	
+\item[$\bullet$] Have different lengths, ranging from easily handable datasets (Iris) to more complex and computationaly harder (MNIST).
+
+\item[$\bullet$] Different classification taks, from binary to categorical.
+
+\item[$\bullet$] Clearly differentiable balancing in the datasets, which will help us understand the potential of our tool.
+
+\end{description}
+
+The following section will help understanding these points and its implications on our task. To do so, a brief description of them and its role on achieving our desired results will be tackled. Descriptions of each dataset will include statistics on their distributions as well as why they were chosen as a viable candidate to fulfill our goal. Mainly we will be relying on simple computations, such as the median, and trying to plot histograms or similar figures to have visible and more user friendly inputs to understand why some steps will be applied on future scripts.\par
+ 
+This task is neccesary if we want to have a hint of the outcome of the processes that will take place on the datasets, as well as to shed a light in the difficulty to adapt our scripts and architectures when moving from one dataset to another one.
+
+ 
+
+\subsection{Iris}
+
+The Iris flower dataset is a multivariate data set published in the 1936 paper (The use of multiple measurements in taxonomic problems) by Ronald Fisher. The data itself consists of 50 samples from each of the three species of Iris: Iris setosa, Iris virginica and Iris versicolor. Each of them had four of their characteristics tested: the length and the width of the sepals and petals in centimetres. \par
+
+Based on the distribution of the measurements regarded from the dataset, Fisher's data has been referred to as one of the basic staples of data classification due to the fact that it is divided into two clearly differentiable clusters, one containing Iris setosa and the other one including both virginica and versicolor. Without the labels provided by Fisher, the classifying task becomes more complex. This feature is specially useful to highlight the differences between unsupervised and supervised classification.\newline
+
+\begin{table}[H]
+		\caption{R summary method on Iris.}
+	\begin{center}
+	\label{tab:table_Iris}
+		\begin{tabular}{r|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+			\textbf{Variable name} & \textbf{Sepal Length} & \textbf{Sepal Width} & \textbf{Petal Length} & \textbf{Petal Width}\\
+			\hline
+			Minimun & 4.30 & 2.00 & 1.00 & 0.10\\
+			Median & 5.80 & 3.00 & 4.350 & 1.30\\
+			Mean & 5.84 & 3.06 & 3.76 & 1.20\\
+			Maximun & 7.90 & 4.40 & 6.90 & 2.50\\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+The table of top contains a summary of the most important statistical features of iris, and by looking at it we can already see that the data is very balanced on every feature as the distance between the Minimun and the Maximun divided by two is approximately the Mean, which also has a close value to the Median. To us, this means that the data is centerred over a certain value, which will allow us to simplify our tasks by doing some type of translation transformation over the data before fitting it through our tools. Regardless, plotting will also help us discern the real difficulty of our classification task.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=13cm]{Figuras_tfg/Figure_Iris_Histogram}
+	\caption{Using the pairs function summary}
+	\label{fig:figure_pairs_iris}
+\end{figure}
+
+\begin{figure}[H]
+\begin{minipage}{.5\textwidth}
+        \includegraphics[scale=.54]{Figuras_tfg/R_plot_iris_knn_width_sepal}
+ \end{minipage}%
+ \begin{minipage}{.5\textwidth}
+        \begin{flushright}
+               \includegraphics[scale=.54]{Figuras_tfg/R_plot_knn_petal}  
+        \end{flushright} 
+    \end{minipage}  
+  \caption{Plotting of two different features of Iris with respect to the class label. As it can be seen here, depending of how you organise your data you can get more efficient classifiers and clusters. }
+ \label{fig:figure_knn_classifier}
+\end{figure} 
+
+Taking a look at Figure \ref{fig:figure_pairs_iris}, The histogram on the middle is showing some higher values in different ranges on our data. If we hadn't observed the summary values on the Table \ref{tab:table_Iris} , we could have struggled coming up with the general idea behind the dataset. But sometimes histograms are a little bit more troubling to read into, so plotting Figure \ref{fig:figure_knn_classifier} can help understanding the relationships between classes and their features. For example, the iris dataset would be a good fit for a knn classifier, as its data classes and observations are clearly distinguinshable when using Petal Width and Petal Length rather than when using Sepal Width and Sepal Length. \par
+
+\subsection{MNIST}
+
+The MNIST dataset is a large database of handwritten digits widely used in the data science field both for training and testing. It is mostly used for image processing and it is composed by samples of handwriting taken from the National Institute of Standards and Technology original datasets. It was later normalised to fit into 28x28 pixel images. Every image has a value from 0 to 255 ,which defines the shape and color of the number in the image. Then, the y class contains vectors with a character which can be related to its corresponding pixelised image by a classification method. \par
+
+The database contains 60000 training images and 10000 testing images for $X$ and $Y$. Many different papers (name one) have tried to achieve the lowest error rate on it. Convolutional neural networks manage to get a very low error of around 0.23, although other methods such as support-vector machine get an error of as low as 0.8 too.\par
+
+\begin{figure}[H]
+\centering
+  \includegraphics[width=16cm]{Figuras_tfg/Figure_MNIST}
+  \caption{Some examples of the images included in the MNIST dataset}
+ \label{fig:figure_MNIST}
+\end{figure}
+
+\begin{table}[H]
+	\caption{R summary method on MNIST.}
+	\begin{center}
+		\label{tab:table_MNIST}
+		\begin{tabular}{r|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+			\textbf{Variable name} & \textbf{Minimun} & \textbf{Median} & \textbf{Mean} & \textbf{Maximun}\\
+			\hline
+			X training & 0 & 0 & 33.32 & 255 \\
+			X testing  & 0 & 0 & 33.32 & 255 \\
+		    Y training & 0 & 4 & 4.454 & 9 \\
+		    Y testingg & 0 & 4 & 4.443 & 9 \\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+Using the previously mentioned summary method on the training vectors for $X$ on this particular dataset will not provide us with enough information to estimate the classification task complexity. As we can see from Table \ref{tab:table_MNIST}, we just will know the range of values of every image (already discovered in the definition on the dataset) and the Mean, which only states that out training pixels tend to be white rather than black. In this case, since all of our bits are white or black (255 or 1 in decimal representation), it is on our best interest to try to simply our task by dividing our training and test numbers into binary representations of their types. Achieving it will only mean to transform them into 1s and 0s, and easier representation to handle for our transformation block. \par 
+
+If we instead observe the summary from the $Y$ training data we can see that the dataset is very balanced, as the mean is close to half of the distance between the Minimum and the Maximum. This tells us that we will be able to probably achieve high degrees of accuracy on our classifier, as well as that the Entropy Triangle should also perform a satisfying job when analysing its informational flows.  \par
+
+Our goal when fitting MNIST (located in the tensorflow package) through the autoencoder is to asses its capabilities when using bigger chunks of data and compressing it. Numerous reports and information available online give plethora of information about possible classification methods and its expected outcome in terms of error rates and accuracy. We are not trying to improve their results, we are just mimicking their processes and applying some of their methods so that we can achieve similar results when applying our tools.\par
+
+\subsection{Ionosphere}
+
+Ionosphere represents a set of data collected by a radar in Goose Bay, and later used for data science purposes by the Johns Hopkins University. The antenna had a phased array of 16 high-frequency antennas and used times pulses and pulse numbers for processing. The outputs can be labeled as either "good" or "bad", referring to the fact that a radar signal going through the ionosphere and thus showing no evidence of the existence of an ionosphere was labelled as "bad", and in any other case we would be labelling it as "good". It can be found on the R package mlbench. \newline
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=10cm]{Figuras_tfg/Ionosphere}
+	\caption{The Ionosphere is one of the main layers composing Earth's atmosphere}
+	\label{fig:figure_pairs_iris}
+\end{figure}
+
+There are 351 observations from 35 independent variables, with 33 of them being numerical values and 2 of them representing nominal values (one of them defining the class). However, one of the variables included in the dataset can be safely removed since it only represents a constant value (0). Having removed that one it should be remarked that this dataset is not balanced, since we don't posses the same number of "good" or "bad" class labels, and the difference is big enough to potentially affect its transformation and classification.We can expect its performance to be worst than the other two datasets mentioned previously. In the Ionosphere case, we will classify our data using binary decision, as there are only two states available for our labels. \par
+
+Researchers at [Sigillito, V. G., Wing, S. P., Hutton, L. V., \& Baker, K. B. (1989). Classification of radar returns from the ionosphere using neural networks. Johns Hopkins APL Technical Digest, 10, 262-266.] have found very high acurracies when using non-linear perceptrons on this dataset, but to do so they had to use the quantities of "good" and "bad" observations, which would not fit our needs of information. Although it can be easily inferred that we are going to get some degenerated results when compared with other papers, it seems like an appropriate choice to check the performance of our tool. \par 
+
+\section{The classifiers}
+\subsection{Knn}
+
+Knn is a non-parametric supervised classification method used for estimating the density function. As an unsupervised algorithm, it needs labelled data to learn the appropriate function that produces new data belonging to the different regions of the existing classes when introducing new unlabelled data. Depending on the desired predictors we will want to obtain either a regression or a discrete output in our classifier. \par
+
+The Knn algorithm hinges on the assumption that similar data must be close. This theory means that, in practice, we must take into account that proximity will be primordial to the outcome of our classification process when we are using the Knn classifier. This particular way of solving a data analysis problem is specially interesting when the data we are trying to analyse is very close to the same labelled data. \par
+
+Although "the majority voting" classification method has some positive advantages, it also comes with some drawbacks too. In case where the class distributions are skewed, we can end up with a class which solely dominates the predictions. The are many ways of overcoming this issue, such as assigning proportional weights or to build clusters with similar points, but the reality is that Knn has a defined scalability that depends on the noise of your data and the characteristic of your dataset. \par
+
+In order to try to improve results and polish the overall performance of the algorithm. There are some tricks to take into account and try to follow when designing it: \par
+
+\begin{description}
+	
+	\item[$\bullet$] Try fitting your data through multiple instance of your implemented algorithm with new values for K in each case.
+	
+	\item[$\bullet$] Avoid using even K's values when doing binary classification, as we want to avoid tied votes.
+	
+	\item[$\bullet$] Perform an exploratory analysis of your data and design the boundaries and expected performance of your algorithm. Sometimes, realising that a problem will be very lengthy and tedious to solve using a pre-determined method will save you a lot of time .
+	
+\end{description}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{Figuras_tfg/R_plot_correlation.png}
+	\caption{The GGally package also provides useful tools for this types of problems. Here, the correlation between Petal.Length and Petal.Width is proven to be very high, as the plots from Figure \ref{fig:figure_knn_classifier}}
+	\label{fig:figure_knn_classifier_correlation}
+\end{figure}
+
+\subsection{Multilayer Perceptron}
+
+The Multilayer Perceptron(MLP) has a similar architecture to that of the Deep Neural Networks. Both of them have input, output and hidden layers as well as having nodes and backpropagation for training. They even need their layers to be activated, as well as support the most common functions used in the autoencoders. Some experts would even label it as a slightly less computationally powerful DNN. \par
+
+It would seem as the main interest into MLPs could be to use them for smaller Autoencoders, but actually they possess a very important feature: it can distinguish and classify data that is not linearly separable.This property can help us qualify and compare different types of classification tasks. And as it is interesting to test multiple algorithms to make the most out of our ET, we can use it together with the rest of the classifiers presented in this Section. It can be specially useful when we pair it with the knn classifier, as we will implement both of them in our project to perform the same tasks. We would expect it to generally perform better on more complex datasets than knn, which suffers when data is more difficult to differentiate. \par
+

@@ -1,0 +1,38 @@
+TARGET = plantilla_tfg_v2
+#TARGET = CMET-IEEEtran
+VERSION = R1
+#TARGET = CMET-koma-scrartcl
+#VERSION = 0.9
+## Define this to put extra things in the bundle
+PICS = 
+# Include here *in-house developed styles and almost-styles*
+# fca.sty depends on newdrawline.sty
+#STYLES = fca newdrawline
+STYLE =
+PARA_STYLES = 
+#PARA_STYLES = maxplus_minplus Galois_connections spectral_defs
+TEX_FILES = introCMET methodsCMET_R1 resultsCMET_R1 conclusionsCMET \
+	classifierChain multiclassification_channel transformationChain \
+	cbbe_cbetR1 circaMutualInformationR1 \
+	multi_mod_idiagram_color_barX mod_idiagram_color_multivariate \
+	theoryCMET_R1 visualizationCMET_R1 application_R1 discussionCMET_R1 \
+	annotated_triangle_CMET_agg_formal annotated_triangle_CMET_split_formal
+
+EXTRAS = \
+	$(addsuffix .sty, $(STYLES)) \
+	$(addsuffix .tex, $(PARA_STYLES))  \
+	$(addsuffix .tex, $(TEX_FILES)) \
+	GraphicalSummary_V1.pdf logo-mdpi.eps mdpi.cls \
+	featureSel_CMET_ICA_Arthritis_cropped.jpeg \
+	featureSel_CMET_ICA_Glass_cropped.jpeg \
+	featureSel_CMET_ICA_iris_cropped.jpeg \
+	featureSel_CMET_PCA_Arthritis_cropped.jpeg \
+	featureSel_CMET_PCA_Glass_cropped.jpeg \
+	featureSel_CMET_PCA_iris_cropped.jpeg \
+	featureSel_CMET_compare_PCA_ICA_Arthritis_cropped.jpeg \
+	featureSel_CMET_compare_PCA_ICA_Glass_cropped.jpeg \
+	featureSel_CMET_compare_PCA_ICA_iris_cropped.jpeg
+
+#This part of the Makefile should be in your personal texmf tree
+-include ~/Library/texmf/tex/latex/svn_tex/Makefile
+

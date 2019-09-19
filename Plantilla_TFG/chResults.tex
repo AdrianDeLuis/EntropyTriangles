@@ -1,0 +1,411 @@
+
+In this section we will be presenting the results regarded from the different experiments performed over the datasets using the methods previously introduced. All the experiments will have different sets of requirements and levels of complexity, which will help us discern the capabilities of the tools involved. To be able to do so, we have to establish the same structures of tests.
+
+\begin{figure}[H]
+\begin{subfigure}{1\linewidth}  
+ \centering
+  \includegraphics[width=\linewidth]{Figuras_tfg/Diagram_auto_mlp}
+  \caption{Autoencoder and MLP.}
+  \label{fig:FigA_Autoencoder_MLP} 
+\end{subfigure}
+
+\begin{subfigure}{0.98\linewidth} 
+  \centering
+  \includegraphics[width=\linewidth]{Figuras_tfg/Diagram_auto_KNN}
+  \caption{Autoencoder and KNN.}
+  \label{fig:FigB_Autoencoder_KNN} 
+\end{subfigure}
+  \caption{Structure of the Autoencoder and it's classifiers}
+ \label{fig:Autoencoder_architecture}
+\end{figure}
+
+As seen in Figure \ref{fig:Autoencoder_architecture}, we will use the representation of our encoded data $\hat{Z}$ as the input for both the KNN and the MLP classifiers.
+
+
+\begin{figure}[H]
+\begin{subfigure}{1\linewidth}  
+ \centering
+  \includegraphics[width=\linewidth]{Figuras_tfg/Diagram_pca_mlp}
+  \caption{PCA and MLP.}
+  \label{fig:FigA_PCA_MLP} 
+\end{subfigure}
+
+\begin{subfigure}{1\linewidth} 
+  \centering
+  \includegraphics[width=\linewidth]{Figuras_tfg/Diagram_pca_KNN}
+  \caption{PCA and KNN.}
+  \label{fig:FigB_PCA_KNN} 
+\end{subfigure}
+  \caption{Structure of the PCA and it's classifiers}
+ \label{fig:PCA_architecture}
+\end{figure}
+
+If we compare both the structures presented here, we can see in the images in Figure \ref{fig:PCA_architecture} that we will be using the output from the PCA as the input of the classifiers, as well as that we will have the same classifiers used in both architectures, with the aim to be able to compare their results.\par
+
+As we are also concern about the reliability of them too, we will be including another technique to try to validate our results as much as possible: K-Fold validation. \par
+
+K-Fold is a method which is based on dividing a dataset into K folds, each one of them not sharing the same elements on their observations. We are interested into really asserting how each of the Folds of our datasets performs by fitting them through the structures presented in both Figure \ref{fig:Autoencoder_architecture} and \ref{fig:PCA_architecture}. Once we have each one of them complete the full training process, we will analyse the output plus the summation of the overall results. We expect our Folds to provide us with similar data and results in our plots when we use balanced datasets. However, if we have unbalanced datasets we expect to see more inconsistency through them.\par
+
+At the end of each section, the overall performance of each dataset will be tested with the Entropy Triangle, which will be used to compare the entropy between the data of each Fold generated at the beginning of the process and the output of the classifier.
+
+\section{Iris Dataset}
+\subsection{Data Preparation}
+
+In order to train the data through the Autoencoder, we will firstly have to transform it into an easier shape which will reduce the difficulty and length of our task. Normally, Deep Neural Networks will do a good job as long as the data has a reasonable scalability, so applying a normalisation to our data is not mandatory. However, it is easier for us to use a simple pre-processing in our data, which given that the observations from the variables have different ranges of values will help us reduce the training time of our Autoencoder.
+
+Although as we can see from Figure \ref{ig:figure_pairs_iris} and Table \ref{tab:table_Iris}, some of its features are closer to what it could be referred as a Normal distribution, specially Sepal Length and Sepal Width. Other's, such as Petal Length, are a little bit off and far away from that description. To be able to fix those disparities, we will apply a Box-Cox transformation, which consist basically of applying the following equation on your data:
+
+\begin{equation}
+\label{eq:box-cox}
+ {y(\lambda)=} \left\{
+ \begin{aligned}
+        \frac{y^{\lambda} - 1}{\lambda} ,  if \  \lambda \neq 0\\
+        {\log y}, if \ \lambda = 0
+       \end{aligned}
+ \right\}
+ \end{equation} 
+\newline
+
+Where $\lambda$ is an exponent which value inside the range $[-5,5]$. The Box-Cox method will automatically assign the value of lambda that fits your dataset the most. This value is selected simply by looking for the optimum value by fitting the equation \ref{eq:box-cox} . \par
+
+Once we apply this function, we can start to see the results on our newly created data by checking its pairs function again:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=17cm]{Figuras_tfg/Figure_Boxcox}
+	\caption{Using the pairs function on Iris Boxcox}
+	\label{fig:figure_pairs_iris}
+\end{figure}
+
+Which has an histogram slightly different to the one presented on Figure \ref{fig:figure_pairs_iris}, but we can really see the new features of our transformation if we use use the summary function and compare its results with respect to the ones obtained before on Table \ref{tab:table_Iris}
+\newline
+
+\begin{table}[H]
+		\caption{R summary method on Iris Box Cox.}
+	\begin{center}
+	\label{tab:table_Iris_Boxcox}
+		\begin{tabular}{r|c|c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+			\textbf{Variable name} & \textbf{Sepal Length} & \textbf{Sepal Width} & \textbf{Petal Length} & \textbf{Petal Width}\\
+			\hline
+			Minimun & -2.10 & -2.75 & -1.56 & -1.66\\
+			Median & 0.02 & -0.08 & 0.33 & 0.27\\
+			Mean & 0.00 & 0.00 & 0.00 & 0.00\\
+			Maximun & 2.20 & 2.75 & 1.78 & 1.45\\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+By looking at the Table on top, it can be seen that as expected the Mean of our distribution switched from it's previous value to 0, essentially telling us that the transformation has been successful. It is also important to point out that although the values of the vector that are in our dataset are different, we still hold the same proportions and plots of the observations, which means that the general information that each of our variables contained its still there. We just shaped it differently so that it is easier for us to work and perform operations with them.
+
+\subsection{The Autoencoder}
+
+For the Iris dataset, we will use a simple Autoencoder, with just a few layers, that should be enough to complete the training required. As our given dataset doesn't contain a lot of observations, this approach to the Autocoder has the aim to show an example of use. That is why , if we take into account that we only have for variables to compress, we can see that the maximum compression we can achieve is a 25 percent of the original size. But, in order to be sure we have a working architecture, I will be using just a 75 percent compression in the middle layer. On the other hand, our model will have a data expansion of about 400 percent, so that we are able to do a real compression in each of the subsequent layers. \par
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=17cm]{Figuras_tfg/Autoencoder_Results}
+	\caption{Architecture of the Autoencoder in Iris}
+	\label{fig:figure_autoencoder_Iris}
+\end{figure}
+
+On Figure \ref{fig:figure_autoencoder_Iris}, each of the layers has the size assigned below it. But before choosing the compilation method we are going to use for the Autoencoder, we have to choose the activation functions for each layer. In this case, we decided that the Relu function would be used (for all the layers of the Autoencoder except the last one), where we will use a sigmoid function. We decided to use this setup because the Relu function does a good job at selecting the informational qualities of each component while at the same time keeping the training time of the architecture very low due to the simplicity of its definition, while the sigmoid function is more complex and thus seems to be suited for the last layers and to finalise the transferring of information. \par
+
+The last thing to take into account is the compilation of the whole structure created with the previously mentioned Autoencoder. Here, we will have to choose between the wide range of available options on the keras package, to try to maximise the performance and optimisation of our model. To do so, we have to first rule out all the loss functions that don't apply to our task. For example, although used in a lot of DNNs, the categorical functions don't fit our criteria since we are not performing a classification task here. Moreover, our range of data is not between 0 and 1, which would make this even a worst choice. For us, since we also are trying to predict the output data using some training data, we can assume we have a (regression problem) in our hands.\par
+
+Having stablished that, we have a narrower set of possible choices to make. Between all of the available, we decided to use the (Mean Squared Error function). The MSE is calculated as the average of the squared differences between the predicted and the original values. This means that the bigger the difference them, the more punitive this metric is for our model. This works great for the intent of our experiments, since we want our model to be able to get very accurate predictions from the compressed version of our data. \par
+
+Finally, we also need to decide on our optimiser for our compilation. Here we decided to narrow our options to chose only between the Adam and the Adadelta options. Finally, it was seen that the Adam optimiser was achieving the same level of losses as the Adadelta, while needing less epochs. Due to the amount of passes that we have to do through the Autoencoder, it is useful for us to get reliable data in the shortest time possible, so it was finally implemented using Adam.This decision would allow us to help mitigate the problem of time, which can be quite demanding when dealing with multiple transformations and neural networks.
+
+\subsection{The Classifiers}
+
+\subsubsection{Knn on PCA and Autoencoder}
+Once we have obtained the output of our Autoencoder, we have a resulting data frame with the same number of observations but a reduced number of variables, which in the case of the Iris Autoencoder will be three, making our resulting matrix to have a shape of $120\times3$. It also must be notest that the process is the same for both the output of the Autoencoder and the PCA.\par
+
+The matrices resulting from this compression process may not have all of their columns or rows with a value different from 0. This does not pose a threat to our training, since none of the methods chosen for our training will drop our results. In the case of the Knn  we will get some Warnings, but as we will see later it won't affect the result of the process. \par
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{Figuras_tfg/Knn_example}
+	\caption{Knn example on Iris}
+	\label{fig:figure_Knn_Iris}
+\end{figure}
+
+The function that we decided to use for our Knn training was provided in the train method in the caret package. It only requires you to specify the training data, labelled as x, the labels to be trained with, named as y, and the method, which is a simple Knn classifier. Once provided, the function will start to train your model. \par
+
+
+Once the model has finished training, we will use the model generated with our values to predict the labels of our model and compare it to the labels we used to train it on the first place. Once we have calculated that, we will use the confusionMatrix function to asses the accuracy of our predictions when compared to our original labels. A Confusion Matrix is a table with the same number of columns and rows as your class labels, being the only difference that the diagonal represents the predictions from your model and the class labels that matched, while anything outside of it accounts for the number of missed predictions with respect to the class. In this case, this method will provide us with a $3\times3$ matrix which we then can feed to the jentropies method. \par
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.2\linewidth]{Figuras_tfg/ET_knn_iris_auto}
+	\caption{Entropy Triangle in Knn in Iris using the Autoencoder}
+	\label{fig:figure_Knn_Iris_ET_Auto}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.2\linewidth]{Figuras_tfg/ET_knn_iris_pca}
+	\caption{Entropy Triangle in Knn in Iris using the PCA}
+	\label{fig:figure_Knn_Iris_ET_PCA}
+\end{figure}
+
+This method will provide us with metrics that then can be used together with the ggmetern method to get a coordinateS inside de Entropy Triangle, which can be seen on both Figure \ref{fig:figure_Knn_Iris_ET_Auto} and \ref{fig:figure_Knn_Iris_ET_PCA}. Given that we are using a K-Folds validation with a value of $K = 5$, we are plotting 5 coordinates for our test and train variables, just to see how well our model performed.\newline
+
+From the Knn on the Autoencoder as seen on Figure \ref{fig:figure_Knn_Iris_ET_Auto}, we can see that the coordinates from the training and testing are close to each other spatially, which means that we have done a good job overall at training our model. Some of the folds seem to have performed worse that the other, but that can just be that the other performed extremely well with their predictions. Specially the First fold seems to provide the best results, as we are getting a perfect classification as well as the optimum information flow on our Entropy Triangle. To completely be able to asses it's quality, we have to see the overall values of the total Confusion Matrix of the testing phase.\par
+
+On the other hand, the PCA on Figure \ref{fig:figure_Knn_Iris_ET_PCA} has a very centralised amount of values. The majority of the phases from the folds seems to be placed around the same area of the Entropy Triangle. No fold has over-performed the others in a greatly manner, which tells us that the results are consistent all throughout the training, which is not the same case as in the Autoencoder case, where the results are more spread. \par
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.2\linewidth]{Figuras_tfg/Total_ET_Knn_Iris}
+	\caption{Entropy Triangle in Knn in Iris with the testing results}
+	\label{fig:figure_Knn_Iris_ET_PCA_Auto}
+\end{figure}
+
+Although the pca has more consistent and less spread results, we can see in Figure \ref{fig:figure_Knn_Iris_ET_PCA_Auto} that the Autoencoder has done an overall better job at providing information for the knn for the classification. Both of them are placed on the side of Triangle $VI_{P_{XY}}$ that accounts for the transference of information, but the Autoencoder is providing a better representation of the data that is allowing the knn to do a better job overall. \par
+
+We can therefore conclude that, in the case of the classification using the  knn on both the PCA and the Autoencoder, we have found the latter to do a better job than the first one informationally speaking, thus leaving us with the assumption that it is the preferred solution for the Iris dataset.
+
+\subsubsection{	MLP on PCA and Autoencoder}
+
+Before fitting the data through a MLP, we have to specify the structure that we are implementing on our Neural Network. Seeing that the PCA and the Autoencoder both predict different lengths for our target training matrices, we have to take into account that the input shape will differ. \par
+
+Once we know that, we can start looking at our structure. Since we are dealing again with a small number of variables, a simple approach will be to divide our MLP into 4 layers. Firstly, we place an input layer with the size of our data, either a $3\times120$ in the Autoencoder or a $4\times120$ in the PCA. Secondly, we can place an expansion layer of size 5, followed by the first compression layer of 4, which is connected to the last one which will be the output of our architecture. \par
+
+\begin{figure}[H]
+	
+	\includegraphics[width=0.8\linewidth]{Figuras_tfg/Example_MLP_Auto.png}
+	\caption{MLP architecture in Iris for the Autoencoder}
+	\label{fig:figure_MLP_Iris_Autoencoder}
+\end{figure}
+
+After figuring out the structure, we now have to decide which activation function would fit the best for each layer. As in the Autoencoder, the first layer will be a Relu, the second one acquires the role of the Sigmoid and finally, as the MLP is a classifier, we have to place a softmax activation function at the end. We want the output of our Autoencoder to be a decision and the softmax is the chosen solution, as we will get our output variables to have an added value equal to 1, being the greater one the label predicted. \par
+
+\begin{figure}[H]
+	
+	\includegraphics[width=1\linewidth]{Figuras_tfg/ET_Iris_Auto_Mlp}
+	\caption{MLP Entropy Triangle in Iris for the Autoencoder}
+	\label{fig:figure_ET_MLP_Iris_Autoencoder}
+\end{figure}
+
+\begin{figure}[H]
+	
+	\includegraphics[width=1\linewidth]{Figuras_tfg/ET_Iris_Pca_Mlp}
+	\caption{MLP Entropy Triangle in Iris for the Pca}
+	\label{fig:figure_ET_MLP_Iris_Pca}
+\end{figure}
+
+From Figure \ref{fig:figure_ET_MLP_Iris_Pca} has produced again spatially closed coordinates, which tell us that the folds have been very consistent at training our model. The fourth fold seems to have given slightly worse results, but overall the mlp has generated values that are consistent with our prediction that it would work well with Iris. We can also see that most of the values are grouped on the diagonal of the $VI_{P_{XY}}$, which tells us that our folds have been correctly balanced. \par
+
+On the other side, we have Figure \ref{fig:figure_ET_MLP_Iris_Autoencoder} which seems to have slightly better results overall. We can see the same behaviour on the fourth Fold as before, which tells us that the mlp may have struggled on both cases to train that fold. All of the test folds are close spatially and in the previously mentioned $VI_{P_{XY}}$ diagonal as well as placed very highly on the Entropy Triangle, which tells us that the mlp is being able to classify efficiently. \par
+ 
+ 
+\begin{figure}[H]
+	
+	\includegraphics[width=1\linewidth]{Figuras_tfg/ET_Total_Iris_Mlp}
+	\caption{MLP Entropy Triangle total testing result}
+	\label{fig:figure_ET_Total_MLP_Iris}
+\end{figure}
+
+As in the previous cases, we finally have to look at the overall performance of the mlp. In this case, it can be seen that Figure \ref{fig:figure_ET_Total_MLP_Iris} shows a clear advantage of the Autoencoder for the same task. Moreover, if we compare both the results from the Knn and the MLP, we the MLP has the best results for the classification task. On the other hand, we are not seeing a big difference in the performance of the MLP with respect to the KNN, but that may also be because of the simplicity of the Iris dataset.
+
+\section{Ionosphere Dataset}
+\subsection{Data Preparation}
+
+The only pre-proccessing done for Ionosphere was explained in the previous section referred to the the datasets. No Box-Cox or other method was found to improve the performance on this particular case. We will only get rid of the column with no variance, which as mentioned before was a column with a constant value of 0 all throughout the set. As explained before, we expect this dataset to show more unbalancing in its results.
+
+\subsection{The Autoencoder}
+
+Ionosphere has more variables that Iris, but it is still a small Autoencoder compared to the structure that we are using for MNIST. The structure that we decided to implement transforms the data provided by the package into 8 observations. We again are using an Autoencoder with the same amount layers structured as:  \newline
+
+\begin{table}[H]
+	\caption{Ionosphere Autoencoder layers of the encoder.}
+	\begin{center}
+		\label{tab:table_Ionosphere_auto_encoder}
+		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
+			\hline
+			First & 33 & None\\
+			Second & 50 & Relu\\
+			Third & 20 & Relu\\
+			Fourth or Middle & 8 & Relu\\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}[H]
+	\caption{Ionosphere Autoencoder layers of the decoder.}
+	\begin{center}
+		\label{tab:table_Ionosphere_auto_decoder}
+		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
+			\hline
+			Middle or First & 8 & Relu\\
+			Second & 20 & Relu\\
+			Third & 50 & Relu\\
+			Fourth or Output & 33 & Sigmoid\\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+As seen of both Table \ref{tab:table_Ionosphere_auto_encoder} and Table \ref{tab:table_Ionosphere_auto_decoder}, with the aim to compare the results provided by both datasets, we are going to use the same compilation options and activation functions as in Iris. We think it would be interesting to test the same compilation environment for two datasets with completely different characteristics.\par
+
+It is expected for Ionosphere to not be difficult to train, since it is very unbalanced and classifiers tend to just choose the predominant class in the dataset as their predicted value in most of the cases. Both the MLP and the KNN suffer from this unwanted tendency, but we want to reproduce that behaviour on this experiment.
+
+\subsection{Knn on PCA and Autoencoder}
+
+We are applying the same process mentioned on \ref{subsebsec:Knn_pca_auto} to plot the ET in Ionosphere. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{Figuras_tfg/ET_knn_Ionosphere_auto}
+	\caption{Entropy Triangle in Knn in Ionosphere using the Autoencoder}
+	\label{fig:figure_Knn_Ionosphere_ET_Auto}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{Figuras_tfg/ET_knn_Ionosphere_pca}
+	\caption{Entropy Triangle in Knn in Ionosphere using the PCA}
+	\label{fig:figure_Knn_Ionosphere_ET_PCA}
+\end{figure}
+
+The results from both Figure \ref{fig:figure_Knn_Ionosphere_ET_Auto} and Figure \ref{fig:figure_Knn_Ionosphere_ET_PCA} demonstrate that the heavy unbalanced noticed has affected the outcome of our experiments.\par
+For example, in Figure \ref{fig:figure_Knn_Ionosphere_ET_Auto} each one of the testing folds has significant differences in their relative position inside the plot, which translates into scattered points. High variance in our Figures means that our Knn has struggled to do an accurate prediction of our classes.
+
+On the other hand, Figure \ref{fig:figure_Knn_Ionosphere_ET_PCA} shows that PCA has performed a reliable job at predicting it's classes since all of the points are grouped together in the same area of the ET.
+
+\subsection{MLP on PCA and Autoencoder}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{Figuras_tfg/ET_mlp_Ionosphere_auto}
+	\caption{Entropy Triangle in the MLP in Ionosphere using the Autoencoder}
+	\label{fig:figure_MLP_Ionosphere_ET_Auto}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{Figuras_tfg/ET_mlp_Ionosphere_pca}
+	\caption{Entropy Triangle in the MLP in Ionosphere using the PCA}
+	\label{fig:figure_MLP_Ionosphere_ET_PCA}
+\end{figure}
+
+By comparing the Folds in Figure \ref{fig:figure_MLP_Ionosphere_ET_Auto} and Figure \ref{fig:figure_MLP_Ionosphere_ET_PCA}, it is noticeable that the MLP classification process has struggled to find the appropiate predictor for the Folds on both the PCA and the Autoencoder. None of them seems to produce  
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{Figuras_tfg/ET_Total_Ionosphere}
+	\caption{Entropy Triangle in Ionosphere with the total test fold value}
+	\label{fig:figure_Total_Ionosphere_ET}
+\end{figure}
+
+
+\section{MNIST Dataset}
+\subsection{Data Preparation}
+
+\subsection{The Autoencoder}
+The Autoencoder used for the MNIST dataset has the most complex structure in terms of computational power out of all of the considered implementations considered for the sake of this project. 
+
+\begin{table}[H]
+	\caption{MNIST Autoencoder layers of the encoder.}
+	\begin{center}
+		\label{tab:table_MNIST_auto_encoder}
+		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
+			\hline
+			First & 784 & None\\
+			Second & 1000 & Relu\\
+			Third & 500  & Relu\\
+			Fourth & 250 & Relu\\
+			Fifth or Middle & 64 & Relu\\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}[H]
+	\caption{MNIST layers of the decoder.}
+	\begin{center}
+		\label{tab:table_MNIST_auto_decoder}
+		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
+			\hline
+			First or Middle & 64 & None\\
+			Second & 250 & Relu\\
+			Third & 500  & Relu\\
+			Fourth & 1000 & Relu\\
+			Fifth & 784 & Sigmoid \\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+The Autocoder has a large amount of observations (Around 287.1 megabits only for the $X$ training component), so we expect the training time to be longer than the previous datasets. We are also going to keep the same configuration for the activation functions of the architecture, as the other Autoencoders  have proven succesful to the transference of information.
+
+\subsection{MLP on PCA and Autoencoder}
+
+The structure implemented for the MLP in the Autoencoder and in the PCA will be completely different. As seen in both Table \ref{tab:table_MNIST_auto_encoder} and Table \ref{tab:table_MNIST_auto_decoder}, the size of our variables is 64 in the $\hat{Z}$ from the Autoencoder, but the PCA creates a matrix with the same measures as the input $\hat{X}$, which makes us have to increase the size of our MLP greatly, thus making us add an extra layer to improve it's performance.
+\par	
+
+\begin{table}[H]
+	\caption{MNIST MLP layers of the Autoencoder}
+	\begin{center}
+		\label{tab:table_MNIST_MLP_auto}
+		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
+			\hline
+			First & 64 & None\\
+			Second & 128 & Relu\\
+			Third & 64  & Sigmoid\\
+			Fourth & 10 & Softmax\\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{table}[H]
+	\caption{MNIST MLP layers of the PCA}
+	\begin{center}
+		\label{tab:table_MNIST_MLP_pca}
+		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
+			\hline
+			First & 1000 & None\\
+			Second & 500 & Relu\\
+			Third & 125  & Relu\\
+			Fourth & 64 & Sigmoid\\
+			Fifth & 10 & Softmax \\
+		\end{tabular}
+	\end{center}
+\end{table}
+
+As we can see on Table \ref{tab:table_MNIST_MLP_pca} the PCA MLP has the advantage of being compossed by a greater amount of neurons, making it more computationally powerful and thus having an advantage towards the smaller Autoencoder MLP. 
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{Figuras_tfg/MNIST_Autoencoder_mlp}
+	\caption{Entropy Triangle in MLP in MNIST using the Autoencoder}
+	\label{fig:figure_MLP_MNIST_ET_Auto}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{Figuras_tfg/MNIST_PCA_mlp}
+	\caption{Entropy Triangle in MLP in MNIST using the PCA}
+	\label{fig:figure_MLP_MNIS_ET_PCA}
+\end{figure}
+
+Once we results have been obtained, Figure \ref{fig:figure_MLP_MNIS_ET_PCA} shows an almost perfect classification being performed at the MLP. Figure \ref{fig:figure_MLP_MNIS_ET_PCA} proves that the Autoencoder has been outperformed by the MLP, although it is still doing a good job at classifying the numbers. Both of them also are in the straight line ------- , which means that mutual Information transmission is high.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{Figuras_tfg/MNIST_performance_test}
+	\caption{Entropy Triangle in MLP in MNIST total testing result}
+	\label{fig:figure_MLP_MNIS_ET_Total}
+\end{figure}
+
+If we also take a look at Figure \ref{fig:figure_MLP_MNIS_ET_PCA} we get the confirmation about the assesments made about the classification: The point corrresponding to the testing entropy information for the MNIST PCA has placed higher and thus closer to the perfect classifier in the triangle. \par
+

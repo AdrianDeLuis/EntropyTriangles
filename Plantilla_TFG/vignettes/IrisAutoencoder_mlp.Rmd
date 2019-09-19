@@ -139,12 +139,6 @@ teCM_Total_auto_knn <- as.table(tabla)
 teCM_Total_auto_mlp <- as.table(tabla)
 teCM_Total_pca_knn <- as.table(tabla)
 teCM_Total_pca_mlp <- as.table(tabla)
-
-N = 40
-
-vectorOfTables <- vector(mode = "list", length = N)
-
-
 for(i in (1:kfolds)){# i selects the active fold in "sample"
     # FVA: cambiar train por test
   x <- paste("I am on the compilation number ",i)
@@ -159,13 +153,13 @@ for(i in (1:kfolds)){# i selects the active fold in "sample"
   testX <- mapply(testX, FUN = as.numeric)
   testX <- matrix(data=testX, ncol=4, nrow=30)
   
-  testY_numeric <- toNumericClassLabels(testY)
-  hot_label_test <- to_categorical(testY_numeric)
+  hot_label_test <- toNumericClassLabels(testY)
+  hot_label_test <- to_categorical(hot_label_test)
   hot_label_test <- hot_label_test[,-1]
 
   
-  trainY_numeric <- toNumericClassLabels(trainY)
-  hot_label <- to_categorical(trainY_numeric)
+  hot_label_ <- toNumericClassLabels(trainY)
+  hot_label <- to_categorical(hot_label_)
   hot_label <- hot_label[,-1]
   # FVA: Pasar a bucle o comentar. 
   # encoding_dim <- 4
@@ -211,7 +205,7 @@ for(i in (1:kfolds)){# i selects the active fold in "sample"
   
   history <- autoencoder %>% fit(
     trainX,trainX,
-    epochs= 10,#FVA
+    epochs= 50,#FVA
     #batch_size=24,# FVA: select 
     steps_per_epoch=120,#FVA
     shuffle=TRUE
@@ -251,18 +245,15 @@ for(i in (1:kfolds)){# i selects the active fold in "sample"
                )
   print(fit)
   
-  trCM <- table(predict(fit,train_matrixZ), trainY)
+  trCM <- confusionMatrix(predict(fit,train_matrixZ), trainY)
   
   trCoords <- jentropies(t(trCM))
   
-  teCM <- table(predict(fit,test_matrixZ),testY)
+  teCM <- confusionMatrix(predict(fit,test_matrixZ),testY)
 
   teCoords <- jentropies(t(teCM))
   
   teCM_Total_auto_knn <- teCM_Total_auto_knn + teCM
-  
-  vectorOfTables[[((i-1)*8) + 1]] <- trCM
-  vectorOfTables[[((i-1)*8) + 2]] <- teCM
   
   results <- rbind(results,
                     cbind(
@@ -278,7 +269,7 @@ for(i in (1:kfolds)){# i selects the active fold in "sample"
   
   batch_size_pca <- 128
   num_classes_pca <- 3
-  epochs_pca <- 500
+  epochs_pca <- 750
   
   
   pca <- prcomp(trainX) 
@@ -287,26 +278,23 @@ for(i in (1:kfolds)){# i selects the active fold in "sample"
   
   test_pca <- predict(pca, newdata=testX)
   
-  fit_pca <- caret::train(x=train_pca, y=trainY, 
+  fit <- caret::train(x=train_pca, y=trainY, 
                       method="knn",
                       preProcess = c("center","scale"),
                       tuneLength = 15
   )
   
-  print(fit_pca)
+  print(fit)
   
-  trCM <- table(predict(fit_pca,train_pca), trainY)
+  trCM <- confusionMatrix(predict(fit,train_pca), trainY)
   
   trCoords <- jentropies(t(trCM))
   
-  teCM <- table(predict(fit_pca,test_pca),testY)
+  teCM <- confusionMatrix(predict(fit,test_pca),testY)
   
   teCoords <- jentropies(t(teCM))
   
   teCM_Total_pca_knn <- teCM_Total_pca_knn + teCM
-  
-  vectorOfTables[[((i-1)*8) + 3]] <- trCM
-  vectorOfTables[[((i-1)*8) + 4]] <- teCM
   
   results <- rbind(results,
                    cbind(
@@ -318,7 +306,6 @@ for(i in (1:kfolds)){# i selects the active fold in "sample"
                    )
   )
   
-  ##### MLP IN PCA #######
   
   mlp_pca <- keras_model_sequential()
   mlp_pca %>% 
@@ -341,36 +328,15 @@ for(i in (1:kfolds)){# i selects the active fold in "sample"
   
   print(mlp_pca)
   
-   
-  prediction <- predict(mlp_pca,train_pca)
-  prediction2 <- predict(mlp_pca,test_pca)
-  
-  prediction_train <- matrix(1:nrow(prediction),nrow = nrow(prediction),ncol = 1)
-  prediction_test <- matrix(1:nrow(prediction2),nrow = nrow(prediction2),ncol = 1)
-
-
-  for(m in 1:nrow(prediction)){
-  l <- which.is.max(prediction[m,]) 
-  prediction_train[m] <- (l) 
-  }
-
-  for(m in 1:nrow(prediction2)){
-  l <- which.is.max(prediction2[m,]) 
-  prediction_test[m] <- (l) 
-  }
-  
-  trCM <- table(prediction_train, trainY_numeric)
+  trCM <- confusionMatrix(predict(mlp_pca,train_pca), trainY)
   
   trCoords <- jentropies(t(trCM))
   
-  teCM <- table(prediction_test,testY_numeric)
+  teCM <- confusionMatrix(predict(mlp_pca,test_pca),testY)
   
   teCoords <- jentropies(t(teCM))
   
   teCM_Total_pca_mlp <- teCM_Total_pca_mlp + teCM
-  
-  vectorOfTables[[((i-1)*8) + 7]] <- trCM
-  vectorOfTables[[((i-1)*8) + 8]] <- teCM
   
   results <- rbind(results,
                    cbind(
@@ -426,40 +392,21 @@ mlp %>%
   history <- mlp %>% fit(
     train_matrixZ, hot_label,
     batch_size = batch_size,
-    epochs = 750
+    epochs = 1000
   )
   
   print(mlp)
+  test_mlp <- predict(mlp,train_matrixZ)
   
-  prediction <- predict(mlp,train_matrixZ)
-  prediction2 <- predict(mlp,test_matrixZ)
-  
-  prediction_train <- matrix(1:nrow(prediction),nrow = nrow(prediction),ncol = 1)
-  prediction_test <- matrix(1:nrow(prediction2),nrow = nrow(prediction2),ncol = 1)
-
-
-  for(m in 1:nrow(prediction)){
-  l <- which.is.max(prediction[m,]) 
-  prediction_train[m] <- (l) 
-  }
-
-  for(m in 1:nrow(prediction2)){
-  l <- which.is.max(prediction2[m,]) 
-  prediction_test[m] <- (l) 
-  }
-  
-  trCM <- table(prediction_train, trainY_numeric)
+  trCM <- confusionMatrix(predict(mlp,train_matrixZ), hot_label)
   
   trCoords <- jentropies(t(trCM))
   
-  teCM <- table(prediction_test, testY_numeric)
+  teCM <- confusionMatrix(predict(mlp,test_matrixZ), hot_label_test)
 
   teCoords <- jentropies(t(teCM))
   
   teCM_Total_auto_mlp <- teCM_Total_auto_mlp + teCM
-  
-  vectorOfTables[[((i-1)*8) + 5]] <- trCM
-  vectorOfTables[[((i-1)*8) + 6]] <- teCM
   
   results <- rbind(results,
                     cbind(
@@ -490,22 +437,6 @@ Total_Resultado_knn <- rbind(Total_Resultado_knn,
                             )
                         )
                 )
-Total_Resultado_knn <- rbind(Total_Resultado_knn,
-                    cbind(
-                         dSet="iris", method="mlp-pca",
-                        rbind(
-                            cbind(jentropies(t(teCM_Total_pca_mlp)), Phase="test")
-                            )
-                        )
-                )
-Total_Resultado_knn <- rbind(Total_Resultado_knn,
-                    cbind(
-                         dSet="iris", method="mlp",
-                        rbind(
-                            cbind(jentropies(t(teCM_Total_auto_mlp)), Phase="test")
-                            )
-                        )
-                )
 
 
 ```
@@ -519,10 +450,13 @@ Total_Resultado_knn <- rbind(Total_Resultado_knn,
 
 
 
-gp_Total <- ggmetern(ed = (Total_Resultado_knn %>% filter(type == "XY")), fancy = TRUE) +
+gp_Total <- ggmetern(ed = (Total_Resultado %>% filter(type == "XY")), fancy = TRUE) +
     geom_point(aes(colour=Phase, shape = method), size=2) + labs(shape="Methods") + 
     scale_colour_brewer(palette="Set1")
 
+gp_Total_mlp <- ggmetern(ed = (Total_Resultado_mlp %>% filter(type == "XY")), fancy = TRUE) +
+    geom_point(aes(colour=Phase, shape = method), size=2) + labs(shape="Methods") + 
+    scale_colour_brewer(palette="Set1")
 
 gp <- ggmetern(ed = (results %>% filter(type == "XY") %>% filter(method == "knn")), fancy = TRUE) +
   geom_point(aes(colour=Phase, shape =as.character(fold)), size=2)  +
@@ -543,6 +477,8 @@ gp4 <- ggmetern(ed = (results %>% filter(type == "XY") %>% filter(method == "mlp
   geom_point(aes(colour=Phase, shape =as.character(fold)), size=2)  +
   labs(shape="Folds") + 
   scale_colour_brewer(palette="Set1")
+
+gp_Total_mlp
 
 gp_Total
 
