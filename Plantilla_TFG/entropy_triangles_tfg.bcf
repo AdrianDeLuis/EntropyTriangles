@@ -2133,9 +2133,13 @@
     <bcf:citekey order="1">article_Big_Data</bcf:citekey>
     <bcf:citekey order="2">refToInfBottleNeck</bcf:citekey>
     <bcf:citekey order="3">ProgrammerSalaries</bcf:citekey>
-    <bcf:citekey order="4">Principe_2000</bcf:citekey>
-    <bcf:citekey order="5">Santana_2016</bcf:citekey>
-    <bcf:citekey order="6">Yu_2019</bcf:citekey>
+    <bcf:citekey order="4">Forbes_Article</bcf:citekey>
+    <bcf:citekey order="5">Nature_Article</bcf:citekey>
+    <bcf:citekey order="6">Article_Aviation</bcf:citekey>
+    <bcf:citekey order="7">GDPR</bcf:citekey>
+    <bcf:citekey order="8">Principe_2000</bcf:citekey>
+    <bcf:citekey order="9">Santana_2016</bcf:citekey>
+    <bcf:citekey order="10">Yu_2019</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

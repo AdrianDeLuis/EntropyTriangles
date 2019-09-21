@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.9.21)  21 SEP 2019 12:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.9.21)  21 SEP 2019 17:45
 entering extended mode
 **./entropy_triangles_tfg.tex
 (entropy_triangles_tfg.tex
@@ -1548,7 +1548,7 @@ File: t1txss.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
 (Font)              scaled to size 11.39996pt on input line 219.
-<Figuras_tfg/Portada_Logo.png, id=177, 456.2865pt x 45.99pt>
+<Figuras_tfg/Portada_Logo.png, id=197, 456.2865pt x 45.99pt>
 File: Figuras_tfg/Portada_Logo.png Graphic file (type png)
 <use Figuras_tfg/Portada_Logo.png>
 Package pdftex.def Info: Figuras_tfg/Portada_Logo.png  used on input line 223.
@@ -1561,7 +1561,7 @@ LaTeX Font Info:    Font shape `T1/txss/m/n' will be
 (Font)              scaled to size 23.63593pt on input line 234.
 LaTeX Font Info:    Font shape `T1/txss/m/n' will be
 (Font)              scaled to size 19.70294pt on input line 239.
-<imagenes/creativecommons.png, id=179, 338.76563pt x 118.19156pt>
+<imagenes/creativecommons.png, id=199, 338.76563pt x 118.19156pt>
 File: imagenes/creativecommons.png Graphic file (type png)
 <use imagenes/creativecommons.png>
 Package pdftex.def Info: imagenes/creativecommons.png  used on input line 250.
@@ -1639,23 +1639,23 @@ File: utxsyc.fd 2000/12/15 v3.1
 ] [14]
 Chapter 1.
 (chIntroduction.tex
-<Figuras_tfg/Figura1_tfg.pdf, id=422, 592.68552pt x 74.77214pt>
+<Figuras_tfg/Figura1_tfg.pdf, id=456, 592.68552pt x 74.77214pt>
 File: Figuras_tfg/Figura1_tfg.pdf Graphic file (type pdf)
 <use Figuras_tfg/Figura1_tfg.pdf>
-Package pdftex.def Info: Figuras_tfg/Figura1_tfg.pdf  used on input line 13.
+Package pdftex.def Info: Figuras_tfg/Figura1_tfg.pdf  used on input line 15.
 (pdftex.def)             Requested size: 455.24408pt x 57.43437pt.
 
-Overfull \hbox (28.45273pt too wide) in paragraph at lines 13--14
+Overfull \hbox (28.45273pt too wide) in paragraph at lines 15--16
  [][] 
  []
 
-<Figuras_tfg/Figura1_1_tfg.pdf, id=423, 595.53001pt x 150.03743pt>
+<Figuras_tfg/Figura1_1_tfg.pdf, id=457, 595.53001pt x 150.03743pt>
 File: Figuras_tfg/Figura1_1_tfg.pdf Graphic file (type pdf)
 <use Figuras_tfg/Figura1_1_tfg.pdf>
-Package pdftex.def Info: Figuras_tfg/Figura1_1_tfg.pdf  used on input line 20.
+Package pdftex.def Info: Figuras_tfg/Figura1_1_tfg.pdf  used on input line 22.
 (pdftex.def)             Requested size: 469.47046pt x 118.2833pt.
 
-Overfull \hbox (42.67911pt too wide) in paragraph at lines 20--21
+Overfull \hbox (42.67911pt too wide) in paragraph at lines 22--23
  [][] 
  []
 
@@ -1663,31 +1663,48 @@ Overfull \hbox (42.67911pt too wide) in paragraph at lines 20--21
 
 
 ]
-LaTeX Font Info:    Try loading font information for OMS+txr on input line 39.
+LaTeX Font Info:    Try loading font information for OMS+txr on input line 42.
 
 ("C:\Users\TRAMLG\AppData\Local\Programs\MiKTeX 2.9\tex/latex/txfonts\omstxr.fd
 "
 File: omstxr.fd 2000/12/15 v3.1
 )
 LaTeX Font Info:    Font shape `OMS/txr/m/n' in size <12> not available
-(Font)              Font shape `OMS/txsy/m/n' tried instead on input line 39.
- [2 <./Figuras_tfg/Figura1_tfg.pdf> <./Figuras_tfg/Figura1_1_tfg.pdf>])
-[3] [4]
+(Font)              Font shape `OMS/txsy/m/n' tried instead on input line 42.
+ [2 <./Figuras_tfg/Figura1_tfg.pdf> <./Figuras_tfg/Figura1_1_tfg.pdf>]
+<Figuras_tfg/Table_Costs.png, id=535, 2674.74281pt x 2503.85437pt>
+File: Figuras_tfg/Table_Costs.png Graphic file (type png)
+<use Figuras_tfg/Table_Costs.png>
+Package pdftex.def Info: Figuras_tfg/Table_Costs.png  used on input line 81.
+(pdftex.def)             Requested size: 426.79135pt x 399.51692pt.
+
+[3] [4 <./Figuras_tfg/Table_Costs.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 94--95
+
+ []
+
+<Figuras_tfg/European_Parliament.jpg, id=552, 682.55pt x 383.4325pt>
+File: Figuras_tfg/European_Parliament.jpg Graphic file (type jpg)
+<use Figuras_tfg/European_Parliament.jpg>
+Package pdftex.def Info: Figuras_tfg/European_Parliament.jpg  used on input lin
+e 99.
+(pdftex.def)             Requested size: 426.79135pt x 239.76173pt.
+[5]) [6 <./Figuras_tfg/European_Parliament.jpg>]
 Chapter 2.
 (chBasicPrinciples.tex
-<Figuras_tfg/Figure2_tfg.png, id=511, 569.12625pt x 372.39125pt>
+<Figuras_tfg/Figure2_tfg.png, id=564, 569.12625pt x 372.39125pt>
 File: Figuras_tfg/Figure2_tfg.png Graphic file (type png)
 <use Figuras_tfg/Figure2_tfg.png>
 Package pdftex.def Info: Figuras_tfg/Figure2_tfg.png  used on input line 9.
 (pdftex.def)             Requested size: 277.41176pt x 181.52437pt.
-<Figuras_tfg/ArtificialNeuronModel_english.png, id=512, 1688.3075pt x 801.99625
+<Figuras_tfg/ArtificialNeuronModel_english.png, id=565, 1688.3075pt x 801.99625
 pt>
 File: Figuras_tfg/ArtificialNeuronModel_english.png Graphic file (type png)
 <use Figuras_tfg/ArtificialNeuronModel_english.png>
 Package pdftex.def Info: Figuras_tfg/ArtificialNeuronModel_english.png  used on
  input line 16.
 (pdftex.def)             Requested size: 277.41176pt x 131.77298pt.
- [5
+ [7
 
  <./Figuras_tfg/Figure2_tfg.png> <./Figuras_tfg/ArtificialNeuronModel_english.p
 ng>]
@@ -1695,7 +1712,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 31--32
 
  []
 
-<Figuras_tfg/Sigmoid_function.png, id=521, 445.665pt x 258.9675pt>
+<Figuras_tfg/Sigmoid_function.png, id=573, 445.665pt x 258.9675pt>
 File: Figuras_tfg/Sigmoid_function.png Graphic file (type png)
 <use Figuras_tfg/Sigmoid_function.png>
 Package pdftex.def Info: Figuras_tfg/Sigmoid_function.png  used on input line 3
@@ -1706,7 +1723,7 @@ Overfull \hbox (9.43628pt too wide) in paragraph at lines 35--36
 [][] 
  []
 
-<Figuras_tfg/Relu_function.png, id=522, 445.665pt x 258.9675pt>
+<Figuras_tfg/Relu_function.png, id=574, 445.665pt x 258.9675pt>
 File: Figuras_tfg/Relu_function.png Graphic file (type png)
 <use Figuras_tfg/Relu_function.png>
 Package pdftex.def Info: Figuras_tfg/Relu_function.png  used on input line 39.
@@ -1716,8 +1733,8 @@ Overfull \hbox (9.43628pt too wide) in paragraph at lines 39--40
  []
  []
 
-[6 <./Figuras_tfg/Sigmoid_function.png> <./Figuras_tfg/Relu_function.png>]
-<Figuras_tfg/Figura_autoencoder.pdf, id=533, 585.99702pt x 182.21506pt>
+[8 <./Figuras_tfg/Sigmoid_function.png> <./Figuras_tfg/Relu_function.png>]
+<Figuras_tfg/Figura_autoencoder.pdf, id=585, 585.99702pt x 182.21506pt>
 File: Figuras_tfg/Figura_autoencoder.pdf Graphic file (type pdf)
 <use Figuras_tfg/Figura_autoencoder.pdf>
 Package pdftex.def Info: Figuras_tfg/Figura_autoencoder.pdf  used on input line
@@ -1728,14 +1745,14 @@ Overfull \hbox (28.45273pt too wide) in paragraph at lines 68--69
  [][] 
  []
 
-[7] [8 <./Figuras_tfg/Figura_autoencoder.pdf>]
-<Figuras_tfg/Example_ET.png, id=570, 580.1675pt x 403.5075pt>
+[9] [10 <./Figuras_tfg/Figura_autoencoder.pdf>]
+<Figuras_tfg/Example_ET.png, id=622, 580.1675pt x 403.5075pt>
 File: Figuras_tfg/Example_ET.png Graphic file (type png)
 <use Figuras_tfg/Example_ET.png>
 Package pdftex.def Info: Figuras_tfg/Example_ET.png  used on input line 95.
 (pdftex.def)             Requested size: 426.79134pt x 296.83612pt.
- [9] [10 <./Figuras_tfg/Example_ET.png>] [11]
-<Figuras_tfg/ET_Diagram.jpg, id=591, 432.04892pt x 164.17859pt>
+ [11] [12 <./Figuras_tfg/Example_ET.png>] [13]
+<Figuras_tfg/ET_Diagram.jpg, id=643, 432.04892pt x 164.17859pt>
 File: Figuras_tfg/ET_Diagram.jpg Graphic file (type jpg)
 <use Figuras_tfg/ET_Diagram.jpg>
 Package pdftex.def Info: Figuras_tfg/ET_Diagram.jpg  used on input line 145.
@@ -1745,37 +1762,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 141--148
 
  []
 
-[12 <./Figuras_tfg/ET_Diagram.jpg>]
+[14 <./Figuras_tfg/ET_Diagram.jpg>]
 Underfull \hbox (badness 10000) in paragraph at lines 163--164
 
  []
 
-<Figuras_tfg/ET_Labelled.png, id=602, 707.64375pt x 418.56375pt>
+<Figuras_tfg/ET_Labelled.png, id=654, 707.64375pt x 418.56375pt>
 File: Figuras_tfg/ET_Labelled.png Graphic file (type png)
 <use Figuras_tfg/ET_Labelled.png>
 Package pdftex.def Info: Figuras_tfg/ET_Labelled.png  used on input line 167.
 (pdftex.def)             Requested size: 426.79134pt x 252.44307pt.
-[13 <./Figuras_tfg/ET_Labelled.png (PNG copy)>] [14] [15]) [16]
+[15 <./Figuras_tfg/ET_Labelled.png (PNG copy)>] [16] [17]) [18]
 Chapter 3.
-(chStateArt.tex) [17
+(chStateArt.tex) [19
 
 ]
 Chapter 4.
-(chDevelopment.tex [18
+(chDevelopment.tex [20
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 26--27
 
  []
 
-<Figuras_tfg/Figure_Iris_Histogram.png, id=640, 321.2pt x 186.19562pt>
+<Figuras_tfg/Figure_Iris_Histogram.png, id=692, 321.2pt x 186.19562pt>
 File: Figuras_tfg/Figure_Iris_Histogram.png Graphic file (type png)
 <use Figuras_tfg/Figure_Iris_Histogram.png>
 Package pdftex.def Info: Figuras_tfg/Figure_Iris_Histogram.png  used on input l
 ine 47.
 (pdftex.def)             Requested size: 369.88582pt x 214.42445pt.
-[19]
-<Figuras_tfg/R_plot_iris_knn_width_sepal.png, id=645, 510.90875pt x 278.03876pt
+[21]
+<Figuras_tfg/R_plot_iris_knn_width_sepal.png, id=697, 510.90875pt x 278.03876pt
 >
 File: Figuras_tfg/R_plot_iris_knn_width_sepal.png Graphic file (type png)
 <use Figuras_tfg/R_plot_iris_knn_width_sepal.png>
@@ -1787,7 +1804,7 @@ Overfull \hbox (62.49094pt too wide) in paragraph at lines 54--55
 [][] 
  []
 
-<Figuras_tfg/R_plot_knn_petal.png, id=646, 510.90875pt x 278.03876pt>
+<Figuras_tfg/R_plot_knn_petal.png, id=698, 510.90875pt x 278.03876pt>
 File: Figuras_tfg/R_plot_knn_petal.png Graphic file (type png)
 <use Figuras_tfg/R_plot_knn_petal.png>
 Package pdftex.def Info: Figuras_tfg/R_plot_knn_petal.png  used on input line 5
@@ -1798,9 +1815,9 @@ Overfull \hbox (62.49094pt too wide) in paragraph at lines 58--59
  []
  []
 
-[20 <./Figuras_tfg/Figure_Iris_Histogram.png> <./Figuras_tfg/R_plot_iris_knn_wi
+[22 <./Figuras_tfg/Figure_Iris_Histogram.png> <./Figuras_tfg/R_plot_iris_knn_wi
 dth_sepal.png> <./Figuras_tfg/R_plot_knn_petal.png>]
-<Figuras_tfg/Figure_MNIST.png, id=657, 853.1875pt x 643.40375pt>
+<Figuras_tfg/Figure_MNIST.png, id=709, 853.1875pt x 643.40375pt>
 File: Figuras_tfg/Figure_MNIST.png Graphic file (type png)
 <use Figuras_tfg/Figure_MNIST.png>
 Package pdftex.def Info: Figuras_tfg/Figure_MNIST.png  used on input line 75.
@@ -1810,57 +1827,57 @@ Overfull \hbox (28.45273pt too wide) in paragraph at lines 75--76
  [][] 
  []
 
-[21 <./Figuras_tfg/Figure_MNIST.png>]
+[23 <./Figuras_tfg/Figure_MNIST.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 103--104
 
  []
 
-[22]
-<Figuras_tfg/Ionosphere.jpg, id=668, 481.8pt x 316.18124pt>
+[24]
+<Figuras_tfg/Ionosphere.jpg, id=721, 481.8pt x 316.18124pt>
 File: Figuras_tfg/Ionosphere.jpg Graphic file (type jpg)
 <use Figuras_tfg/Ionosphere.jpg>
 Package pdftex.def Info: Figuras_tfg/Ionosphere.jpg  used on input line 107.
 (pdftex.def)             Requested size: 284.52756pt x 186.72382pt.
- [23 <./Figuras_tfg/Ionosphere.jpg>] [24]
-<Figuras_tfg/R_plot_correlation.png, id=678, 1103.12125pt x 640.3925pt>
+ [25 <./Figuras_tfg/Ionosphere.jpg>] [26]
+<Figuras_tfg/R_plot_correlation.png, id=730, 1103.12125pt x 640.3925pt>
 File: Figuras_tfg/R_plot_correlation.png Graphic file (type png)
 <use Figuras_tfg/R_plot_correlation.png>
 Package pdftex.def Info: Figuras_tfg/R_plot_correlation.png  used on input line
  139.
 (pdftex.def)             Requested size: 426.79134pt x 247.76843pt.
- [25 <./Figuras_tfg/R_plot_correlation.png>]) [26]
+ [27 <./Figuras_tfg/R_plot_correlation.png>]) [28]
 Chapter 5.
 (chResults.tex
-<Figuras_tfg/Diagram_auto_mlp.pdf, id=689, 530.96512pt x 159.44539pt>
+<Figuras_tfg/Diagram_auto_mlp.pdf, id=741, 530.96512pt x 159.44539pt>
 File: Figuras_tfg/Diagram_auto_mlp.pdf Graphic file (type pdf)
 <use Figuras_tfg/Diagram_auto_mlp.pdf>
 Package pdftex.def Info: Figuras_tfg/Diagram_auto_mlp.pdf  used on input line 8
 .
 (pdftex.def)             Requested size: 426.79135pt x 128.16713pt.
-<Figuras_tfg/Diagram_auto_KNN.pdf, id=690, 513.88312pt x 153.6958pt>
+<Figuras_tfg/Diagram_auto_KNN.pdf, id=742, 513.88312pt x 153.6958pt>
 File: Figuras_tfg/Diagram_auto_KNN.pdf Graphic file (type pdf)
 <use Figuras_tfg/Diagram_auto_KNN.pdf>
 Package pdftex.def Info: Figuras_tfg/Diagram_auto_KNN.pdf  used on input line 1
 5.
 (pdftex.def)             Requested size: 418.2537pt x 125.09563pt.
-<Figuras_tfg/Diagram_pca_mlp.pdf, id=692, 464.33525pt x 88.95212pt>
+<Figuras_tfg/Diagram_pca_mlp.pdf, id=744, 464.33525pt x 88.95212pt>
 File: Figuras_tfg/Diagram_pca_mlp.pdf Graphic file (type pdf)
 <use Figuras_tfg/Diagram_pca_mlp.pdf>
 Package pdftex.def Info: Figuras_tfg/Diagram_pca_mlp.pdf  used on input line 29
 .
 (pdftex.def)             Requested size: 426.79135pt x 81.76363pt.
-<Figuras_tfg/Diagram_pca_KNN.pdf, id=693, 461.89366pt x 78.40953pt>
+<Figuras_tfg/Diagram_pca_KNN.pdf, id=745, 461.89366pt x 78.40953pt>
 File: Figuras_tfg/Diagram_pca_KNN.pdf Graphic file (type pdf)
 <use Figuras_tfg/Diagram_pca_KNN.pdf>
 Package pdftex.def Info: Figuras_tfg/Diagram_pca_KNN.pdf  used on input line 36
 .
 (pdftex.def)             Requested size: 426.79135pt x 72.45229pt.
- [27
+ [29
 
- <./Figuras_tfg/Diagram_auto_mlp.pdf> <./Figuras_tfg/Diagram_auto_KNN.pdf>] [28
+ <./Figuras_tfg/Diagram_auto_mlp.pdf> <./Figuras_tfg/Diagram_auto_KNN.pdf>] [30
  <./Figuras_tfg/Diagram_pca_mlp.pdf> <./Figuras_tfg/Diagram_pca_KNN.pdf>]
 
-LaTeX Warning: Reference `ig:figure_pairs_iris' on page 29 undefined on input l
+LaTeX Warning: Reference `ig:figure_pairs_iris' on page 31 undefined on input l
 ine 57.
 
 
@@ -1868,7 +1885,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--69
 
  []
 
-<Figuras_tfg/Figure_Boxcox.png, id=811, 1081.03876pt x 582.175pt>
+<Figuras_tfg/Figure_Boxcox.png, id=864, 1081.03876pt x 582.175pt>
 File: Figuras_tfg/Figure_Boxcox.png Graphic file (type png)
 <use Figuras_tfg/Figure_Boxcox.png>
 Package pdftex.def Info: Figuras_tfg/Figure_Boxcox.png  used on input line 76.
@@ -1878,13 +1895,13 @@ Overfull \hbox (56.90549pt too wide) in paragraph at lines 76--77
  [][] 
  []
 
-[29]
+[31]
 Underfull \hbox (badness 10000) in paragraph at lines 81--83
 
  []
 
-[30 <./Figuras_tfg/Figure_Boxcox.png>]
-<Figuras_tfg/Autoencoder_Results.pdf, id=826, 467.0853pt x 221.16176pt>
+[32 <./Figuras_tfg/Figure_Boxcox.png>]
+<Figuras_tfg/Autoencoder_Results.pdf, id=878, 467.0853pt x 221.16176pt>
 File: Figuras_tfg/Autoencoder_Results.pdf Graphic file (type pdf)
 <use Figuras_tfg/Autoencoder_Results.pdf>
 Package pdftex.def Info: Figuras_tfg/Autoencoder_Results.pdf  used on input lin
@@ -1895,19 +1912,19 @@ Overfull \hbox (56.90549pt too wide) in paragraph at lines 107--108
  [][] 
  []
 
-[31 <./Figuras_tfg/Autoencoder_Results.pdf>] [32]
+[33 <./Figuras_tfg/Autoencoder_Results.pdf>] [34]
 Overfull \hbox (2.00146pt too wide) in paragraph at lines 125--125
 []\T1/txr/m/n/12 The ma-tri-ces re-sult-ing from this com-pres-sion pro-cess ma
 y not have all of their columns
  []
 
-<Figuras_tfg/Knn_example.pdf, id=856, 478.86089pt x 354.46196pt>
+<Figuras_tfg/Knn_example.pdf, id=908, 478.86089pt x 354.46196pt>
 File: Figuras_tfg/Knn_example.pdf Graphic file (type pdf)
 <use Figuras_tfg/Knn_example.pdf>
 Package pdftex.def Info: Figuras_tfg/Knn_example.pdf  used on input line 130.
 (pdftex.def)             Requested size: 426.79134pt x 315.92445pt.
-[33 <./Figuras_tfg/Knn_example.pdf>]
-<Figuras_tfg/ET_knn_iris_auto.png, id=875, 825.0825pt x 520.94624pt>
+[35 <./Figuras_tfg/Knn_example.pdf>]
+<Figuras_tfg/ET_knn_iris_auto.png, id=928, 825.0825pt x 520.94624pt>
 File: Figuras_tfg/ET_knn_iris_auto.png Graphic file (type png)
 <use Figuras_tfg/ET_knn_iris_auto.png>
 Package pdftex.def Info: Figuras_tfg/ET_knn_iris_auto.png  used on input line 1
@@ -1918,7 +1935,7 @@ Overfull \hbox (85.35696pt too wide) in paragraph at lines 143--144
  [][] 
  []
 
-<Figuras_tfg/ET_knn_iris_pca.png, id=876, 825.0825pt x 528.97626pt>
+<Figuras_tfg/ET_knn_iris_pca.png, id=929, 825.0825pt x 528.97626pt>
 File: Figuras_tfg/ET_knn_iris_pca.png Graphic file (type png)
 <use Figuras_tfg/ET_knn_iris_pca.png>
 Package pdftex.def Info: Figuras_tfg/ET_knn_iris_pca.png  used on input line 15
@@ -1929,13 +1946,13 @@ Overfull \hbox (85.35696pt too wide) in paragraph at lines 150--151
  [][] 
  []
 
-[34 <./Figuras_tfg/ET_knn_iris_auto.png>]
+[36 <./Figuras_tfg/ET_knn_iris_auto.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 155--156
 
  []
 
-[35 <./Figuras_tfg/ET_knn_iris_pca.png>]
-<Figuras_tfg/Total_ET_Knn_Iris.jpeg, id=892, 604.2575pt x 373.395pt>
+[37 <./Figuras_tfg/ET_knn_iris_pca.png>]
+<Figuras_tfg/Total_ET_Knn_Iris.jpeg, id=944, 604.2575pt x 373.395pt>
 File: Figuras_tfg/Total_ET_Knn_Iris.jpeg Graphic file (type jpg)
 <use Figuras_tfg/Total_ET_Knn_Iris.jpeg>
 Package pdftex.def Info: Figuras_tfg/Total_ET_Knn_Iris.jpeg  used on input line
@@ -1946,104 +1963,104 @@ Overfull \hbox (85.35696pt too wide) in paragraph at lines 163--164
  [][] 
  []
 
-[36 <./Figuras_tfg/Total_ET_Knn_Iris.jpeg>]
-<Figuras_tfg/Example_MLP_Auto.png, id=898, 378.6948pt x 340.1508pt>
+[38 <./Figuras_tfg/Total_ET_Knn_Iris.jpeg>]
+<Figuras_tfg/Example_MLP_Auto.png, id=950, 378.6948pt x 340.1508pt>
 File: Figuras_tfg/Example_MLP_Auto.png Graphic file (type png)
 <use Figuras_tfg/Example_MLP_Auto.png>
 Package pdftex.def Info: Figuras_tfg/Example_MLP_Auto.png  used on input line 1
 80.
 (pdftex.def)             Requested size: 341.43437pt x 306.68306pt.
- [37 <./Figuras_tfg/Example_MLP_Auto.png>]
-<Figuras_tfg/ET_Iris_Auto_Mlp.jpg, id=904, 604.2575pt x 373.395pt>
+ [39 <./Figuras_tfg/Example_MLP_Auto.png>]
+<Figuras_tfg/ET_Iris_Auto_Mlp.jpg, id=956, 604.2575pt x 373.395pt>
 File: Figuras_tfg/ET_Iris_Auto_Mlp.jpg Graphic file (type jpg)
 <use Figuras_tfg/ET_Iris_Auto_Mlp.jpg>
 Package pdftex.def Info: Figuras_tfg/ET_Iris_Auto_Mlp.jpg  used on input line 1
 89.
 (pdftex.def)             Requested size: 426.79135pt x 263.73349pt.
-<Figuras_tfg/ET_Iris_Pca_Mlp.jpg, id=905, 604.2575pt x 373.395pt>
+<Figuras_tfg/ET_Iris_Pca_Mlp.jpg, id=957, 604.2575pt x 373.395pt>
 File: Figuras_tfg/ET_Iris_Pca_Mlp.jpg Graphic file (type jpg)
 <use Figuras_tfg/ET_Iris_Pca_Mlp.jpg>
 Package pdftex.def Info: Figuras_tfg/ET_Iris_Pca_Mlp.jpg  used on input line 19
 6.
 (pdftex.def)             Requested size: 426.79135pt x 263.73349pt.
- [38 <./Figuras_tfg/ET_Iris_Auto_Mlp.jpg> <./Figuras_tfg/ET_Iris_Pca_Mlp.jpg>]
-<Figuras_tfg/ET_Total_Iris_Mlp.jpg, id=912, 604.2575pt x 373.395pt>
+ [40 <./Figuras_tfg/ET_Iris_Auto_Mlp.jpg> <./Figuras_tfg/ET_Iris_Pca_Mlp.jpg>]
+<Figuras_tfg/ET_Total_Iris_Mlp.jpg, id=964, 604.2575pt x 373.395pt>
 File: Figuras_tfg/ET_Total_Iris_Mlp.jpg Graphic file (type jpg)
 <use Figuras_tfg/ET_Total_Iris_Mlp.jpg>
 Package pdftex.def Info: Figuras_tfg/ET_Total_Iris_Mlp.jpg  used on input line 
 208.
 (pdftex.def)             Requested size: 426.79135pt x 263.73349pt.
- [39 <./Figuras_tfg/ET_Total_Iris_Mlp.jpg>]
+ [41 <./Figuras_tfg/ET_Total_Iris_Mlp.jpg>]
 Underfull \hbox (badness 10000) in paragraph at lines 222--223
 
  []
 
-[40]
+[42]
 
-LaTeX Warning: Reference `subsebsec:Knn_pca_auto' on page 41 undefined on input
+LaTeX Warning: Reference `subsebsec:Knn_pca_auto' on page 43 undefined on input
  line 260.
 
-<Figuras_tfg/ET_knn_Ionosphere_auto.jpeg, id=924, 619.31375pt x 382.42876pt>
+<Figuras_tfg/ET_knn_Ionosphere_auto.jpeg, id=977, 619.31375pt x 382.42876pt>
 File: Figuras_tfg/ET_knn_Ionosphere_auto.jpeg Graphic file (type jpg)
 <use Figuras_tfg/ET_knn_Ionosphere_auto.jpeg>
 Package pdftex.def Info: Figuras_tfg/ET_knn_Ionosphere_auto.jpeg  used on input
  line 264.
 (pdftex.def)             Requested size: 426.79135pt x 263.55518pt.
-[41]
-<Figuras_tfg/ET_knn_Ionosphere_pca.jpeg, id=930, 619.31375pt x 382.42876pt>
+[43]
+<Figuras_tfg/ET_knn_Ionosphere_pca.jpeg, id=982, 619.31375pt x 382.42876pt>
 File: Figuras_tfg/ET_knn_Ionosphere_pca.jpeg Graphic file (type jpg)
 <use Figuras_tfg/ET_knn_Ionosphere_pca.jpeg>
 Package pdftex.def Info: Figuras_tfg/ET_knn_Ionosphere_pca.jpeg  used on input 
 line 271.
 (pdftex.def)             Requested size: 426.79135pt x 263.55518pt.
- [42 <./Figuras_tfg/ET_knn_Ionosphere_auto.jpeg> <./Figuras_tfg/ET_knn_Ionosphe
+ [44 <./Figuras_tfg/ET_knn_Ionosphere_auto.jpeg> <./Figuras_tfg/ET_knn_Ionosphe
 re_pca.jpeg>]
-<Figuras_tfg/ET_mlp_Ionosphere_auto.jpg, id=939, 619.31375pt x 382.42876pt>
+<Figuras_tfg/ET_mlp_Ionosphere_auto.jpg, id=991, 619.31375pt x 382.42876pt>
 File: Figuras_tfg/ET_mlp_Ionosphere_auto.jpg Graphic file (type jpg)
 <use Figuras_tfg/ET_mlp_Ionosphere_auto.jpg>
 Package pdftex.def Info: Figuras_tfg/ET_mlp_Ionosphere_auto.jpg  used on input 
 line 285.
 (pdftex.def)             Requested size: 426.79135pt x 263.55518pt.
-<Figuras_tfg/ET_mlp_Ionosphere_pca.jpg, id=940, 619.31375pt x 382.42876pt>
+<Figuras_tfg/ET_mlp_Ionosphere_pca.jpg, id=992, 619.31375pt x 382.42876pt>
 File: Figuras_tfg/ET_mlp_Ionosphere_pca.jpg Graphic file (type jpg)
 <use Figuras_tfg/ET_mlp_Ionosphere_pca.jpg>
 Package pdftex.def Info: Figuras_tfg/ET_mlp_Ionosphere_pca.jpg  used on input l
 ine 292.
 (pdftex.def)             Requested size: 426.79135pt x 263.55518pt.
- [43 <./Figuras_tfg/ET_mlp_Ionosphere_auto.jpg>]
-<Figuras_tfg/ET_Total_Ionosphere.jpg, id=947, 619.31375pt x 382.42876pt>
+ [45 <./Figuras_tfg/ET_mlp_Ionosphere_auto.jpg>]
+<Figuras_tfg/ET_Total_Ionosphere.jpg, id=999, 619.31375pt x 382.42876pt>
 File: Figuras_tfg/ET_Total_Ionosphere.jpg Graphic file (type jpg)
 <use Figuras_tfg/ET_Total_Ionosphere.jpg>
 Package pdftex.def Info: Figuras_tfg/ET_Total_Ionosphere.jpg  used on input lin
 e 303.
 (pdftex.def)             Requested size: 426.79135pt x 263.55518pt.
- [44 <./Figuras_tfg/ET_mlp_Ionosphere_pca.jpg> <./Figuras_tfg/ET_Total_Ionosphe
+ [46 <./Figuras_tfg/ET_mlp_Ionosphere_pca.jpg> <./Figuras_tfg/ET_Total_Ionosphe
 re.jpg>]
-[45]
-<Figuras_tfg/MNIST_Autoencoder_mlp.png, id=959, 526.96875pt x 325.215pt>
+[47]
+<Figuras_tfg/MNIST_Autoencoder_mlp.png, id=1012, 526.96875pt x 325.215pt>
 File: Figuras_tfg/MNIST_Autoencoder_mlp.png Graphic file (type png)
 <use Figuras_tfg/MNIST_Autoencoder_mlp.png>
 Package pdftex.def Info: Figuras_tfg/MNIST_Autoencoder_mlp.png  used on input l
 ine 390.
 (pdftex.def)             Requested size: 426.79135pt x 263.40285pt.
- [46]
-<Figuras_tfg/MNIST_PCA_mlp.png, id=964, 526.96875pt x 325.215pt>
+ [48]
+<Figuras_tfg/MNIST_PCA_mlp.png, id=1017, 526.96875pt x 325.215pt>
 File: Figuras_tfg/MNIST_PCA_mlp.png Graphic file (type png)
 <use Figuras_tfg/MNIST_PCA_mlp.png>
 Package pdftex.def Info: Figuras_tfg/MNIST_PCA_mlp.png  used on input line 397.
 
 (pdftex.def)             Requested size: 426.79135pt x 263.40285pt.
- [47 <./Figuras_tfg/MNIST_Autoencoder_mlp.png> <./Figuras_tfg/MNIST_PCA_mlp.png
+ [49 <./Figuras_tfg/MNIST_Autoencoder_mlp.png> <./Figuras_tfg/MNIST_PCA_mlp.png
 >]
-<Figuras_tfg/MNIST_performance_test.png, id=974, 526.96875pt x 325.215pt>
+<Figuras_tfg/MNIST_performance_test.png, id=1026, 526.96875pt x 325.215pt>
 File: Figuras_tfg/MNIST_performance_test.png Graphic file (type png)
 <use Figuras_tfg/MNIST_performance_test.png>
 Package pdftex.def Info: Figuras_tfg/MNIST_performance_test.png  used on input 
 line 406.
 (pdftex.def)             Requested size: 426.79135pt x 263.40285pt.
-) [48 <./Figuras_tfg/MNIST_performance_test.png>]
+) [50 <./Figuras_tfg/MNIST_performance_test.png>]
 Chapter 6.
-(chConclusion.tex) [49
+(chConclusion.tex) [51
 
 ]
 LaTeX Font Info:    Try loading font information for T1+txtt on input line 376.
@@ -2052,22 +2069,22 @@ LaTeX Font Info:    Try loading font information for T1+txtt on input line 376.
 ("C:\Users\TRAMLG\AppData\Local\Programs\MiKTeX 2.9\tex/latex/txfonts\t1txtt.fd
 "
 File: t1txtt.fd 2000/12/15 v3.1
-)
+) [52
+
+
+]
 
 Package caption Warning: Unused \captionsetup[lstlisting] on input line 187.
 See the caption package documentation for explanation.
 
-[50
-
-
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 390.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 390.
+[53]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 387.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 387.
  (entropy_triangles_tfg.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 390.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 390.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 387.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 387.
 Package rerunfilecheck Info: File `entropy_triangles_tfg.out' has not changed.
-(rerunfilecheck)             Checksum: 6C9D370C3540176C816BC791ACCB8612;2539.
+(rerunfilecheck)             Checksum: 96E91DFCE450F4EE1FBA7C1668827C10;2855.
 
 
 LaTeX Warning: There were undefined references.
@@ -2078,16 +2095,16 @@ LaTeX Warning: There were multiply-defined labels.
 Package logreq Info: Writing requests to 'entropy_triangles_tfg.run.xml'.
 \openout1 = `entropy_triangles_tfg.run.xml'.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 390.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 387.
  ) 
 Here is how much of TeX's memory you used:
- 36738 strings out of 492895
- 650313 string characters out of 3123268
- 1083027 words of memory out of 3000000
- 39806 multiletter control sequences out of 15000+200000
+ 36775 strings out of 492895
+ 651260 string characters out of 3123268
+ 1083382 words of memory out of 3000000
+ 39828 multiletter control sequences out of 15000+200000
  65493 words of font info for 96 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,12n,92p,962b,3652s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 64i,12n,92p,1265b,3652s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/TRAMLG/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.en
 c}<C:/Users/TRAMLG/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/txfonts
 /rtxi.pfb><C:/Users/TRAMLG/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public
@@ -2105,9 +2122,9 @@ tic/uhvr8a.pfb><C:/Users/TRAMLG/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/u
 rw/times/utmb8a.pfb><C:/Users/TRAMLG/AppData/Local/Programs/MiKTeX 2.9/fonts/ty
 pe1/urw/times/utmr8a.pfb><C:/Users/TRAMLG/AppData/Local/Programs/MiKTeX 2.9/fon
 ts/type1/urw/times/utmri8a.pfb>
-Output written on entropy_triangles_tfg.pdf (64 pages, 2747988 bytes).
+Output written on entropy_triangles_tfg.pdf (67 pages, 3030429 bytes).
 PDF statistics:
- 1105 PDF objects out of 1200 (max. 8388607)
- 167 named destinations out of 1000 (max. 500000)
- 609 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1170 PDF objects out of 1200 (max. 8388607)
+ 180 named destinations out of 1000 (max. 500000)
+ 659 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -106,9 +106,120 @@
       \field{sortinit}{3}
       \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
       \field{labeltitlesource}{title}
-      \field{howpublished}{\url{https://www.indeed.es/salaries/Programador/a-junior-Salaries}}
       \field{note}{Accessed: 2019-09-21}
       \field{title}{Salarios para empleos de Programador/a junior en España}
+      \verb{urlraw}
+      \verb https://www.indeed.es/salaries/Programador/a-junior-Salaries
+      \endverb
+      \verb{url}
+      \verb https://www.indeed.es/salaries/Programador/a-junior-Salaries
+      \endverb
+    \endentry
+    \entry{Forbes_Article}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=c2f3b67536776fabeaace05faffdbccb}{%
+           family={Mills},
+           familyi={M\bibinitperiod},
+           given={Terence},
+           giveni={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{c2f3b67536776fabeaace05faffdbccb}
+      \strng{fullhash}{c2f3b67536776fabeaace05faffdbccb}
+      \strng{bibnamehash}{c2f3b67536776fabeaace05faffdbccb}
+      \strng{authorbibnamehash}{c2f3b67536776fabeaace05faffdbccb}
+      \strng{authornamehash}{c2f3b67536776fabeaace05faffdbccb}
+      \strng{authorfullhash}{c2f3b67536776fabeaace05faffdbccb}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Forbes}
+      \field{title}{Big Data Is Changing The Way People Live Their Lives}
+      \verb{urlraw}
+      \verb https://www.forbes.com/sites/forbestechcouncil/2018/05/16/big-data-is-changing-the-way-people-live-their-lives/#6444ffc53ce6
+      \endverb
+      \verb{url}
+      \verb https://www.forbes.com/sites/forbestechcouncil/2018/05/16/big-data-is-changing-the-way-people-live-their-lives/#6444ffc53ce6
+      \endverb
+    \endentry
+    \entry{Nature_Article}{misc}{}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Nature}
+      \field{title}{Big data takes on cancer}
+      \verb{urlraw}
+      \verb https://www.nature.com/articles/d42473-019-00035-5
+      \endverb
+      \verb{url}
+      \verb https://www.nature.com/articles/d42473-019-00035-5
+      \endverb
+    \endentry
+    \entry{Article_Aviation}{article}{}
+      \name{author}{4}{}{%
+        {{hash=f9c33658a4cd9bc4fa04ec3b57ff6970}{%
+           family={Nagarajan},
+           familyi={N\bibinitperiod},
+           given={sumathi},
+           giveni={s\bibinitperiod}}}%
+        {{hash=fe827423f6277eaa41a6a845ab7019ab}{%
+           family={Gokulakrishnan},
+           familyi={G\bibinitperiod},
+           given={S},
+           giveni={S\bibinitperiod}}}%
+        {{hash=bf854bfdaa76500d324e65f003feb774}{%
+           family={Ramana},
+           familyi={R\bibinitperiod},
+           given={Kaushik},
+           giveni={K\bibinitperiod}}}%
+        {{hash=dda713a93cafe942dd23c483f833e6cc}{%
+           family={Charugundla},
+           familyi={C\bibinitperiod},
+           given={Kamal},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{a001b72620b1c1c8485e4e36cb8dae31}
+      \strng{fullhash}{5869c98ee5e1d2af852581dde133da9b}
+      \strng{bibnamehash}{5869c98ee5e1d2af852581dde133da9b}
+      \strng{authorbibnamehash}{5869c98ee5e1d2af852581dde133da9b}
+      \strng{authornamehash}{a001b72620b1c1c8485e4e36cb8dae31}
+      \strng{authorfullhash}{5869c98ee5e1d2af852581dde133da9b}
+      \field{sortinit}{6}
+      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Journal of Latest Technology in Engineering, Management and Applied Science (IJLTEMAS)}
+      \field{month}{12}
+      \field{title}{Application of Big Data Systems to Airline Management}
+      \field{volume}{VI}
+      \field{year}{2017}
+      \field{pages}{129\bibrangedash 132}
+      \range{pages}{4}
+    \endentry
+    \entry{GDPR}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=04477f088e2d7fa909d6f010ddf08b41}{%
+           family={{European Parliament}},
+           familyi={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{04477f088e2d7fa909d6f010ddf08b41}
+      \strng{fullhash}{04477f088e2d7fa909d6f010ddf08b41}
+      \strng{bibnamehash}{04477f088e2d7fa909d6f010ddf08b41}
+      \strng{authorbibnamehash}{04477f088e2d7fa909d6f010ddf08b41}
+      \strng{authornamehash}{04477f088e2d7fa909d6f010ddf08b41}
+      \strng{authorfullhash}{04477f088e2d7fa909d6f010ddf08b41}
+      \field{sortinit}{7}
+      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Council regulation ({EU}) no 679/2016}
+      \field{year}{2016}
+      \verb{urlraw}
+      \verb https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e40-1-1
+      \endverb
+      \verb{url}
+      \verb https://eur-lex.europa.eu/eli/reg/2016/679/oj#d1e40-1-1
+      \endverb
     \endentry
     \entry{Principe_2000}{article}{}
       \name{author}{2}{}{%
@@ -129,8 +240,8 @@
       \strng{authorbibnamehash}{10366c0df1789bb0582a4cd0807c674f}
       \strng{authornamehash}{10366c0df1789bb0582a4cd0807c674f}
       \strng{authorfullhash}{10366c0df1789bb0582a4cd0807c674f}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{8}
+      \field{sortinithash}{1b24cab5087933ef0826a7cd3b99e994}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Advances in unsupervised adaptive filtering}
@@ -165,8 +276,8 @@
       \strng{authorbibnamehash}{26b3a00981ebf0d6ed14ddbe2485e7b9}
       \strng{authornamehash}{26b3a00981ebf0d6ed14ddbe2485e7b9}
       \strng{authorfullhash}{26b3a00981ebf0d6ed14ddbe2485e7b9}
-      \field{sortinit}{5}
-      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
+      \field{sortinit}{9}
+      \field{sortinithash}{54047ffb55bdefa0694bbd554c1b11a0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{isbn}{9781509006205}
@@ -206,8 +317,8 @@
       \strng{authorbibnamehash}{bc32fdb4caec8251ea034800e0a74d76}
       \strng{authornamehash}{bc32fdb4caec8251ea034800e0a74d76}
       \strng{authorfullhash}{bc32fdb4caec8251ea034800e0a74d76}
-      \field{sortinit}{6}
-      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{issn}{0893-6080}
