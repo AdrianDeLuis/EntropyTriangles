@@ -24,6 +24,8 @@ hmargin=3cm
 \usepackage{hyperref}
 % ENLACES
 
+\renewcommand{\chapterautorefname}{Chapter}
+
 \hypersetup{colorlinks=true,
 	linkcolor=black, % enlaces a partes del documento (p.e. índice) en color negro
 	urlcolor=blue} % enlaces a recursos fuera del documento en azul
@@ -34,6 +36,9 @@ hmargin=3cm
 \usepackage{txfonts} 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+
+\usepackage{array,booktabs}
+\newcolumntype{L}{@{}>{\kern\tabcolsep}l<{\kern\tabcolsep}}
 
 \usepackage[english]{babel} 
 \usepackage[babel, english=american]{csquotes}
@@ -366,6 +371,7 @@ The aim of this report is to analyse the performance of Entropy Triangles when a
 \clearpage
 %\addcontentsline{toc}{chapter}{Bibliography}
 %- Autoencoder bibliography (1980s) D.E. Rumelhart, G.E. Hinton, and R.J. Williams. Learning internal representations by error propagation. In Parallel Distributed Processing. Vol 1: Foundations. MIT Press, Cambridge, MA, 1986.
+
 
 \printbibliography
 

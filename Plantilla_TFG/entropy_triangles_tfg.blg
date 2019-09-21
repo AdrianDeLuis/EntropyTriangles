@@ -1,5 +1,17 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: entropy_triangles_tfg.aux
-I found no \citation commands---while reading file entropy_triangles_tfg.aux
-I found no \bibdata command---while reading file entropy_triangles_tfg.aux
-I found no \bibstyle command---while reading file entropy_triangles_tfg.aux
-(There were 3 error messages)
+[0] Config.pm:304> INFO - This is Biber 2.13
+[0] Config.pm:307> INFO - Logfile is 'entropy_triangles_tfg.blg'
+[28] biber-MSWIN64:315> INFO - === 
+[46] Biber.pm:375> INFO - Reading 'entropy_triangles_tfg.bcf'
+[134] Biber.pm:905> INFO - Found 6 citekeys in bib section 0
+[148] Biber.pm:4196> INFO - Processing section 0
+[150] Utils.pm:75> INFO - Globbing data source 'bibliografia/entropy_triangles_tfg.bib'
+[159] Utils.pm:91> INFO - Globbed data source 'bibliografia/entropy_triangles_tfg.bib' to bibliografia/entropy_triangles_tfg.bib
+[171] Biber.pm:4373> INFO - Looking for bibtex format file 'bibliografia/entropy_triangles_tfg.bib' for section 0
+[175] bibtex.pm:1462> INFO - LaTeX decoding ...
+[195] bibtex.pm:1281> INFO - Found BibTeX data source 'bibliografia/entropy_triangles_tfg.bib'
+[249] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[249] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[249] Biber.pm:4024> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'en-US'
+[249] Biber.pm:4030> INFO - No sort tailoring available for locale 'en-US'
+[258] bbl.pm:648> INFO - Writing 'entropy_triangles_tfg.bbl' with encoding 'UTF-8'
+[261] bbl.pm:751> INFO - Output to entropy_triangles_tfg.bbl

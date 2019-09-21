@@ -7,73 +7,73 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Basic depiction of a simple DNN composed by two hidden layers and a single 2-input/1-output system.\relax }}{4}{figure.caption.7}% 
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Basic depiction of a simple DNN composed by two hidden layers and a single 2-input/1-output system.\relax }}{5}{figure.caption.8}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.2}{\ignorespaces The left graph represents a Sigmoid function, while on the right there is a Relu function\relax }}{5}{figure.caption.8}% 
+\contentsline {figure}{\numberline {2.2}{\ignorespaces The left graph represents a Sigmoid function, while on the right there is a Relu function\relax }}{6}{figure.caption.9}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Taking into account the Figure \ref {fig:fig1a}, this diagram depicts the inside of the transformation box. Both the Encoder and the Decoder have symmetric shapes, as well as an expansion layer (the second one in the encoder, the previous one in the decoder) whose goal is to separate the qualities of our data as sort of a preparation for the compression.\relax }}{7}{figure.caption.9}% 
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Taking into account the Figure \ref {fig:fig1a}, this diagram depicts the inside of the transformation box. Both the Encoder and the Decoder have symmetric shapes, as well as an expansion layer (the second one in the encoder, the previous one in the decoder) whose goal is to separate the qualities of our data as sort of a preparation for the compression.\relax }}{8}{figure.caption.10}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Example of use of a typical Entropy Triangle. In this case, a Knn classification method is being tested in the triangle.\relax }}{9}{figure.caption.10}% 
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Example of use of a typical Entropy Triangle. In this case, a Knn classification method is being tested in the triangle.\relax }}{10}{figure.caption.11}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Diagram representing an ET applied to a bivariate distribution.\relax }}{11}{figure.caption.11}% 
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Diagram representing an ET applied to a bivariate distribution.\relax }}{12}{figure.caption.12}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Schematic of an Entropy Triangle. The labels are placed close to the side of the triangle that is related to the feature mentioned in it.\relax }}{12}{figure.caption.12}% 
-\defcounter {refsection}{0}\relax 
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Schematic of an Entropy Triangle. The labels are placed close to the side of the triangle that is related to the feature mentioned in it.\relax }}{13}{figure.caption.13}% 
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Using the pairs function summary\relax }}{19}{figure.caption.14}% 
+\addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Plotting of two different features of Iris with respect to the class label. As it can be seen here, depending of how you organise your data you can get more efficient classifiers and clusters. \relax }}{19}{figure.caption.15}% 
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Using the pairs function summary\relax }}{20}{figure.caption.15}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Some examples of the images included in the MNIST dataset\relax }}{20}{figure.caption.16}% 
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Plotting of two different features of Iris with respect to the class label. As it can be seen here, depending of how you organise your data you can get more efficient classifiers and clusters. \relax }}{20}{figure.caption.16}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.4}{\ignorespaces The Ionosphere is one of the main layers composing Earth's atmosphere\relax }}{22}{figure.caption.18}% 
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Some examples of the images included in the MNIST dataset\relax }}{21}{figure.caption.17}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.5}{\ignorespaces The GGally package also provides useful tools for this types of problems. Here, the correlation between Petal.Length and Petal.Width is proven to be very high, as the plots from Figure \ref {fig:figure_knn_classifier}\relax }}{24}{figure.caption.19}% 
+\contentsline {figure}{\numberline {4.4}{\ignorespaces The Ionosphere is one of the main layers composing Earth's atmosphere\relax }}{23}{figure.caption.19}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.5}{\ignorespaces The GGally package also provides useful tools for this types of problems. Here, the correlation between Petal.Length and Petal.Width is proven to be very high, as the plots from Figure \ref {fig:figure_knn_classifier}\relax }}{25}{figure.caption.20}% 
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Structure of the Autoencoder and it's classifiers\relax }}{26}{figure.caption.20}% 
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Structure of the Autoencoder and it's classifiers\relax }}{27}{figure.caption.21}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Structure of the PCA and it's classifiers\relax }}{27}{figure.caption.21}% 
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Structure of the PCA and it's classifiers\relax }}{28}{figure.caption.22}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Using the pairs function on Iris Boxcox\relax }}{29}{figure.caption.22}% 
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Using the pairs function on Iris Boxcox\relax }}{30}{figure.caption.23}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Architecture of the Autoencoder in Iris\relax }}{30}{figure.caption.24}% 
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Architecture of the Autoencoder in Iris\relax }}{31}{figure.caption.25}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Knn example on Iris\relax }}{32}{figure.caption.25}% 
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Knn example on Iris\relax }}{33}{figure.caption.26}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Entropy Triangle in Knn in Iris using the Autoencoder\relax }}{33}{figure.caption.26}% 
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Entropy Triangle in Knn in Iris using the Autoencoder\relax }}{34}{figure.caption.27}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Entropy Triangle in Knn in Iris using the PCA\relax }}{34}{figure.caption.27}% 
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Entropy Triangle in Knn in Iris using the PCA\relax }}{35}{figure.caption.28}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Entropy Triangle in Knn in Iris with the testing results\relax }}{35}{figure.caption.28}% 
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Entropy Triangle in Knn in Iris with the testing results\relax }}{36}{figure.caption.29}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.9}{\ignorespaces MLP architecture in Iris for the Autoencoder\relax }}{36}{figure.caption.29}% 
+\contentsline {figure}{\numberline {5.9}{\ignorespaces MLP architecture in Iris for the Autoencoder\relax }}{37}{figure.caption.30}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.10}{\ignorespaces MLP Entropy Triangle in Iris for the Autoencoder\relax }}{37}{figure.caption.30}% 
+\contentsline {figure}{\numberline {5.10}{\ignorespaces MLP Entropy Triangle in Iris for the Autoencoder\relax }}{38}{figure.caption.31}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.11}{\ignorespaces MLP Entropy Triangle in Iris for the Pca\relax }}{37}{figure.caption.31}% 
+\contentsline {figure}{\numberline {5.11}{\ignorespaces MLP Entropy Triangle in Iris for the Pca\relax }}{38}{figure.caption.32}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.12}{\ignorespaces MLP Entropy Triangle total testing result\relax }}{38}{figure.caption.32}% 
+\contentsline {figure}{\numberline {5.12}{\ignorespaces MLP Entropy Triangle total testing result\relax }}{39}{figure.caption.33}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Entropy Triangle in Knn in Ionosphere using the Autoencoder\relax }}{41}{figure.caption.35}% 
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Entropy Triangle in Knn in Ionosphere using the Autoencoder\relax }}{42}{figure.caption.36}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Entropy Triangle in Knn in Ionosphere using the PCA\relax }}{41}{figure.caption.36}% 
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Entropy Triangle in Knn in Ionosphere using the PCA\relax }}{42}{figure.caption.37}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Entropy Triangle in the MLP in Ionosphere using the Autoencoder\relax }}{42}{figure.caption.37}% 
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Entropy Triangle in the MLP in Ionosphere using the Autoencoder\relax }}{43}{figure.caption.38}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Entropy Triangle in the MLP in Ionosphere using the PCA\relax }}{43}{figure.caption.38}% 
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Entropy Triangle in the MLP in Ionosphere using the PCA\relax }}{44}{figure.caption.39}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Entropy Triangle in Ionosphere with the total test fold value\relax }}{43}{figure.caption.39}% 
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Entropy Triangle in Ionosphere with the total test fold value\relax }}{44}{figure.caption.40}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.18}{\ignorespaces Entropy Triangle in MLP in MNIST using the Autoencoder\relax }}{46}{figure.caption.44}% 
+\contentsline {figure}{\numberline {5.18}{\ignorespaces Entropy Triangle in MLP in MNIST using the Autoencoder\relax }}{47}{figure.caption.45}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.19}{\ignorespaces Entropy Triangle in MLP in MNIST using the PCA\relax }}{46}{figure.caption.45}% 
+\contentsline {figure}{\numberline {5.19}{\ignorespaces Entropy Triangle in MLP in MNIST using the PCA\relax }}{47}{figure.caption.46}% 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.20}{\ignorespaces Entropy Triangle in MLP in MNIST total testing result\relax }}{47}{figure.caption.46}% 
+\contentsline {figure}{\numberline {5.20}{\ignorespaces Entropy Triangle in MLP in MNIST total testing result\relax }}{48}{figure.caption.47}% 
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \contentsfinish 
