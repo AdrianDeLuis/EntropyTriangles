@@ -5,15 +5,15 @@ Information has usually been referred to as one of the key aspects that every le
 
 %\setlength{\parindent}{10ex}
 
-During the last few years, the topic of Big Data has become increasingly more important in our society. It is currently being used or developed in almost every industry in the world \cite{article_Big_Data} and it is growing faster every day. While methods like Deep Neural Networks are beginning to be widespread available,  researchers tend to use the same approaches and steps to get their results. Rather than trying new methods, it is an industry standard to use a certain set of techniques when presented with a type of problem and then to try to optimize them. It is just assumed that these methods are powerful enough to find a suitable answer. 
+During the last few years, the topic of Big Data has become increasingly more important in our society. It is currently being used or developed in almost every industry in the world \cite{article_Big_Data} and it is growing faster every day. While methods like Deep Neural Networks are beginning to be  widely available,  researchers tend to use the same approaches and steps to get their results. Rather than trying new methods, it is an industry standard to use a certain set of techniques when presented with a type of problem and then to try to optimize them. It is just assumed that these methods are powerful enough to find a suitable answer. 
 
-An instance of this model can be found in Figure~\ref{fig:fig1}.\subref{fig:fig1b}, where each block represents a different function inside an end-to-end informational model. We can only take measures outside each of the blocks and the contents or the methods being used inside are outside of the scope of the task. By not being able to access each one of the blocks to evaluate the processes happening inside of them, we may only fix or change their inputs to try to improve our results.
+An conceptual diagram of this model can be found in Figure~\ref{fig:fig1}.\subref{fig:fig1b}, where each block represents a different function inside an end-to-end informational model. Suppose we could only take measures outside each of the blocks and the contents or the methods being used inside are outside of the scope of the task. By not being able to access each one of the blocks to evaluate the processes inside them, we may only fix or change their inputs to try to improve our results.
 %
 \begin{figure}[H]
 \begin{subfigure}{1\textwidth}  
  \centering
   \includegraphics[width=16cm]{Figuras_tfg/Figura1_tfg}
-  \caption{Conceptual representation of a classification process mimicking a communication scheme of boxes.}
+  \caption{Conceptual representation of a classification process as a communication scheme.}
  \label{fig:fig1b} 
 \end{subfigure}%  
 
@@ -29,7 +29,7 @@ An instance of this model can be found in Figure~\ref{fig:fig1}.\subref{fig:fig1
 
 \section{Objective}
 
-The model that I will be implementing will be an adaptation of the scheme on Figure~\ref{fig:fig1}.\subref{fig:fig1a}. To further investigate on the boundaries of Information transmission , I will be using an \textbf{Autoencoder} to test the Information Bottleneck Principle~\cite{refToInfBottleNeck}. 
+The model that I will be implementing will be an adaptation of the scheme on Figure~\ref{fig:fig1}.\subref{fig:fig1a}. To further investigate on the boundaries of Information transmission , I will be using an \textbf{Autoencoder} to test the Information Bottleneck Principle~\cite{Inf_Bottleneck_first}.
 
 %FVA: find the original paper of the IB principle, for instance in Wikipedia, and cite it here.  The bibliography has to go in its own *.bib file.
 %I am including one with the same name as the main file, with the papers on the triangles, which I can very easily create from my reference manager. You just have to add to this one with a bib manager. I use BibDesk which comes along with TeXStudio.
