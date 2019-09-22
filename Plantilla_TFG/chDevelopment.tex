@@ -66,9 +66,9 @@ Taking a look at Figure \ref{fig:figure_pairs_iris}, The histogram in the middle
 
 \subsection{MNIST}
 
-The MNIST dataset is a large database of handwritten digits widely used in the data science field both for training and testing. It is mostly used for image processing and it is composed by samples of handwriting taken from the National Institute of Standards and Technology original datasets. It was later normalized to fit into 28x28 pixel images. Every image has a value from 0 to 255 ,which defines the shape and color of the number in the image. Then, the $Y$ class contains vectors with a character which can be related to its corresponding pixelized image by a classification method. \par
+The MNIST dataset is a large database of handwritten digits widely used in the data science field for experimenting. It is mostly used for image processing and it is composed by samples of handwriting taken from the National Institute of Standards and Technology original datasets. It was later normalized to fit into 28x28 pixel images. Every image has a value between 0 and 255 ,which defines the shape and color of the number in the image. Then, the $Y$ class contains vectors with a character which can be related to its corresponding pixelized image by a classification method. \par
 
-The database contains 60000 training images and 10000 testing images for $X$ and $Y$. Many different papers (name one) have tried to achieve the lowest error rate on it. Convolutional neural networks manage to get a very low error of around 0.23, although other methods such as support-vector machine get an error of as low as 0.8 too.\par
+The database contains 60000 training images and 10000 testing images for $X$ and $Y$. Many different papers, such as \cite{MNIST_classification_example}, have tried to achieve the lowest error rate on it. Convolutional neural networks managed to get a very low error of around 0.23, although other methods such as support-vector machine get an error of as low as 0.56 too\footcite{wiki:MNIST}.\par
 
 \begin{figure}[H]
 \centering
@@ -92,15 +92,15 @@ The database contains 60000 training images and 10000 testing images for $X$ and
 	\end{center}
 \end{table}
 
-Using the previously mentioned summary method on the training vectors for $X$ on this particular dataset will not provide us with enough information to estimate the classification task complexity. As we can see from Table \ref{tab:table_MNIST}, we just will know the range of values of every image (already discovered in the definition on the dataset) and the Mean, which only states that out training pixels tend to be white rather than black. In this case, since all of our bits are white or black (255 or 1 in decimal representation), it is on our best interest to try to simply our task by dividing our training and test numbers into binary representations of their types. Achieving it will only mean to transform them into 1s and 0s, and easier representation to handle for our transformation block. \par 
+Using the previously mentioned summary method on the training vectors for $X$ on this particular dataset will not provide us with enough information to estimate the classification task complexity. As we can see from Table \ref{tab:table_MNIST}, we just will know the range of values of every image (already studied in the definition of the dataset) and the Mean, which only states that out training pixels tend to be white rather than black, the reason being that the characters are written over white paper. In this case, since all of our bits are white or black (255 or 1 in decimal representation), it is on our best interest to try to simply our task by dividing our training and test numbers into binary representations of their types. Achieving it will only mean to transform them into 1s and 0s, and easier representation to handle for our transformation block. \par 
 
-If we instead observe the summary from the $Y$ training data we can see that the dataset is very balanced, as the mean is close to half of the distance between the Minimum and the Maximum. This tells us that we will be able to probably achieve high degrees of accuracy on our classifier, as well as that the Entropy Triangle should also perform a satisfying job when analysing its informational flows.  \par
+If we instead observe the summary from the $Y$ training data we can see that the dataset is very balanced, as the mean is close to half of the distance between the Minimum and the Maximum. This tells us that we will be able to probably achieve high degrees of accuracy on our classifier, as well as that the Entropy Triangle should also perform a satisfying job when analyzing its informational flows.  \par
 
 Our goal when fitting MNIST (located in the tensorflow package) through the autoencoder is to asses its capabilities when using bigger chunks of data and compressing it. Numerous reports and information available online give plethora of information about possible classification methods and its expected outcome in terms of error rates and accuracy. We are not trying to improve their results, we are just mimicking their processes and applying some of their methods so that we can achieve similar results when applying our tools.\par
 
 \subsection{Ionosphere}
 
-Ionosphere represents a set of data collected by a radar in Goose Bay, and later used for data science purposes by the Johns Hopkins University. The antenna had a phased array of 16 high-frequency antennas and used times pulses and pulse numbers for processing. The outputs can be labeled as either "good" or "bad", referring to the fact that a radar signal going through the ionosphere and thus showing no evidence of the existence of an ionosphere was labelled as "bad", and in any other case we would be labelling it as "good". It can be found on the R package mlbench. \newline
+Ionosphere represents a set of data collected by a radar in Goose Bay, and later used for data science purposes by the Johns Hopkins University. The antenna had a phased array of 16 high-frequency antennas and used times pulses and pulse numbers for processing. The outputs can be labeled as either "good" or "bad", referring to the fact that a radar signal going through the ionosphere and thus showing no evidence of the existence of an ionosphere was labeled as "bad", and in any other case we would be labeling it as "good". It can be found on the R package "mlbench". \newline
 
 \begin{figure}[H]
 	\centering
@@ -111,45 +111,45 @@ Ionosphere represents a set of data collected by a radar in Goose Bay, and later
 
 There are 351 observations from 35 independent variables, with 33 of them being numerical values and 2 of them representing nominal values (one of them defining the class). However, one of the variables included in the dataset can be safely removed since it only represents a constant value (0). Having removed that one it should be remarked that this dataset is not balanced, since we don't posses the same number of "good" or "bad" class labels, and the difference is big enough to potentially affect its transformation and classification.We can expect its performance to be worst than the other two datasets mentioned previously. In the Ionosphere case, we will classify our data using binary decision, as there are only two states available for our labels. \par
 
-Researchers at [Sigillito, V. G., Wing, S. P., Hutton, L. V., \& Baker, K. B. (1989). Classification of radar returns from the ionosphere using neural networks. Johns Hopkins APL Technical Digest, 10, 262-266.] have found very high acurracies when using non-linear perceptrons on this dataset, but to do so they had to use the quantities of "good" and "bad" observations, which would not fit our needs of information. Although it can be easily inferred that we are going to get some degenerated results when compared with other papers, it seems like an appropriate choice to check the performance of our tool. \par 
+Researchers at \cite{Sigillito1989ClassificationOR} have found very high accuracies when using non-linear perceptrons on this dataset, but to do so by using the same quantities of "good" and "bad" observations, which would not fit our needs of information. Although it can be easily inferred that we are going to get some degenerated results when compared with other papers, it seems like an appropriate choice to check the performance of the Entropy Triangle. \par 
 
 \section{The classifiers}
 \subsection{Knn}
 
-Knn is a non-parametric supervised classification method used for estimating the density function. As an unsupervised algorithm, it needs labelled data to learn the appropriate function that produces new data belonging to the different regions of the existing classes when introducing new unlabelled data. Depending on the desired predictors we will want to obtain either a regression or a discrete output in our classifier. \par
+Knn is a non-parametric supervised classification method used for estimating the density function. As an supervised algorithm, it needs labeled data to learn the appropriate function that produces new data belonging to the different regions of the existing classes when introducing new unlabeled data. Depending on the desired predictors we will want to obtain either a regression or a discrete output in our classifier. \par
 
-The Knn algorithm hinges on the assumption that similar data must be close. This theory means that, in practice, we must take into account that proximity will be primordial to the outcome of our classification process when we are using the Knn classifier. This particular way of solving a data analysis problem is specially interesting when the data we are trying to analyse is very close to the same labelled data. \par
+The Knn algorithm hinges on the assumption that similar data must be close. This theory means that, in practice, we must take into account that proximity will be primordial to the outcome of our classification process when we are using the Knn classifier. This particular way of solving a data analysis problem is specially interesting when the data we are trying to analyze is very close to the same labeled data. \par
 
-Although "the majority voting" classification method has some positive advantages, it also comes with some drawbacks too. In case where the class distributions are skewed, we can end up with a class which solely dominates the predictions. The are many ways of overcoming this issue, such as assigning proportional weights or to build clusters with similar points, but the reality is that Knn has a defined scalability that depends on the noise of your data and the characteristic of your dataset. \par
+Although "the majority voting" classification method has some positive advantages, it also comes with some drawbacks too. In case where the class distributions are skewed, we can end up with a class which solely dominates the predictions. There are many ways of overcoming this issue, such as assigning proportional weights or to build clusters with similar points, but the reality is that Knn has a defined scalability that depends on the noise of your data and the characteristic of your dataset. \par
 
-In order to try to improve results and polish the overall performance of the algorithm. There are some tricks to take into account and try to follow when designing it: \par
+In order to try to improve results and polish the overall performance of the algorithm there are some tricks to take into account and follow when designing it: \par
 
 \begin{description}
 	
-	\item[$\bullet$] Try fitting your data through multiple instance of your implemented algorithm with new values for K in each case.
+	\item[$\bullet$] Try fitting your data through multiple instance of your implemented algorithm with new values for $K$ in each case.
 	
-	\item[$\bullet$] Avoid using even K's values when doing binary classification, as we want to avoid tied votes.
+	\item[$\bullet$] Avoid using even $K$'s values when doing binary classification, as we want to avoid tied votes.
 	
-	\item[$\bullet$] Perform an exploratory analysis of your data and design the boundaries and expected performance of your algorithm. Sometimes, realising that a problem will be very lengthy and tedious to solve using a pre-determined method will save you a lot of time .
+	\item[$\bullet$] Perform an exploratory analysis of your data and design the boundaries and expected performance of your algorithm. Sometimes, realizing that a problem will be very lengthy and tedious to solve using a pre-determined method will save you a lot of time .
 	
 \end{description}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=15cm]{Figuras_tfg/R_plot_correlation.png}
-	\caption{The GGally package also provides useful tools for this types of problems. Here, the correlation between Petal.Length and Petal.Width is proven to be very high, as the plots from Figure \ref{fig:figure_knn_classifier}}
+	\caption{The GGally package also provides useful tools for this types of problems. Here, the correlation between Petal.Length and Petal.Width is proven to be very high, as the plots from Figure \ref{fig:figure_knn_classifier} showed}
 	\label{fig:figure_knn_classifier_correlation}
 \end{figure}
 
 \subsection{Multilayer Perceptron}
 
-The Multilayer Perceptron(MLP) has a similar architecture to that of the Deep Neural Networks. Both of them have input, output and hidden layers as well as having nodes and backpropagation for training. They even need their layers to be activated, as well as support the most common functions used in the autoencoders. Some experts would even label it as a slightly less computationally powerful DNN. \par
+The Multilayer Perceptron(MLP) has a similar architecture to that of the Deep Neural Networks. Both of them have input, output and hidden layers as well as having nodes and using back-propagation for training. They even need their layers to be activated, as well as support the most common functions used in the Autoencoders. It can even be labeled it as a slightly less computationally powerful DNN. \par
 
-It would seem as the main interest into MLPs could be to use them for smaller Autoencoders, but actually they possess a very important feature: it can distinguish and classify data that is not linearly separable.This property can help us qualify and compare different types of classification tasks. And as it is interesting to test multiple algorithms to make the most out of our ET, we can use it together with the rest of the classifiers presented in this Section. It can be specially useful when we pair it with the knn classifier, as we will implement both of them in our project to perform the same tasks. We would expect it to generally perform better on more complex datasets than knn, which suffers when data is more difficult to differentiate. \par
+It would seem as the main interest into MLPs could be to use them for smaller Autoencoders, but actually they possess a very important feature: it can distinguish and classify data that is not linearly separable.This property can help us qualify and compare different types of classification tasks \cite{MLP_classifier}. And as it is interesting to test multiple algorithms to make the most out of our ET, we can use it together with the rest of the classifiers presented in this Section. It can be specially useful when we pair it with the Knn classifier, as we will implement both of them in our project to perform the same classification tasks over the same datasets. We would expect it to generally perform better on more complex datasets than Knn, which suffers when data is more difficult to differentiate. \par
 
 \section{Principal Component Analysis}
 \subsection{Description}
-The Principal Component Analysis is aa statistical procedure based on orthogonal transformations to convert observations of possibly uncorrelated variables into sets of linearly uncorrelated variables called (principal components). The transformation is performed in such a way that the first component has the largest possible variance, with each succeeding component having the highest variance taking into account that it has to be orthogonal to the preceding components. We will finally end up with a set of of vector which are uncorrelated. Due to the nature of the transformation, PCA can be affected by any type of scaling of the original dataset. \par
+The Principal Component Analysis is a statistical procedure based on orthogonal transformations to convert observations of possibly uncorrelated variables into sets of linearly uncorrelated variables called \textbf{principal components}. The transformation is performed in such a way that the first component has the largest possible variance, with each succeeding component having the highest variance taking into account that it has to be orthogonal to the preceding components. We will finally end up with a set of of vector which are uncorrelated. Due to the nature of the transformation, PCA can be affected by any type of scaling of the original dataset. We also know that this method is valid to asses the capabilities of the ET due to the fact that it's use has already been introduced into experiments \cite{val:pel:18c}  \par
 
 PCA is used in the data analysis field for exploratory data analysis or to make predictive models. It can be used to visualize the genetic distance between populations of data. Results from the PCA are usually discussed taking into account their components. Other characteristics include:
 
@@ -175,7 +175,7 @@ x = s + n
 
 Where $x$ represents the vector being the sum of the desired information-bearing signal $s$ and a noise signal $n$. If we use this equation, it can be assumed that our vector can be dimensionally reduced.\par
 
-For this model to hold its truth, our signal $n$ has to be Gaussian with a covariance matrix proportional ti the identity matrix. This fact allows us to maximise the mutual information between the dimensionally reduced output $y$ and our $s$ signal, only if we consider that the same assumptions made for $n$ also apply for $s$. \par
+For this model to hold its truth, our signal $n$ has to be Gaussian with a covariance matrix proportional ti the identity matrix. This fact allows us to maximize the mutual information between the dimensionally reduced output $y$ and our $s$ signal, only if we consider that the same assumptions made for $n$ also apply for $s$. \par
 
 On the other common scenarios, on which $s$ is not Gaussian, at least we will have an upper-bound for our representation such as,
 
