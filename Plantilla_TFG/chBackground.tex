@@ -94,8 +94,32 @@ One thing to take into account when designing an Autoencoder is that giving too 
 
 Taking into account this description, the general rule to design them is just by using trial and error. As we will see on \ref{chap:Result}, where I will be discussing the implementation of the Autoencoder, you can try different setups to reach the optimum middle layer size which accomplishes that there is no trade-off between augmenting its size and keeping its actual capabilities. The Tensorflow python tool provides us with the accuracy and loss variables that the Autoencoder is generating on each training epoch to check if your architecture is fulfilling your requirements. For the purpose of this report, we will not only taking into account those parameters, but we will also be using a tool to ensure that it transferring the higher quantity of information possible: \textbf{The Entropy Triangle}.
 
-\subsection{The Entropy Triangle}
-\subsubsection{Introduction}
+\subsection{Information Theorethic Learning on Autoencoders}
+
+The Information Theoretic Learning (ITL) concept was introduced in \cite{Principe_2000} to extend the Mean-Square error criterion to cost functions including information about the training data. The goal was to manipulate the information being carried in the data or, in other words, to find cost functions that would be able to directly influence information. The name ITL is a natural transition from the aforementioned process, as the machine learning function had to be independent from the informational transmission of data. 
+
+\todo[inline]{FVA: open up an ``abbreviation section'' and include ITL as abbrev. }
+
+The Autoencoder was first proposed to test the concepts of ITL on~\cite{Santana_2016}. Using similar theoretic descriptors as the Entropy Triangle, like Mutual Information and entropy, the work of the researchers consists of trying to prove the validity of their theories by using the Autoencoder. Particularly, they are looking at the representation of the $\hat{Z}$ and the reconstructed value of $\overline{X}$ to calculate the loss function.
+\begin{equation}
+\label{eq:Principe_loss_function}
+cost = L(x,\overline{X}) + \lambda \times R(E,P)
+\end{equation}
+In \eqref{eq:Principe_loss_function} $L$ is the reconstruction cost function measuring the loss between the original $X$ and the predicted $\overline{X}$ at the output of the Autoencoder. $R$ is a functional regularization that uses information theoretic measures.
+\todo[inline]{FVA: explain also the meaning of the $\lambda$ parameter.}
+\begin{figure}[H]
+	\centering	
+	\includegraphics[width=\linewidth]{Principe_Autoencoder}
+	\caption{Autoencoder illustrating Equation \ref{eq:Principe_loss_function} from~\protect\cite{Santana_2016}.}
+	\label{fig:figure_autoencoder2}
+\end{figure} 
+
+\todo[inline]{SO FAR 22/09/2019}
+
+In \cite{Yu_2019} Principe and Yu expand on the use of Autoencoders and explore some of its key aspects regarding the bottleneck layer. By analyzing the remarkable similarities between a transmission channel and the Autocoder(an structure also proposed in this report) they use widespread available materials and datasets to evaluate the capacity of a stacked Autoencoder (as we do on our experiments) to demonstrate the ITL. 
+
+\section{The Entropy Triangle}
+\subsection{Introduction}
 
 In the previous section I have talked about how accuracy can be used to asses the validity of our model. In reality, the accuracy value can be somewhat misleading depending of the task that we are implementing it to check if we are carrying out our data analysis correctly. This statement is specially true when talking about Classification.\par
 
@@ -114,7 +138,7 @@ The accuracy paradox shows some of the defects that classifiers have been presen
 
 Once it is realized that the methods previously employed can lead to disingenuous results, a new realization arises: there is a need for a better measure of the classifier. As seen in, the Entropy Triangle and its features show some numeric example that fit the requirements and scope of our task, so I will be using it. Bur firstly, I will explain the basics of its functionalities.\par
 
-\subsubsection{Architecture}
+\subsection{Architecture}
 
 The Entropy Triangle was introduced in \cite{val:pel:10b} as a way of solving the problems presented in the previous sections. We consider the transmission of information through a channel as two random variables, named X for the input and Y for the output. Note that on Figure\ref{fig:fig1} we used a different naming standard, K and $\hat{K}$, but the new reference names are now implemented for the sake of easier computations. In Figure \ref{fig:figure_diagram_et} we can see a classical information-diagram which simply show the entropy relationship between X and Y or $P_xy$. From that Figure we can also asses some equations from it:\par
 
@@ -185,32 +209,6 @@ Most of the equations included here can be found in \cite{val:pel:18c} which dis
 The triangle itself works as a great tool to characterize the performance of your model. The position of the coordinates assesses the quality of your classifier. It can be appreciated from Figure \ref{fig:figure_labelled_et} that classifiers which are at the apex or close to it obtain the highest accuracy possible on balanced datasets and transmit a lot of mutual information, which makes them the best classifiers possible. On the other hand, when the coordinates of the classifier are very close to the left apex, we will be working with balanced data but the classifier will be doing a very bad work with it, we are dealing with the worst classifier. Finally, those who are located at the right apex or close to it represent the accuracy paradox mentioned before, which a highly specialized classifier which tries to work with very unbalanced data.\par
 
 One example of use of the Entropy Triangle would be to use the true labels $K$ and the predicted labels $\hat{K}$ to generate a confusion matrix. Using an algorithm, the entropy of the process is calculated according the values in the confusion matrix, which will then provide us with a coordinate inside of the ET. It will provide visual data to assess the feasibility of the task and its effectiveness.\par
-
-
-\section{Information Theorethic Learning on Autoencoders}
-
-The Information Theoretic Learning (ITL) concept was introduced in \cite{Principe_2000} to extend the Mean-Square error criterion to cost functions including information about the training data. The goal was to manipulate the information being carried in the data or, in other words, to find cost functions that would be able to directly influence information. The name ITL is a natural transition from the aforementioned process, as the machine learning function had to be independent from the informational transmission of data. 
-
-\todo[inline]{FVA: open up an ``abbreviation section'' and include ITL as abbrev. }
-
-The Autoencoder was first proposed to test the concepts of ITL on~\cite{Santana_2016}. Using similar theoretic descriptors as the Entropy Triangle, like Mutual Information and entropy, the work of the researchers consists of trying to prove the validity of their theories by using the Autoencoder. Particularly, they are looking at the representation of the $\hat{Z}$ and the reconstructed value of $\overline{X}$ to calculate the loss function.
-\begin{equation}
-\label{eq:Principe_loss_function}
-cost = L(x,\overline{X}) + \lambda \times R(E,P)
-\end{equation}
-In \eqref{eq:Principe_loss_function} $L$ is the reconstruction cost function measuring the loss between the original $X$ and the predicted $\overline{X}$ at the output of the Autoencoder. $R$ is a functional regularization that uses information theoretic measures.
-\todo[inline]{FVA: explain also the meaning of the $\lambda$ parameter.}
-\begin{figure}[H]
-	\centering	
-	\includegraphics[width=\linewidth]{Principe_Autoencoder}
-	\caption{Autoencoder illustrating Equation \ref{eq:Principe_loss_function} from~\protect\cite{Santana_2016}.}
-	\label{fig:figure_autoencoder2}
-\end{figure} 
-
-\todo[inline]{SO FAR 22/09/2019}
-
-
-In \cite{Yu_2019} Principe and Yu expand on the use of Autoencoders and explore some of its key aspects regarding the bottleneck layer. By analyzing the remarkable similarities between a transmission channel and the Autocoder(an structure also proposed in this report) they use widespread available materials and datasets to evaluate the capacity of a stacked Autoencoder (as we do on our experiments) to demonstrate the ITL. 
 
 
 
