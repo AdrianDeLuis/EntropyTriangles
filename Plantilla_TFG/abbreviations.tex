@@ -1,0 +1,24 @@
+%recipe from
+% https://tex.stackexchange.com/questions/73074/creating-abbreviations-list-with-manual-entries?rq=1
+% Put this in the prelude
+%\usepackage{longtable}
+%
+%\newcommand\nomenclature[2]{#1 & #2 \\}
+%\begin{table}[ht]
+\begin{center}
+\begin{longtable}{@{}p{1cm}@{}p{\dimexpr\textwidth-1cm\relax}@{}}
+\caption{Abbreviations used in the text}
+\label{tab:loa}\\
+\nomenclature{DNN}{Deep Neural Networks}%
+\nomenclature{ET}{Entropy Triangle}%
+\nomenclature{ITL}{Information-Theoretic Learning}%
+%\nomenclature{}{}%
+%\nomenclature{$a$}{The number of angels per unit area}%
+%\nomenclature{$N$}{The number of angels per needle point}%
+%\nomenclature{$A$}{The area of the needle point}%
+%\nomenclature{$\sigma$}{The total mass of angels per unit area}%
+%\nomenclature{$m$}{The mass of one angel}
+\end{longtable}
+\end{center}
+%\end{table}
+
