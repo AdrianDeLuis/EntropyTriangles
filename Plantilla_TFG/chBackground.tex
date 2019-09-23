@@ -1,5 +1,5 @@
 
-In this chapter we are going to be introducing some basic theoretical concepts about the processes included in this Bachelor's thesis. Some of the key aspects studied during the experiments are presented here.
+In this chapter we are going to be introducing some basic theoretical concepts about the processes included in this Bachelor's Thesis. Some of the key aspects studied during the experiments are presented here, as well as the discussion of the state of the art.
 
 \section{Deep Neural Networks}
 
@@ -23,7 +23,7 @@ To clearly explain what an Autoencoder is, we must first lay the foundations of 
 	\label{fig:fig2}
 \end{figure}
 
-DNN constitute the basis of Deep Learning and they have proven themselves to be complex enough to tackle many of the data challenges of today. By analysing ~\subref{fig:fig2a}, it can be noted that DNNs are comprised of multiple layers of units (or neurons) with a relatively small computing power which is calculated using the weights from previous layers combined with an activation function as seen on Figure~\ref{fig:fig2}.~\subref{fig:fig2b}. It also has an input (usually denoted as $X$) which is feed-forwarded to the hidden layers in the network and subsequently transformed into an output (commonly denoted as $Y$). 
+DNN constitute the basis of Deep Learning and they have proven themselves to be complex enough to tackle many of the data challenges of today. By analysing Figure~\ref{fig:fig2}.~\subref{fig:fig2a}, it can be noted that DNNs are comprised of multiple layers of units (or neurons) with a relatively small computing power which is calculated using the weights from previous layers combined with an activation function as seen on Figure~\ref{fig:fig2}.~\subref{fig:fig2b}. It also has an input (usually denoted as $X$) which is feed-forwarded to the hidden layers in the network and subsequently transformed into an output (commonly denoted as $Y$). 
 %
 \begin{equation}
 \label{eq:artificial neuron}
@@ -51,7 +51,7 @@ Once a certain DNN structure has been activated, the artificial neurons inside o
 
 \section{Information Bottleneck Principle}
 
-The architecture of the Autoencoder is based upon the  Information Bottleneck (IB), a method proposed in~\cite{Inf_Bottleneck_first} whose principle relies on extracting the relevant information that an input random vector $\overline X$ contains about another output random variable $\overline Y$. If we assume that there is some type of statistical dependency between $\overline X$ and $\overline Y$, the relevant information can be defined as $I(\overline X;\overline Y)$.\par
+The architecture of the Autoencoder is based upon the  Information Bottleneck (IB), a method proposed in~\cite{Inf_Bottleneck_first} whose principle relies on extracting the relevant information that an input random vector $\overline X$ contains about another output random variable $\overline Y$. If we assume that there is some type of statistical dependency between $\overline X$ and $\overline Y$, and thus the relevant information can be defined as $I(\overline X;\overline Y)$.\par
 %
 \begin{figure}[H]
 	\centering
@@ -67,9 +67,9 @@ If we want to obtain the optimal representation of $\overline X$, we would want 
 \min\limits_{p(t|x)}  I(\overline X;\overline T) - \beta \times I(\overline T;\overline Y)
 \end{equation} \newline
 
-During the compressing process, and as depicted in Figure~\ref{fig:figure_info_bottle}, the layers of a DNN only have access to the information that has been transferred to them via the previous layers of the system. This has a big effect on our network: the information not processed in the last immediate layer is essentially lost. This is the main reason why every layer should attempt to maximize $I(\overline Y;h_i)$ while trying to minimize $I(h_{i-1};h_i)$, being $h_i$ a random layer situated inside of the coding or compressing layer and $h_{i-1}$ its immediate predecessor. Here, it is important to consider then that we want to reduce the length of the layer to the minimum possible without affecting the predictive features of our model. \par
+During the compressing process, and following the concept depicted in Figure~\ref{fig:figure_info_bottle}, the layers of a DNN only have access to the information that has been transferred to them via the previous layers of the system, as the direction of the compression goes from the input to the bottleneck of our system. This has a big effect on our network: the information not processed in the last immediate layer is essentially lost. This is the main reason why every layer should attempt to maximize $I(\overline Y;\overline h_i)$ while trying to minimize $I(\overline h_{i-1}; \overline h_i)$, being $\overline h_i$ a random layer situated inside of the coding or compressing layer and $\overline h_{i-1}$ its immediate predecessor. Here it is important to consider that we want to reduce the length of the layer to the minimum possible without affecting the predictive features of our model. \par
 
-Each layer of our model should require shorter descriptions than the previous ones, being the first one with the longest description and the least compression. It must also be noted that every model will require a different set of layers and an architecture to fit its computational needs to the optimal level. \par
+Each layer of our model should require shorter descriptions than the previous ones, having the first one the longest description and the least compression. It must also be noted that every model will require a different set of layers and an appropriate architecture to fit its computational needs to the optimal level. \par
 
 \section{The Autoencoder}
 
@@ -86,7 +86,7 @@ Applying the concepts introduced in both of the previous sections, the Autoencod
 
 The theory of Autoencoders has been around since the 1980s~\cite{Autoencoders_first_mention}. As seen in Figure \ref{fig:figure_autoencoder}, the goal of the Autoencoder is not only to copy the input data and then transmit it through the network, but to retain the most important features of the data fed to it and to try to optimize the process of learning them. For the purpose of my research, I will only be considering the back-propagated Autoencoders, although it must be noted that other variants of them exist, such as the recirculated Autoencoders, which simply apply the concept of recirculated Neural Networks~\cite{Recirculated_NN}. \par
 
-In our case, we will be also using an under-complete Autoencoder. For learning purposes, most of the times an Autoencoder is implemented it is usually more interesting to focus on its data compression capabilities rather than trying to copy the input onto the output. That is why we want to force the Autoencoder to provide us with a smaller dimension in the output on the encoder, which for the purpose of this report we will call $\overline Z$. The learning process tries to minimize the quantity: 
+In our case, we will be also using an under-complete Autoencoder. For learning purposes, most of the times an Autoencoder is implemented it is usually more interesting to focus on its data compression capabilities rather than trying to copy the input onto the output. That is why we want to force the Autoencoder to provide us with a smaller dimension in the output on the encoder, which for the purpose of this report we will call $\overline Z$. The learning process tries to minimize: 
 %
 \begin{equation}
 %\label{eq:artificial neuron} %FVA already used!
@@ -94,11 +94,15 @@ L(x,g(f(x)))
 \end{equation}
 L being a a loss function that penalizes $g(f(x))$ for being dissimilar from $x$.
 
-One thing to take into account when designing an Autoencoder is that giving too much capacity to its layers can be counterproductive to the learning task. This means that when given too much capacity to work with they will tend to learn to avoid extracting information and rather to just copy the information, which is an undesirable outcome. On the other hand, trying to set an encoder to code the input signal into a single dimension could result in the loss of valuable information. Even with a very powerful decoder a very optimized Autoencoder will struggle to perform this task, specially when introducing very big sets data as the input. \par
+One thing to take into account when designing an Autoencoder is that giving too much capacity to its layers can be counterproductive to the learning task. This means that when given too much capacity to work with, they will tend to learn to avoid extracting information and rather to just copy the information, which is an undesirable outcome. On the other hand, trying to set an encoder to code the input signal into a single dimension could result in the loss of valuable information. Even with a very powerful decoder a very optimized Autoencoder will struggle to perform this task, specially when introducing very big sets of data as the input. \par
 
-Taking into account this issue, the general rule to design them is just by using trial and error. As we will see on Chapter~\ref{chap:Result}, where I will be discussing the implementation of the Autoencoder, you can try different setups to reach the optimum middle layer size which accomplishes that there is no trade-off between augmenting its size and keeping its actual capabilities. The Tensorflow python tool provides us with the accuracy and loss variables that the Autoencoder is generating on each training epoch to check if your architecture is fulfilling your requirements. For the purpose of this \bth, we will not only be taking into account those parameters, but we will also be using a tool to ensure that it transferring the higher quantity of information possible: the {the Entropy Triangle}.
+Taking into account this issue, the general rule to design them is just by using trial and error. As we will see on Chapter~\ref{chap:ExpRes}, where I will be discussing the implementation of the Autoencoder, you can try different setups to reach the optimum middle layer size which accomplishes that there is no trade-off between augmenting its size and keeping its actual capabilities. The Tensorflow python tool provides us with the accuracy and loss variables that the Autoencoder is generating on each training epoch to check if your architecture is fulfilling your requirements. For the purpose of this \bth, we will not only be taking into account those parameters, but we will also be using a tool to ensure that it transferring the higher quantity of information possible: \textbf{the Entropy Triangle}.
 
-\subsection{Information Theorethic Learning on Autoencoders}
+\subsection{State of Art}
+
+Since being introduced by Tishby~\cite{Inf_Bottleneck_first}, the Information Bottleneck has been part of many articles exploring the possibilities of this new theory and its applications to Deep Learning, such as~\cite{State_of_Art}. It represents and appealing approximation to the usual problems faced by data scientist throughout the world. Out of all the available work in the web, we must analyse especially closely the work being developed by Jose Principe along with researchers from around the world. He tends to focus his work into the Autoencoder and applies the same principles as we do, so by looking at his own approach we can learn a lot and compare procedures.
+
+\subsubsection{Information Theorethic Learning on Autoencoders}
 
 The Information Theoretic Learning (ITL) concept was introduced in \cite{Principe_2000} to extend the Mean-Square error criterion to cost functions including information about the training data. The goal was to manipulate the information being carried in the data or, in other words, to find cost functions that would be able to directly influence information. The name ITL is a natural transition from the aforementioned process, as the machine learning function had to be independent from the informational transmission of data. 
 
@@ -107,7 +111,7 @@ The Autoencoder was first proposed to test the concepts of ITL on~\cite{Santana_
 \label{eq:Principe_loss_function}
 cost = L(x,\overline{X}) + \lambda \times R(E,P)
 \end{equation}
-In \eqref{eq:Principe_loss_function} $L$ is the reconstruction cost function measuring the loss between the original $X$ and the predicted $\overline{X}$ at the output of the Autoencoder. $R$ is a functional regularization that uses information theoretic measures, $P$ is the imposed prior and $\lambda$ is a scale parameter that controls the strength of the regularization.
+In Equation~\eqref{eq:Principe_loss_function} $L$ is the reconstruction cost function measuring the loss between the original $\overline X$ and the predicted $\hat{X}$ at the output of the Autoencoder. $R$ is a functional regularization that uses information theoretic measures, $P$ is the imposed prior and $\lambda$ is a scale parameter that controls the strength of the regularization.
 
 \begin{figure}[H]
 	\centering	
@@ -135,13 +139,13 @@ The usage of data classification has greatly improved in the past years. Nowaday
 
 The real question comes when you have your results and you try to understand them. In~\cite{val:pel:14a} a very important reality is shown: the accuracy performance criterion is a very intuitive but misleading tool. Another highly important concept is introduced here: the accuracy paradox. 
 
-The accuracy paradox shows some of the defects that classifiers have been presenting for a long time now . For example, in some cases predictive classifiers which have given a lower accuracy power have also proven to display a higher predictive accuracy than others with a higher accuracy. The reason for this most of the times is that we have trained our classifier with a single class that contains the majority of the data. In those cases, our classifier will just assign all of the input values to belong to the majority class since that is where the greater probability lies upon. This one is a very easily identifiable case of an \emph{imbalanced (training) data set.} Moreover, since most of the times our data is gathered in controlled conditions, we risk the problem of this issue showing up more than we would wish for.\par
+The accuracy paradox shows some of the defects that classifiers have been presenting for a long time now . For example, in some cases predictive classifiers which have given a lower accuracy power have also proven to display a higher predictive accuracy than others with a higher accuracy. The reason for this most of the times is that we have trained our classifier with a single class that contains the majority of the data. In those cases, our classifier will just assign all of the testing values to belong to the majority class since that is where the greater probability lies upon. This one is a very easily identifiable case of an \emph{imbalanced (training) data set.} Moreover, since most of the times our data is gathered in controlled conditions, we risk the problem of this issue showing up more than we would wish for.\par
 
 Once it is realized that the methods previously employed can lead to misleading results, a new realization arises: there is a need for a better measure of classification that takes this issue into consideration. As seen in~\cite{val:pel:14a}, the Entropy Triangle and its features show some numeric example that fit the requirements and scope of our task, so I will be using it. Bur firstly, I will explain the basics of its functionality.\par
 
 \subsection{Architecture}
 
-The Entropy Triangle was introduced in~\cite{val:pel:10b} as a way of solving the problems presented in the previous sections. We consider the transmission of information through a channel as two random variables, named X for the input and Y for the output. Note that on Figure~\ref{fig:fig1} we used a different naming standard, K and $\hat{K}$, but the new reference names are now implemented for the sake of easier computations. In Figure~\ref{fig:figure_diagram_et} we can see a classical information-diagram which simply shows the entropy relationship between X and Y or $P_{XY}$. From that Figure we can also asses some equations from it: 
+The Entropy Triangle was introduced in~\cite{val:pel:10b} as a way of solving the problems presented in the previous sections. We consider the transmission of information through a channel as two random variables, named $X$ for the input and $Y$ for the output. Note that on Figure~\ref{fig:fig1} we used a different naming standard, $K$ and $\hat{K}$, but the new reference names are now implemented for the sake of easier computations. In Figure~\ref{fig:figure_diagram_et} we can see a classical information-diagram which simply shows the entropy relationship between X and Y or $P_{XY}$. From that Figure we can also asses some equations from it: 
 %
 The Mutual Information, which quantifies the stochastic force between $P_X$ and $P_Y$ appears twice in the diagram both as:
 \begin{equation}\label{eq:mutual_information_1}

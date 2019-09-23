@@ -2,7 +2,7 @@ In this chapter we will be exploring the process of designing the experiments an
 
 \section{Dataset Selection and Exploratory Analysis}
 
-Before diving into the application of the Autoencoder, we first have to take a look into the data that we will be using on our project. We want to use a wide variety of them to test our tool in order to find out if the assessments made on the previous section hold when applied on some of the most commonly datasets used in the industry. When selecting between the huge amounts of information available online, it was our interest to prioritize them according to a series of qualities. They needed to:
+Before diving into the application of the Autoencoder, we first have to take a look into the data that we will be using on our project. We want to use a wide variety of them to test our tool in order to find out if the assessments made on the previous section holds when applied on some of the most commonly datasets used in the industry. When selecting between the huge amounts of information available online, it was our interest to prioritize them according to a series of qualities. They needed to:
  
 \begin{itemize}
 	
@@ -70,7 +70,7 @@ Taking a look at Figure~\ref{fig:figure_pairs_iris}, The histogram in the middle
 \label{subsec:MNIST}
 
 
-The MNIST dataset~\cite{MNIST_article} is a large database of handwritten digits widely used in Data Science for experimenting. It is mostly used for image processing and it is composed by samples of handwriting taken from the National Institute of Standards and Technology original datasets. It was later normalized to fit into 28x28 pixel images. Every image has vector $X$ of values $24 \times 24 = 784$ between 0 and 255 ,which defines the shape and shades of grey of the number in the image. Then, the $Y$ class contains vectors with a character which can be related to its corresponding pixelized image by a classification method. \par
+The MNIST dataset~\cite{MNIST_article} is a large database of handwritten digits widely used in Data Science for experimenting. It is mostly used for image processing and it is composed by samples of handwriting taken from the National Institute of Standards and Technology original datasets. It was later normalized to fit into 28x28 pixel images. Every image has vector $X$ of values $28 \times 28 = 784$ between 0 and 255 ,which defines the shape and shades of grey of the number in the image. Then, the $Y$ class contains vectors with a character which can be related to its corresponding pixelized image by a classification method. \par
 
 The database contains 60\,000 training images and 10\,000 testing images for $X$ and $Y$. Many different authors~\cite{MNIST_classification_example}, have tried to achieve the lowest error rate on it. Convolutional neural networks managed to get a very low error of around $0.23$, although other methods such as support-vector machine get an error of as low as $0.56$ too~\footcite{wiki:MNIST}.
 %
@@ -82,7 +82,7 @@ The database contains 60\,000 training images and 10\,000 testing images for $X$
 \end{figure}
 
 Using the previously mentioned summary method on the training vectors for $X$ on this particular dataset will not provide us with enough information to estimate the classification task complexity. As we can see from Table~\ref{tab:table_MNIST}, we just know the range of values of every image (already studied in the definition of the dataset) and the mean, which only states that out training pixels tend to be white rather than black, the reason being that the characters are written over white paper. In this case, since all of our bits are grey values)
-, it is on our best interest to try to simply our task by dividing our training and test numbers into binary representations of their types. Achieving it will only mean to transform them into 1s and 0s, and easier representation to handle for our transformation block. 
+, it is on our best interest to try to simply our task by dividing our training and test numbers into binary representations of their types. Achieving it will only mean to transform them into 1s and 0s, an easier representation to handle for our transformation block. 
 %
 \begin{table}[H]
 	\caption{R summary method on MNIST.}
@@ -102,14 +102,14 @@ Using the previously mentioned summary method on the training vectors for $X$ on
 
 If we instead observe the summary from the $Y$ training data we can see that the dataset is very balanced, as the mean is close to half of the distance between the Minimum and the Maximum. This tells us that we will be able to probably achieve high degrees of accuracy on our classifier, as well as that the Entropy Triangle should also perform a satisfying job when analysing its informational flows.  \par
 
-Our goal when fitting MNIST  through the autoencoder is to asses its capabilities when using bigger chunks of data and compressing it. Numerous reports and information available online give plethora of information about possible classification methods and their expected outcome in terms of error rates and accuracy. 
+Our goal when fitting MNIST  through the Autoencoder is to asses its capabilities when using bigger chunks of data and compressing it. Numerous reports and information available online give plethora of information about possible classification methods and their expected outcome in terms of error rates and accuracy. 
 %
 %We are not trying to improve their results, we are just mimicking their processes and applying some of their methods so that we can achieve similar results when applying our tools.\par
 
 \subsection{Ionosphere}
 \label{subsec:Ionosphere}
 
-Ionosphere represents a set of data collected by a radar in Goose Bay, and later used for data science purposes by the Johns Hopkins University~\cite{Sigillito1989ClassificationOR}. The antenna had a phase array of 16 high-frequency antennas and used times pulses and pulse numbers for processing. The outputs can be labeled as either "good" or "bad", referring to the fact that a radar signal going through the ionosphere and thus showing no evidence of the existence of an ionosphere was labeled as "bad", and in any other case we would be labeling it as "good". It can be found on the R package "mlbench". %\newline
+Ionosphere represents a set of data collected by a radar in Goose Bay, and later used for data science purposes by the Johns Hopkins University~\cite{Sigillito1989ClassificationOR}. The antenna had a phase array of 16 high-frequency antennas and used time pulses and pulse numbers for processing. The outputs can be labeled as either "good" or "bad", referring to the fact that a radar signal going through the ionosphere and thus showing no evidence of the existence of an ionosphere was labeled as "bad", and in any other case we would be labeling it as "good". %\newline
 %
 \begin{figure}[H]
 	\centering
@@ -125,7 +125,7 @@ Researchers have found very high accuracies when using non-linear perceptrons on
 \section{The classifiers}
 \subsection{K-Nearest Neighbours}
 
-K-Nearest Neighbours (KNN) is a non-parametric supervised classification method used for estimating the density function~\cite{mur:12}. As an supervised algorithm, it needs labelled data to learn the appropriate function that produces new data belonging to the different regions of the existing classes when introducing new unlabelled data. Depending on the desired predictors we will want to obtain either a regression or a discrete output in our classifier. 
+K-Nearest Neighbours (KNN) is a non-parametric supervised classification method used for estimating the density function~\cite{mur:12}. As a supervised algorithm, it needs labelled data to learn the appropriate function that produces new data belonging to the different regions of the existing classes when introducing new unlabelled data. Depending on the desired predictors we will want to obtain either a regression or a discrete output in our classifier. 
 
 The KNN algorithm hinges on the assumption that similar data must be close in a metric space representation. This hypothesis means that, in practice, we must take into account that proximity will be primordial to the outcome of our classification process when we are using the KNN classifier. This particular way of solving a data analysis problem is specially interesting when the data we are trying to analyse is very close to the same labelled data, since KNN relies in a ``majority voting'' scheme to predict the class for a sample using $K$ nearest neighbour samples---hence the name of the technique---, where $K$ is a fixed parameter of each run of the algorithm. 
 
@@ -157,7 +157,6 @@ The Multilayer Perceptron (MLP) has a similar architecture to that of DNNs. Both
 It would seem as the main interest into MLPs could be to use them for smaller Autoencoders, but actually they possess a very important feature: they  can distinguish and classify data that is not linearly separable.This property can help us qualify and compare different types of classification tasks~\cite{MLP_classifier}. As it is interesting to test multiple algorithms to make the most out of our ET, we can may compare them  to the rest of the classifiers presented in this Section. It can be especially useful when we compare it with a  KNN classifier, and we will implement both of them in our project to perform the same classification tasks over the same datasets. We would expect it to generally perform better on more complex datasets than KNN, which suffers when data is more difficult to differentiate. \par
 
 \section{Principal Component Analysis}
-\label{tools:pca}
 
 \subsection{Description}
 Principal Component Analysis (PCA) is a statistical procedure based on orthogonal transformations to convert observations of possibly uncorrelated variables into sets of linearly uncorrelated variables called \emph{principal components}. The transformation is performed in such a way that the first component has the largest possible variance, with each succeeding component having the highest variance taking into account that it has to be orthogonal to the preceding components. We will finally end up with a set of vectors which are uncorrelated. Due to the nature of the transformation, PCA can be affected by any type of scaling of the original dataset~\cite{mur:12}. 
