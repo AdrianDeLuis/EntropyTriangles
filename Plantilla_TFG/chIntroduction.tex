@@ -1,9 +1,11 @@
+This chapter includes the introduction to the topic to be studied during this Bachelor's thesis. Information regarding the socio-economic environment, regulations and the structure of the thesis is also included here along with the main objective pursued during it.
+
 \section{Background}
 Information has usually been referred to as one of the key aspects that every learning system needs in order to increase its capabilities and improve its performance. This is especially relevant for the Data Analytics field and the process of designing machine learning applications, where many experts usually refer to information as a powerful metric to indicate the success of their architecture at solving a particular problem. Due to the plethora of works already available online to master and use different techniques, the goal of this work is to asses the capabilities of these techniques and discuss its informational properties. 
 
 %\setlength{\parindent}{10ex}
 
-During the last few years, the topic of Big Data has become increasingly more important in our society. It is currently being used or developed in almost every industry in the world \cite{article_Big_Data} and it is growing faster every day. While methods like Deep Neural Networks are beginning to be  widely available,  researchers tend to use the same approaches and steps to get their results. Rather than trying new methods, it is an industry standard to use a certain set of techniques when presented with a type of problem and then to try to optimize them. It is just assumed that these methods are powerful enough to find a suitable answer. 
+During the last few years, the topic of Big Data has become increasingly more important in our society. It is currently being used or developed in almost every industry in the world~\cite{article_Big_Data} and it is growing faster every day. While methods like Deep Neural Networks are beginning to be  widely available,  researchers tend to use the same approaches and steps to get their results. Rather than trying new methods, it is an industry standard to use a certain set of techniques when presented with a type of problem and then to try to optimize them. It is just assumed that these methods are powerful enough to find a suitable answer. 
 
 An conceptual diagram of this model can be found in Figure~\ref{fig:fig1}.\subref{fig:fig1b}, where each block represents a different function inside an end-to-end informational model. Suppose we could only take measures outside each of the blocks and the contents or the methods being used inside are outside of the scope of the task. By not being able to access each one of the blocks to evaluate the processes inside them, we may only fix or change their inputs to try to improve our results.
 %
@@ -18,7 +20,7 @@ An conceptual diagram of this model can be found in Figure~\ref{fig:fig1}.\subre
 	\begin{subfigure}{1\textwidth} 
 		\centering
 		\includegraphics[width=16.5cm]{Figuras_tfg/Figura1_1_tfg}
-		\caption{Our end-to-end scheme uses the information regarded from inside the transformation block and we then produce two outputs. First, the predicted (X) which we can use to measure our transformation accuracy. Secondly, the (Z), which contains compressed information about (X)}
+		\caption{Our end-to-end scheme uses the information regarded from inside the transformation block and we then produce two outputs. First, the predicted $\hat{X}$ which we can use to measure our transformation accuracy. Secondly, $\overline{Z}$, which contains compressed information about $\overline{Z}$}
 		\label{fig:fig1a} 
 	\end{subfigure}%  
 	\caption{Comparison between the classical view of a supervised classification in (a) versus the the model implemented for the purpose of this work in (b).}
@@ -34,7 +36,7 @@ In this report, I designed the following model which provides reliable informati
 \begin{itemize}
 	\item  We have a random source $K$ generating observations. Through a process of measurements, our system then will be provided with other random observations $\hat{X}$. 
 	
-	\item The output observations  are then fed to the Autoencoder, which will then reduce the $\overline X$ into another vector $Z$ with a different length but retaining the information from the input vector in a compressed from. 
+	\item The output observations  are then fed to the Autoencoder, which will then reduce the $\overline X$ into another vector $\overline Z$ with a different length but retaining the information from the input vector in a compressed from. 
 	
 	\item The Autoencoder also provides  an output, which should be a reconstruction of the observations used to feed the Deep Learning structure. 
 	
@@ -50,13 +52,11 @@ Note that Figure~\ref{fig:fig1a} follows a similar model to that of Figure \ref{
 This report is divided into six Chapters, each one of them exploring different parts of the process of designing and testing the architecture proposed on Figure \ref{fig:fig1}:
 
 \begin{itemize}
-	\item \textbf{ \autoref{chap:Introduction}, Introduction} : Explains briefly the key concepts of the report as well as the cost of the project and the socioeconomic impact of Big Data.
+	\item \textbf{ \autoref{chap:Introduction}, Introduction} : Explains briefly the key concepts of the report as well as the cost of the project and the socio-economic impact of Big Data.
 	
 	\item \textbf{ \autoref{chap:TheoreticalBackground}, Theoretical Background} : Includes basic information about the theory and methods used in the Bachelor Thesis as well as the state of the art.
 	
-	\item \textbf{ \autoref{chap:Develop}, Development} : Key aspects to be aware of before starting the experimental phase of the project.
-	
-	\item \textbf{ \autoref{chap:Result}, Result} : Presenting the results as well as the process to obtain them.
+	\item \textbf{ \autoref{chap:ExpRes}, Experimental Results} : Presents key aspects to be aware of before starting the experimental phase of the project as well as the processes to obtain them.
 	
 	\item \textbf{ \autoref{chap:Conclusion}, Conclusion} : Final review of the project and the implications of it.
 	
@@ -65,7 +65,7 @@ This report is divided into six Chapters, each one of them exploring different p
 \section{Socio-economic environment}
 \subsection{Budget}
 
-The Budget for the project has been assigned according to three main costs : licenses, equipment and labor. The licenses used in this project are both included for Windows 10 and Mac OS X Mojave. On the other hand, the equipment includes the hardware and the resources needed for its adequate use. Finally, the labor costs are calculated using the metrics available at Indeed.com \cite{ProgrammerSalaries}, and then considering that each programmer works 8 hours daily, 22 days monthly and 12 months yearly. \par
+The Budget for the project has been assigned according to three main costs : licenses, equipment and labour. The licenses used in this project are both included for Windows 10 and Mac OS X Mojave. On the other hand, the equipment includes the hardware and the resources needed for its adequate use. Finally, the labour costs are calculated using the metrics available at Indeed.com \cite{ProgrammerSalaries}, and then considering that each programmer works 8 hours daily, 22 days monthly and 12 months yearly. We are also going include a period of 300 working hours as the billing time for the Bachelor's Thesis \par
 \begin{table}[H]
 	\caption{Total budget costs table}
 	\label{tbl:budget_table}

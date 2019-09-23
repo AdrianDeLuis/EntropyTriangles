@@ -1,8 +1,8 @@
-In this chapter we motivate the datasets and classifiers we use to test our assumptions. 
+In this chapter we will be exploring the process of designing the experiments and the environments for their execution, as well as presenting the results at the end of it. Firstly, we are addressing the motivations behind choosing the datasets implemented during the set-up. Secondly, the transformations and methods used during the experiments are also discussed with the aim to provide feedback on their use and the possibilities that they offer. Finally, the Results have been placed at the end on this chapter, illustrating the procedures and concepts introduced during this Bachelor's Thesis.
 
 \section{Dataset Selection and Exploratory Analysis}
 
-Before diving into the application of the Autocoder, we first have to take a look into the data that we will be using on our project. We want to use a wide variety of them to test our tool in order to find out if the assessments made on the previous section hold when applied on some of the most commonly datasets used in the industry. When selecting between the huge amounts of information available online, it was our interest to prioritize them according to a series of qualities. They needed to:
+Before diving into the application of the Autoencoder, we first have to take a look into the data that we will be using on our project. We want to use a wide variety of them to test our tool in order to find out if the assessments made on the previous section hold when applied on some of the most commonly datasets used in the industry. When selecting between the huge amounts of information available online, it was our interest to prioritize them according to a series of qualities. They needed to:
  
 \begin{itemize}
 	
@@ -22,7 +22,7 @@ This task is necessary if we want to have a hint of the outcome of the processes
 
 \subsection{Anderson's Iris}
 
-(Anderson's) Iris is a multivariate dataset published in~\cite{Fisher_Iris}. The data itself consists of 50 samples from each of three species of Iris: \emph{Iris setosa}, \emph{I. virginica} and \emph{I. versicolor}. Each exemplar had four of their characteristics recorded: the length and the width of the sepals and petals in centimeters. \par
+(Anderson's) Iris is a multivariate dataset published in~\cite{Fisher_Iris}. The data itself consists of 50 samples from each of three species of Iris: \emph{Iris setosa}, \emph{I. virginica} and \emph{I. versicolor}. Each exemplar had four of their characteristics recorded: the length and the width of the sepals and petals in centimetres. \par
 
 Based on the distribution of the measurements obtained from the dataset, Fisher's data has been referred to as one of the basic staples of data classification due to the fact that it is divided into two clearly differentiable clusters, one containing Iris setosa and the other one including both virginica and versicolor. Without the labels provided by Fisher, the classifying task becomes more complex. This feature is specially useful to highlight the differences between unsupervised and supervised classification tasks. %\newline
 % 
@@ -69,9 +69,8 @@ Taking a look at Figure~\ref{fig:figure_pairs_iris}, The histogram in the middle
 \subsection{MNIST}
 \label{subsec:MNIST}
 
-\todo[inline]{Find citation for MNIST.}
 
-The MNIST dataset~\cite{MNIST} is a large database of handwritten digits widely used in Data Science for experimenting. It is mostly used for image processing and it is composed by samples of handwriting taken from the National Institute of Standards and Technology original datasets. It was later normalized to fit into 28x28 pixel images. Every image has vector $X$ of values $24 \times 24 = 784$ between 0 and 255 ,which defines the shape and shades of grey of the number in the image. Then, the $Y$ class contains vectors with a character which can be related to its corresponding pixelized image by a classification method. \par
+The MNIST dataset~\cite{MNIST_article} is a large database of handwritten digits widely used in Data Science for experimenting. It is mostly used for image processing and it is composed by samples of handwriting taken from the National Institute of Standards and Technology original datasets. It was later normalized to fit into 28x28 pixel images. Every image has vector $X$ of values $24 \times 24 = 784$ between 0 and 255 ,which defines the shape and shades of grey of the number in the image. Then, the $Y$ class contains vectors with a character which can be related to its corresponding pixelized image by a classification method. \par
 
 The database contains 60\,000 training images and 10\,000 testing images for $X$ and $Y$. Many different authors~\cite{MNIST_classification_example}, have tried to achieve the lowest error rate on it. Convolutional neural networks managed to get a very low error of around $0.23$, although other methods such as support-vector machine get an error of as low as $0.56$ too~\footcite{wiki:MNIST}.
 %
@@ -110,9 +109,7 @@ Our goal when fitting MNIST  through the autoencoder is to asses its capabilitie
 \subsection{Ionosphere}
 \label{subsec:Ionosphere}
 
-\todo[inline]{Include citation.}
-
-Ionosphere represents a set of data collected by a radar in Goose Bay, and later used for data science purposes by the Johns Hopkins University~\cite{citation}. The antenna had a phase array of 16 high-frequency antennas and used times pulses and pulse numbers for processing. The outputs can be labeled as either "good" or "bad", referring to the fact that a radar signal going through the ionosphere and thus showing no evidence of the existence of an ionosphere was labeled as "bad", and in any other case we would be labeling it as "good". It can be found on the R package "mlbench". %\newline
+Ionosphere~\cite{Ionosphere_article} represents a set of data collected by a radar in Goose Bay, and later used for data science purposes by the Johns Hopkins University~\cite{citation}. The antenna had a phase array of 16 high-frequency antennas and used times pulses and pulse numbers for processing. The outputs can be labeled as either "good" or "bad", referring to the fact that a radar signal going through the ionosphere and thus showing no evidence of the existence of an ionosphere was labeled as "bad", and in any other case we would be labeling it as "good". It can be found on the R package "mlbench". %\newline
 %
 \begin{figure}[H]
 	\centering
@@ -132,7 +129,7 @@ K-Nearest Neighbours (KNN) is a non-parametric supervised classification method 
 
 The KNN algorithm hinges on the assumption that similar data must be close in a metric space representation. This hypothesis means that, in practice, we must take into account that proximity will be primordial to the outcome of our classification process when we are using the KNN classifier. This particular way of solving a data analysis problem is specially interesting when the data we are trying to analyse is very close to the same labelled data, since KNN relies in a ``majority voting'' scheme to predict the class for a sample using $K$ nearest neighbour samples---hence the name of the technique---, where $K$ is a fixed parameter of each run of the algorithm. 
 
-Although the majority voting classification method has some positive advantages~\cite{citation}, it also comes with some drawbacks too: in those cases where the class distributions are skewed, we can end up with a class which solely dominates the predictions. There are many ways of overcoming this issue, such as assigning proportional weights or to build clusters with similar points, but the reality is that KNN has a defined scalability that depends on the noise of your data and the characteristic of your dataset~\cite{citation}. \par
+Although the majority voting classification method has some positive advantages~\cite{article_voting_algorithms}, it also comes with some drawbacks too: in those cases where the class distributions are skewed, we can end up with a class which solely dominates the predictions. There are many ways of overcoming this issue, such as assigning proportional weights or to build clusters with similar points, but the reality is that KNN has a defined scalability that depends on the noise of your data and the characteristic of your dataset~\cite{Knn_characteristics}. \par
 
 In order to try to improve results and polish the overall performance of the algorithm there are some tricks to take into account and follow when designing it: 
 
@@ -172,9 +169,9 @@ PCA is used in the data analysis field for Exploratory (EDA) or Confirmatory Dat
 	
 	\item[$\bullet$] PCA is a simple eigenvector-based multivariate analysis. This is specially important to our task since this operation can help us discern the real structure of the data. It can also reduce the dimensionality of the data to view its most informative components and features.
 	
-	\item[$\bullet$] It resembles factor analysis~\cite{citation}. Both of them are used to describe the variability of the data and reduce its dimensionality, but use different techniques to reach that goal.
+	\item[$\bullet$] It resembles factor analysis~\cite{PCA_and_factor_analysis}. Both of them are used to describe the variability of the data and reduce its dimensionality, but use different techniques to reach that goal.
 	
-	\item[$\bullet$] It also resembles canonical correlation analysis (CCA)~\cite{citation}. While CCA tries to describe the cross-variance between two datasets, PCA defines the variance of a single dataset by using an orthogonal coordinate system.
+	\item[$\bullet$] It also resembles canonical correlation analysis (CCA)~\cite{PCA_and_CCA}. While CCA tries to describe the cross-variance between two datasets, PCA defines the variance of a single dataset by using an orthogonal coordinate system.
 	
 \end{description}
 
