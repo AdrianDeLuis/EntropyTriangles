@@ -215,8 +215,6 @@ In addition to plotting the entropic characteristics of the variables, it could 
 
 %We can therefore conclude that, in the case of the classification using the  knn on both the PCA and the Autoencoder, we have found the latter to do a better job than the first one informationally speaking, thus leaving us with the assumption that it is the preferred solution for the Iris dataset.
 
-\todo[inline]{So far 20/09/2019}
-
 \subsubsection{	MLP on PCA and Autoencoder}
 
 Before fitting the data through a MLP, we have to specify the structure that we are implementing on our Neural Network. Seeing that the PCA and the Autoencoder both predict different lengths for our target training matrices, we have to take into account that the input shape will differ. \par
@@ -230,21 +228,18 @@ Once we know that, we can start looking at our structure. Since we are dealing a
 \end{figure}
 
 After figuring out the structure, we now have to decide which activation function would fit the best for each layer. As in the Autoencoder, the first layer will be a Relu, the second one acquires the role of the Sigmoid and finally, as the MLP is a classifier, we have to place a softmax activation function at the end. We want the output of our Autoencoder to be a decision and the softmax is the chosen solution, as we will get our output variables to have an added value equal to 1, being the greater one the label predicted. \par
-% 
+
+
+From Figure~\ref{fig:figure_MLP_Iris_ET_Auto} we can see that we have obtained more spatially separated points in our ET with respect to Figure~\ref{fig:figure_Knn_Iris_ET_Auto} from the previous section. Nevertheless, it seems that the results from the MLP classifier overall show a better performance at classifying our observations than the KNN for the same $\overline{Z}$. We even see that the third testing fold was classified perfectly.
+%
 \begin{figure}[H]
-	
 	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iris_Auto_Mlp}
 	\caption{Entropy Triangle using Autoencoder + MLP in Iris}
 	\label{fig:figure_MLP_Iris_ET_Auto}
 \end{figure}
 
-\begin{figure}[H]
-	
-	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iris_Auto_Mlp_Confidence}
-	\caption{Entropy Triangle confidence interval using Autoencoder + MLP in Iris}
-	\label{fig:figure_MLP_Iris_ET_Auto_Confidence}
-\end{figure}
-
+We observe the same spatial separation and behavior on the PCA transformation by comparing again Figure \ref{fig:figure_MLP_Iris_ET_PCA} with~\ref{fig:figure_Knn_Iris_ET_PCA}. Again we are obtaining better results than those from the KNN.
+%
 \begin{figure}[H]
 	
 	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iris_Pca_Mlp}
@@ -252,32 +247,40 @@ After figuring out the structure, we now have to decide which activation functio
 	\label{fig:figure_MLP_Iris_ET_PCA}
 \end{figure}
 
+On the other hand, Figure \ref{fig:figure_MLP_Iris_ET_PCA_Confidence} and Figure \ref{fig:figure_MLP_Iris_ET_Auto_Confidence} have greater confidence intervals than those presented in the previous section. The uncertainty introduced in the predictive process affects this time both the PCA and the Autoencoder, although we see that the training of the Autoencoder added to the training of the MLP has made our confidence interval in Figure \ref{fig:figure_MLP_Iris_ET_Auto_Confidence} increase greatly. Basically, we can see here that without proper training our folds could specialize in predicting certain class rather than being balanced.
+%
 \begin{figure}[H]
+\begin{subfigure}{1\textwidth}  
+	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iris_Auto_Mlp_Confidence}
+	\caption{Entropy Triangle confidence interval using Autoencoder + MLP in Iris}
+	\label{fig:figure_MLP_Iris_ET_Auto_Confidence}
+\end{subfigure}
+
+\begin{subfigure}{1\textwidth}  
 	
 	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iris_Pca_Mlp_Confidence}
 	\caption{Entropy Triangle confidence interval using PCA + MLP in Iris}
 	\label{fig:figure_MLP_Iris_ET_PCA_Confidence}
+\end{subfigure}
+\caption{A comparison of using PCA or the Autoencoder as pre-processing step for MLP}
+\label{fig:figure_MLP_Iris_ET}
 \end{figure}
-
-From Figure \ref{fig:figure_MLP_Iris_ET_Auto} we can see that we have obtained more spatially separated points in our ET with respect to Figure \ref{fig:figure_Knn_Iris_ET_Auto} from the previous section. Nevertheless, it seems that the results from the MLP classifier overall show a better performance at classifying our observations than the Knn for the same $\overline{Z}$. We even see that the third testing fold was classified perfectly.
-
-We observe the same spatial separation and behavior on the PCA transformation by comparing again Figure \ref{fig:figure_MLP_Iris_ET_PCA} with \ref{fig:figure_Knn_Iris_ET_PCA}. Again we are obtaining better results than those from the Knn. \par
-
-On the other hand, Figure \ref{fig:figure_MLP_Iris_ET_PCA_Confidence} and Figure \ref{fig:figure_MLP_Iris_ET_Auto_Confidence} have greater confidence intervals than those presented in the previous section. The uncertainty introduced in the predictive process affects this time both the PCA and the Autoencoder, although we see that the training of the Autoencoder added to the training of the MLP has made our confidence interval in Figure \ref{fig:figure_MLP_Iris_ET_Auto_Confidence} increase greatly. Basically, we can see here that without proper training our folds could specialize in predicting certain class rather than being balanced.
  
 \subsection{Results discussion} 
 
-After analyzing the Knn and MLP by on its own, we now are going to plot the summation from all of the testing folds in order to get an overall idea about how well each one of our transformations + classifications performed.\par                 
+After analyzing the KNN and MLP by on its own, we now are going to plot the average from all of the testing folds in order to get an overall idea about how well each one of our transformation-with-classifications performed.               
 
 We are using the testing fold only in order to see how well our transformations performed in our data we have to compare the accuracy of its predictions over the whole dataset. We don't need to asses the training as we have already seen on the previous sections that our training folds results in the ET have been consistent with its testing observations. \par
 
+By looking at Figure \ref{fig:figure_ET_Total_Testing_Iris} the MLP classifier on the Autoencoder seems to have outperformed the rest of the testing structures. The worst one is the Knn in PCA, which is placed lower in the ET. If we consider the reliability of all the classifiers included, we can see that overall all of them do a good job at classifying the Iris dataset. However, the accuracy of the MLP with the Autoencoder outperforms the rest of them.
+%
 \begin{figure}[H]
 	\includegraphics[width=1\linewidth]{Figuras_tfg/ET_Iris_Total_Results}
 	\caption{Entropy Triangle in Iris with the total testing result}
 	\label{fig:figure_ET_Total_Testing_Iris}
 \end{figure}
 
-By looking at Figure \ref{fig:figure_ET_Total_Testing_Iris} the MLP classifier on the Autoencoder seems to have outperformed the rest of the testing structures. The worst one is the Knn in PCA, which is placed lower in the ET. If we consider the reliability of all the classifiers included, we can see that overall all of them do a good job at classifying the Iris datasset. However, the accuracy of the MLP with the Autoencoder outperforms the rest of them.
+\todo[inline]{So far 20/09/2019}
 
 \section{Ionosphere Dataset}
 \subsection{Data Preparation}
