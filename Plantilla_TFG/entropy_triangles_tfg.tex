@@ -24,6 +24,25 @@ hmargin=3cm
 \usepackage{hyperref}
 % ENLACES
 
+%\usepackage[symbols,nogroupskip,sort=none]{glossaries-extra}
+\usepackage[symbols,nogroupskip,record]{glossaries-extra}
+
+ 
+
+\glsxtrnewsymbol[description={Autoencoder}]{AE}{\ensuremath{\textbf{AE}}}
+\glsxtrnewsymbol[description={Deep Neural Networks}]{DNN}{\ensuremath{\textbf{DNN}}}
+\glsxtrnewsymbol[description={Entropy Triangles}]{ET}{\ensuremath{\textbf{ET}}}
+\glsxtrnewsymbol[description={General Data Protection Regularization}]{GDOR}{\ensuremath{\textbf{GDPR}}}
+\glsxtrnewsymbol[description={Information Bottleneck}]{IP}{\ensuremath{\textbf{IP}}}
+\glsxtrnewsymbol[description={Information Theorethic Learning}]{ITL}{\ensuremath{\textbf{ITL}}}
+\glsxtrnewsymbol[description={K Nearest Neighbors}]{Knn}{\ensuremath{\textbf{Knn}}}
+\glsxtrnewsymbol[description={Multilayer Perceptron}]{MLP}{\ensuremath{\textbf{MLP}}}
+\glsxtrnewsymbol[description={Machine Learning}]{ML}{\ensuremath{\textbf{ML}}}
+\glsxtrnewsymbol[description={Principal Components Analysis}]{PCA}{\ensuremath{\textbf{PCA}}}
+
+
+
+
 \renewcommand{\chapterautorefname}{Chapter}
 
 \hypersetup{colorlinks=true,
@@ -330,11 +349,12 @@ The aim of this Undergraduate Thesis is to analyse the performance of Entropy Tr
 \thispagestyle{empty}
 \mbox{}
 
+\printunsrtglossary[type=symbols,style=long,title={List of abbreviations}]
 %----------
 % Abbreviations
 %----------
-\chapter*{List of abbreviations}
-\include{abbreviations.tex}
+%\chapter*{List of abbreviations}
+%\include{abbreviations.tex}
 
 
 %----------
