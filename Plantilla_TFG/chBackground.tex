@@ -105,16 +105,14 @@ The Autoencoder was first proposed to test the concepts of ITL on~\cite{Santana_
 \label{eq:Principe_loss_function}
 cost = L(x,\overline{X}) + \lambda \times R(E,P)
 \end{equation}
-In \eqref{eq:Principe_loss_function} $L$ is the reconstruction cost function measuring the loss between the original $X$ and the predicted $\overline{X}$ at the output of the Autoencoder. $R$ is a functional regularization that uses information theoretic measures.
-\todo[inline]{FVA: explain also the meaning of the $\lambda$ parameter.}
+In \eqref{eq:Principe_loss_function} $L$ is the reconstruction cost function measuring the loss between the original $X$ and the predicted $\overline{X}$ at the output of the Autoencoder. $R$ is a functional regularization that uses information theoretic measures, $P$ is the imposed prior and $\lambda$ is a scale parameter that controls the strength of the regularization.
+
 \begin{figure}[H]
 	\centering	
 	\includegraphics[width=\linewidth]{Principe_Autoencoder}
 	\caption{Autoencoder illustrating Equation \ref{eq:Principe_loss_function} from~\protect\cite{Santana_2016}.}
 	\label{fig:figure_autoencoder2}
 \end{figure} 
-
-\todo[inline]{SO FAR 22/09/2019}
 
 In \cite{Yu_2019} Principe and Yu expand on the use of Autoencoders and explore some of its key aspects regarding the bottleneck layer. By analyzing the remarkable similarities between a transmission channel and the Autocoder(an structure also proposed in this report) they use widespread available materials and datasets to evaluate the capacity of a stacked Autoencoder (as we do on our experiments) to demonstrate the ITL. 
 

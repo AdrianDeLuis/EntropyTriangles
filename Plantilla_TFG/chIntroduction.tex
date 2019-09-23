@@ -8,48 +8,42 @@ During the last few years, the topic of Big Data has become increasingly more im
 An conceptual diagram of this model can be found in Figure~\ref{fig:fig1}.\subref{fig:fig1b}, where each block represents a different function inside an end-to-end informational model. Suppose we could only take measures outside each of the blocks and the contents or the methods being used inside are outside of the scope of the task. By not being able to access each one of the blocks to evaluate the processes inside them, we may only fix or change their inputs to try to improve our results.
 %
 \begin{figure}[H]
-\begin{subfigure}{1\textwidth}  
- \centering
-  \includegraphics[width=16cm]{Figuras_tfg/Figura1_tfg}
-  \caption{Conceptual representation of a classification process as a communication scheme.}
- \label{fig:fig1b} 
-\end{subfigure}%  
-
-\begin{subfigure}{1\textwidth} 
-  \centering
-  \includegraphics[width=16.5cm]{Figuras_tfg/Figura1_1_tfg}
-  \caption{Our end-to-end scheme uses the information regarded from inside the transformation block and we then produce two outputs. First, the predicted (X) which we can use to measure our transformation accuracy. Secondly, the (Z), which contains compressed information about (X)}
-  \label{fig:fig1a} 
-\end{subfigure}%  
-\caption{Comparison between the classical view of a supervised classification in (a) versus the the model implemented for the purpose of this work in (b).}
-\label{fig:fig1}
+	\begin{subfigure}{1\textwidth}  
+		\centering
+		\includegraphics[width=16cm]{Figuras_tfg/Figura1_tfg}
+		\caption{Conceptual representation of a classification process as a communication scheme.}
+		\label{fig:fig1b} 
+	\end{subfigure}%  
+	
+	\begin{subfigure}{1\textwidth} 
+		\centering
+		\includegraphics[width=16.5cm]{Figuras_tfg/Figura1_1_tfg}
+		\caption{Our end-to-end scheme uses the information regarded from inside the transformation block and we then produce two outputs. First, the predicted (X) which we can use to measure our transformation accuracy. Secondly, the (Z), which contains compressed information about (X)}
+		\label{fig:fig1a} 
+	\end{subfigure}%  
+	\caption{Comparison between the classical view of a supervised classification in (a) versus the the model implemented for the purpose of this work in (b).}
+	\label{fig:fig1}
 \end{figure}
 
 \section{Objective}
 
 The model that I will be implementing will be an adaptation of the scheme on Figure~\ref{fig:fig1}.\subref{fig:fig1a}. To further investigate on the boundaries of Information transmission , I will be using an \textbf{Autoencoder} to test the Information Bottleneck Principle~\cite{Inf_Bottleneck_first}.
 
-%FVA: find the original paper of the IB principle, for instance in Wikipedia, and cite it here.  The bibliography has to go in its own *.bib file.
-%I am including one with the same name as the main file, with the papers on the triangles, which I can very easily create from my reference manager. You just have to add to this one with a bib manager. I use BibDesk which comes along with TeXStudio.
-% You have to cite the papers on the triangles in the triangles section, of course. 
-
 In this report, I designed the following model which provides reliable information about the process of data compression and the limits of quantifiable information:
-
-% FVA: itemizations and enumerations have their own enviroments in LaTeX.
++
 \begin{itemize}
-\item  We have a random source $K$ generating observations. Through a process of measurements, our system then will be provided with other random observations $\hat{X}$. 
-
-\item The output observations  are then fed to the Autoencoder, which will then reduce the $\overline X$ into another vector $Z$ with a different length but retaining the information from the input vector in a compressed from. 
-
-\item The Autoencoder also provides  an output, which should be a reconstruction of the observations used to feed the Deep Learning structure. 
-
-\item The $\overline Z$ is then used for the classifying task of choice to output the predicted labels. 
-
+	\item  We have a random source $K$ generating observations. Through a process of measurements, our system then will be provided with other random observations $\hat{X}$. 
+	
+	\item The output observations  are then fed to the Autoencoder, which will then reduce the $\overline X$ into another vector $Z$ with a different length but retaining the information from the input vector in a compressed from. 
+	
+	\item The Autoencoder also provides  an output, which should be a reconstruction of the observations used to feed the Deep Learning structure. 
+	
+	\item The $\overline Z$ is then used for the classifying task of choice to output the predicted labels. 
+	
 \end{itemize}
 
 Note that Figure~\ref{fig:fig1a} follows a similar model to that of Figure \ref{fig:fig1}, but its transformation block is used to access the inside content of it rather than to provide a typical representation of an end-to-end transformation scheme. Although both of them typify a MIMO (Multiple Input Multiple Output) block, the Autoencoder is essentially an unsupervised transformation method, while the transformation block can be either composed by supervised or unsupervised task.\par
 
-% FVA: this is a reading aid, well done! Now you also need to tell what the rest of the chapters are. 
 
 \section{Outline}
 
@@ -58,10 +52,8 @@ This report is divided into six Chapters, each one of them exploring different p
 \begin{itemize}
 	\item \textbf{ \autoref{chap:Introduction}, Introduction} : Explains briefly the key concepts of the report as well as the cost of the project and the socioeconomic impact of Big Data.
 	
-	\item \textbf{ \autoref{chap:BasicPrin}, Basic Principles} : Includes basic information about the theory and methods used.
+	\item \textbf{ \autoref{chap:TheoreticalBackground}, Theoretical Background} : Includes basic information about the theory and methods used in the Bachelor Thesis as well as the state of the art.
 	
-	\item \textbf{ \autoref{chap:StateArt}, State of the Art} : Introduces some instances of work done by researchers on the field of the Informational Theory.
-
 	\item \textbf{ \autoref{chap:Develop}, Development} : Key aspects to be aware of before starting the experimental phase of the project.
 	
 	\item \textbf{ \autoref{chap:Result}, Result} : Presenting the results as well as the process to obtain them.
@@ -70,20 +62,21 @@ This report is divided into six Chapters, each one of them exploring different p
 	
 \end{itemize}
 
-\section{Budget}
+\section{Socio-economic environment}
+\subsection{Budget}
 
-The Budget for the project has been assigned according to three main costs : licenses, equipment and labour. The licenses used in this project are both included for Windows 10 and Mac OS X Mojave. On the other hand, the equipment includes the hardware and the resources needed for its adequate use. Finally, the labour costs are calculated using the metrics available at Indeed.com \cite{ProgrammerSalaries}, and then considering that each programmer works 8 hours daily, 22 days monthly and 12 months yearly. \par
+The Budget for the project has been assigned according to three main costs : licenses, equipment and labor. The licenses used in this project are both included for Windows 10 and Mac OS X Mojave. On the other hand, the equipment includes the hardware and the resources needed for its adequate use. Finally, the labor costs are calculated using the metrics available at Indeed.com \cite{ProgrammerSalaries}, and then considering that each programmer works 8 hours daily, 22 days monthly and 12 months yearly. \par
 \begin{table}[H]
 	\caption{Total budget costs table}
 	\label{tbl:budget_table}
-    \includegraphics[width=\linewidth]{Table_Costs.png}
+	\includegraphics[width=\linewidth]{Table_Costs.png}
 \end{table}
 
-\section{Socio-economic relevance}
+\subsection{Socio-economic relevance}
 
-Big Data and Neural Networks have been referred to two of the major innovations of our decade. Many mainstream media articles have appeared in recent years discussing the impact that it will have in our lives~\cite{Forbes_Article}. Economic agents have been working on their development and how it will affect the way business are conducted in our modern era. In the same way, people have started to realise that data analytics and the management of information are important topics that affects each and everyone of us.
+Big Data and Neural Networks have been referred to two of the major innovations of our decade. Many mainstream media articles have appeared in recent years discussing the impact that it will have in our lives~\cite{Forbes_Article}. Economic agents have been working on their development and how it will affect the way business are conducted in our modern era. In the same way, people have started to realize that data analytics and the management of information are important topics that affects each and everyone of us.
 
-In this context, assessing the validity of results and their reliability becomes a must. From the medical field, where data can be critical to find the cure for a specific disease~\cite{Nature_Article}, to designing safety systems and creating better customer relationships for aviation companies~\cite{Article_Aviation}, it is highly important for researchers to improve their methods to solve Big Data problems so they are able to find the correct solutions to these challenges. Moreover, thanks to the advances in hardware and information available to the public, everyone has access to a wide variety of information on the topic of Big Data. Taking all these points into account, establishing an empirical tool that is able to polish research and strengthen results in the data analytics field can have a positive impact that affects all stakeholders. %FVA: Translations "agentes implicados". 
+In this context, assessing the validity of results and their reliability becomes a must. From the medical field, where data can be critical to find the cure for a specific disease~\cite{Nature_Article}, to designing safety systems and creating better customer relationships for aviation companies~\cite{Article_Aviation}, it is highly important for researchers to improve their methods to solve Big Data problems so they are able to find the correct solutions to these challenges. Moreover, thanks to the advances in hardware and information available to the public, everyone has access to a wide variety of information on the topic of Big Data. Taking all these points into account, establishing an empirical tool that is able to polish research and strengthen results in the data analytics field can have a positive impact that affects all stakeholders.
 
 To sum up, Big Data has changed the way society is and by improving it we can be able to shape the technology and lives of tomorrow's people.
 
@@ -91,7 +84,7 @@ To sum up, Big Data has changed the way society is and by improving it we can be
 
 The regulatory framework of this project can be closely related with Regulation 2019/679 of the European Parliament, also known as General Data Protection Regulation~\cite{GDPR}. The aim of this law is to protect the privacy of all of the individual citizens of the European Union (EU) and the European Economic Area. The GDPR gives the people of the EU the control of their personal data, which protects them from violations related to the use of their personal data in processes like Big Data or Data Analytics without their consent. It is also divided into eleven chapters, each one of them referring to different aspects of the legislation. 
 
-In the development of this project no personal data was used for the experiments involved, but if data was to be used replicating the procedures presented in the document for commercial use (thus not applying Recital 18), some pieces of the regulation must be specially taken into consideration before doing so. %\newline
+If data was to be used replicating the procedures presented in the Bachelor Thesis for commercial use (thus not applying Recital 18), some pieces of the regulation must be specially taken into consideration before doing so. %\newline
 \begin{figure}[H]
 	\caption{View from the outside of the European Parliament.}
 	\label{fig:European_Parliament}
@@ -103,24 +96,23 @@ Although all of the chapters introduced in the document are related to the topic
 A list  of Articles that apply---and in which respect---follows:
 %
 \begin{itemize}
-\item \textbf{Article 25} requires private data to be stored using the appropriate measures, and by further reading into it we see that Recital 78 mandates to store the data in such a way that it cannot be traced back to the source without additional information.
-
-\item At the same time, \textbf{Article 30} states that the processing activities related with such personal information must be recorded and kept. 
-
-\item  If a security break happened and private information from the users is compromised, \textbf{Article 33} mandates that the supervisory authority must be notified unless the breach is unlikely to affect individual rights. 
-
-\item In case that the accessed information is likely to risk the rights and freedoms of a person, the individual must be notified (\textbf{Article 34}).
-
-\item To avoid breaches and help secure individuals' data,\textbf{Article 35} accounts for data protection impact assessments to be conducted if specific risks arise.
-
-\item \textbf{Article 37} requires a data protection officer to be designated in order to assist in the monitoring of the compliance with the Regulation and, in case of criminal conduct, measures have to taken by the regulatory agency (\textbf{Article 9} and \textbf{Article 10}).
-
-\item  Organizations outside of the EU must also appoint a representative (\textbf{Article 27}).
-
+	\item \textbf{Article 25} requires private data to be stored using the appropriate measures, and by further reading into it we see that Recital 78 mandates to store the data in such a way that it cannot be traced back to the source without additional information.
+	
+	\item At the same time, \textbf{Article 30} states that the processing activities related with such personal information must be recorded and kept. 
+	
+	\item  If a security break happened and private information from the users is compromised, \textbf{Article 33} mandates that the supervisory authority must be notified unless the breach is unlikely to affect individual rights. 
+	
+	\item In case that the accessed information is likely to risk the rights and freedoms of a person, the individual must be notified (\textbf{Article 34}).
+	
+	\item To avoid breaches and help secure individuals' data,\textbf{Article 35} accounts for data protection impact assessments to be conducted if specific risks arise.
+	
+	\item \textbf{Article 37} requires a data protection officer to be designated in order to assist in the monitoring of the compliance with the Regulation and, in case of criminal conduct, measures have to taken by the regulatory agency (\textbf{Article 9} and \textbf{Article 10}).
+	
+	\item  Organizations outside of the EU must also appoint a representative (\textbf{Article 27}).
+	
 \end{itemize}  
 
-\todo[inline]{FVA: it seems weird to cite all this prolegomena and not finish up by stating that your thesis complies with this. }
-
+This Bachelor Thesis complies with all of the Articles from the GDPR since no personal data was acquired or used for the purpose of our experiments. In case of performing the methods mentioned with the purpose of gaining financial benefit by using personal data, the previous guidelines should be followed to secure the privacy of the individual's information involved in the experiments. \par
 
 
 

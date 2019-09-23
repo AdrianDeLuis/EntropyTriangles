@@ -211,180 +211,179 @@ hmargin=3cm
 \graphicspath {{Figuras_tfg/}}
 
 \begin{document}
-\pagenumbering{roman} % Se utilizan cifras romanas en la numeración de las páginas previas al cuerpo del trabajo
+	\pagenumbering{roman} % Se utilizan cifras romanas en la numeración de las páginas previas al cuerpo del trabajo
 	
-%----------
-%	PORTADA
-%----------	
-\begin{titlepage}
-	\begin{sffamily}
-	\color{azulUC3M}
-	\begin{center}
-		\begin{figure}[H] %incluimos el logotipo de la Universidad
-			\makebox[\textwidth][c]{\includegraphics[width=16cm]{Figuras_tfg/Portada_Logo.png}}
-		\end{figure}
-		\vspace{2.5cm}
-		\begin{Large}
-			Bachelor's Degree in Telecommunication Engineering\\			
-			Academic Year 2018-2019\\
-			\vspace{2cm}		
-			\textsl{Bachelor Thesis}
-			\bigskip
-			
-		\end{Large}
-		 	{\Huge Entropy Triangles:}\\
-		 	{\Large An application to measuring\\the transmission of entropy in Autoencoders}\\
-		 	\vspace*{0.5cm}
-	 		\rule{10.5cm}{0.1mm}\\
-			\vspace*{0.9cm}
-			{\LARGE Adrian Manuel de Luis García}\\ 
-			\vspace*{1cm}
-		\begin{Large}
-			Tutor: Francisco Jos\'e Valverde Albacete\\
-			%2nd Tutor complete name\\
-			Legan\'es, 10/23/2019\\
-		\end{Large}
-	\end{center}
-	\vfill
-	\color{black}
-	% si nuestro trabajo se va a publicar con una licencia Creative Commons, incluir estas líneas. Es la opción recomendada.
-	\includegraphics[width=4.2cm]{imagenes/creativecommons.png}\\  %incluimos el logotipo de creativecommons
-	\emph{[Include this code in case you want your Bachelor Thesis published in Open Access University Repository]}\\ % BORRAR ESTA LÍNEA
-	This work is licensed under Creative Commons \textbf{Attribution – Non Commercial – Non Derivatives}
-	\end{sffamily}
-\end{titlepage}
-
-\newpage %página en blanco o de cortesía
-\thispagestyle{empty}
-\mbox{}
-
-%----------
-%	RESUMEN Y PALABRAS CLAVE
-%----------	
-\renewcommand\abstractname{\large\uppercase{Summary}}
-\begin{abstract}
-\thispagestyle{plain}
-\setcounter{page}{3}
+	%----------
+	%	PORTADA
+	%----------	
+	\begin{titlepage}
+		\begin{sffamily}
+			\color{azulUC3M}
+			\begin{center}
+				\begin{figure}[H] %incluimos el logotipo de la Universidad
+					\makebox[\textwidth][c]{\includegraphics[width=16cm]{Figuras_tfg/Portada_Logo.png}}
+				\end{figure}
+				\vspace{2.5cm}
+				\begin{Large}
+					Bachelor's Degree in Telecommunication Engineering\\			
+					Academic Year 2018-2019\\
+					\vspace{2cm}		
+					\textsl{Bachelor Thesis}
+					\bigskip
+					
+				\end{Large}
+				{\Huge Entropy Triangles:}\\
+				{\Large An application to measuring\\the transmission of entropy in Autoencoders}\\
+				\vspace*{0.5cm}
+				\rule{10.5cm}{0.1mm}\\
+				\vspace*{0.9cm}
+				{\LARGE Adrian Manuel de Luis García}\\ 
+				\vspace*{1cm}
+				\begin{Large}
+					Tutor: Francisco Jos\'e Valverde Albacete\\
+					%2nd Tutor complete name\\
+					Legan\'es, 10/23/2019\\
+				\end{Large}
+			\end{center}
+			\vfill
+			\color{black}
+			% si nuestro trabajo se va a publicar con una licencia Creative Commons, incluir estas líneas. Es la opción recomendada.
+			\includegraphics[width=4.2cm]{imagenes/creativecommons.png}\\  %incluimos el logotipo de creativecommons
+			\emph{[Include this code in case you want your Bachelor Thesis published in Open Access University Repository]}\\ % BORRAR ESTA LÍNEA
+			This work is licensed under Creative Commons \textbf{Attribution – Non Commercial – Non Derivatives}
+		\end{sffamily}
+	\end{titlepage}
 	
-The aim of this Undergraduate Thesis is to analyse the performance of Entropy Triangles when applied to typical Deep Neural Datasets.
+	\newpage %página en blanco o de cortesía
+	\thispagestyle{empty}
+	\mbox{}
 	
-	\textbf{Keywords:}
-	% Escribir las palabras clave aquí
-	
-	\vfill
-\end{abstract}
+	%----------
+	%	RESUMEN Y PALABRAS CLAVE
+	%----------	
+	\renewcommand\abstractname{\large\uppercase{Summary}}
+	\begin{abstract}
+		\thispagestyle{plain}
+		\setcounter{page}{3}
+		
+		The aim of this Undergraduate Thesis is to analyse the performance of Entropy Triangles when applied to typical Deep Neural Datasets.
+		
+		\textbf{Keywords:}
+		% Escribir las palabras clave aquí
+		
+		\vfill
+	\end{abstract}
 	\newpage % página en blanco o de cortesía
 	\thispagestyle{empty}
 	\mbox{}
-
-
-%----------
-%	DEDICATORIA
-%----------	
-\chapter*{Dedication}
-\input{fva_comments.tex} % FVA: comment this line when everything under it is taken care of. 
-
-
-\setcounter{page}{5}
+	
+	
+	%----------
+	%	DEDICATORIA
+	%----------	
+	\chapter*{Dedication}
+	\input{fva_comments.tex} % FVA: comment this line when everything under it is taken care of. 
+	
+	
+	\setcounter{page}{5}
 	
 	% ESCRIBIR LA DEDICATORIA AQUÍ	
-		
+	
 	\vfill
 	
 	\newpage % página en blanco o de cortesía
 	\thispagestyle{empty}
 	\mbox{}
 	
-
-%----------
-%	ÍNDICES
-%----------	
-
-%--
-%Índice general
-%-
-\tableofcontents
-\thispagestyle{fancy}
-
-\newpage % página en blanco o de cortesía
-\thispagestyle{empty}
-\mbox{}
-
-%--
-% Índice de figuras. Si no se incluyen, comenta las líneas siguientes
-%-
-\listoffigures
-\thispagestyle{fancy}
-
-\newpage % página en blanco o de cortesía
-\thispagestyle{empty}
-\mbox{}
-
-%--
-% Índice de tablas. Si no se incluyen, comenta las líneas siguientes
-%-
-\listoftables
-\thispagestyle{fancy}
-
-\newpage % página en blanco o de cortesía
-\thispagestyle{empty}
-\mbox{}
-
-
-%----------
-%	TRABAJO
-%----------	
-\clearpage
-\pagenumbering{arabic} % numeración con múmeros arábigos para el resto de la publicación	
-
-% COMENZAR A ESCRIBIR EL TRABAJO
-
-\chapter{Introduction}
-\label{chap:Introduction}
-\input{chIntroduction.tex}
-
-\chapter{Theoretical Background}
-%\chapter{Basic Principles}
-\label{chap:BasicPrin}
-%\input{chBasicPrinciples.tex}
-\input{chBackground.tex}
-%\chapter{State of the Art}
-\label{chap:StateArt}
-%\input{chStateArt.tex}
-
-\chapter{Development}
-\label{chap:Develop}
-\input{chDevelopment.tex}
-
-\chapter{Results}
-\label{chap:Result}
-\input{chResults.tex}
-
-\chapter{Conclusion}
-\label{chap:Conclusion}
-\input{chConclusion.tex}
-
-%----------
-%	BIBLIOGRAFÍA
-%----------	
-
-%\nocite{*} % Si quieres que aparezcan en la bibliografía todos los documentos que la componen (también los que no estén citados en el texto) descomenta está lína
-
-%\bibliography{entropy_triangles_tfg}
-
-\clearpage
-%\addcontentsline{toc}{chapter}{Bibliography}
-
-
-\printbibliography
-%----------
-%	ANEXOS
-%----------	
-
-% Si tu trabajo incluye anexos, puedes descomentar las siguientes líneas
-%\chapter* {Appendix x}
-%\pagenumbering{gobble} % Las páginas de los anexos no se numeran
-
-
-
+	
+	%----------
+	%	ÍNDICES
+	%----------	
+	
+	%--
+	%Índice general
+	%-
+	\tableofcontents
+	\thispagestyle{fancy}
+	
+	\newpage % página en blanco o de cortesía
+	\thispagestyle{empty}
+	\mbox{}
+	
+	%--
+	% Índice de figuras. Si no se incluyen, comenta las líneas siguientes
+	%-
+	\listoffigures
+	\thispagestyle{fancy}
+	
+	\newpage % página en blanco o de cortesía
+	\thispagestyle{empty}
+	\mbox{}
+	
+	%--
+	% Índice de tablas. Si no se incluyen, comenta las líneas siguientes
+	%-
+	\listoftables
+	\thispagestyle{fancy}
+	
+	\newpage % página en blanco o de cortesía
+	\thispagestyle{empty}
+	\mbox{}
+	
+	
+	%----------
+	%	TRABAJO
+	%----------	
+	\clearpage
+	\pagenumbering{arabic} % numeración con múmeros arábigos para el resto de la publicación	
+	
+	% COMENZAR A ESCRIBIR EL TRABAJO
+	
+	\chapter{Introduction}
+	\label{chap:Introduction}
+	\input{chIntroduction.tex}
+	
+	\chapter{Theoretical Background}
+	%\chapter{Basic Principles}
+	\label{chap:TheorethicalBackground}
+	%\input{chBasicPrinciples.tex}
+	\input{chBackground.tex}
+	%\chapter{State of the Art}
+	%\input{chStateArt.tex}
+	
+	\chapter{Development}
+	\label{chap:Develop}
+	\input{chDevelopment.tex}
+	
+	\chapter{Results}
+	\label{chap:Result}
+	\input{chResults.tex}
+	
+	\chapter{Conclusion}
+	\label{chap:Conclusion}
+	\input{chConclusion.tex}
+	
+	%----------
+	%	BIBLIOGRAFÍA
+	%----------	
+	
+	%\nocite{*} % Si quieres que aparezcan en la bibliografía todos los documentos que la componen (también los que no estén citados en el texto) descomenta está lína
+	
+	%\bibliography{entropy_triangles_tfg}
+	
+	\clearpage
+	%\addcontentsline{toc}{chapter}{Bibliography}
+	
+	
+	\printbibliography
+	%----------
+	%	ANEXOS
+	%----------	
+	
+	% Si tu trabajo incluye anexos, puedes descomentar las siguientes líneas
+	%\chapter* {Appendix x}
+	%\pagenumbering{gobble} % Las páginas de los anexos no se numeran
+	
+	
+	
 \end{document}
