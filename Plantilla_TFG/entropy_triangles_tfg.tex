@@ -35,9 +35,10 @@ hmargin=3cm
 \glsxtrnewsymbol[description={General Data Protection Regularization}]{GDOR}{\ensuremath{\textbf{GDPR}}}
 \glsxtrnewsymbol[description={Information Bottleneck}]{IP}{\ensuremath{\textbf{IP}}}
 \glsxtrnewsymbol[description={Information Theorethic Learning}]{ITL}{\ensuremath{\textbf{ITL}}}
-\glsxtrnewsymbol[description={K Nearest Neighbors}]{KNN}{\ensuremath{\textbf{Knn}}}
+\glsxtrnewsymbol[description={K Nearest Neighbors}]{Knn}{\ensuremath{\textbf{Knn}}}
 \glsxtrnewsymbol[description={Machine Learning}]{ML}{\ensuremath{\textbf{ML}}}
 \glsxtrnewsymbol[description={Multilayer Perceptron}]{MLP}{\ensuremath{\textbf{MLP}}}
+\glsxtrnewsymbol[description={Multiple-Input Multiple-Output}]{MIMO}{\ensuremath{\textbf{MIMO}}}
 \glsxtrnewsymbol[description={Principal Components Analysis}]{PCA}{\ensuremath{\textbf{PCA}}}
 
 
@@ -280,14 +281,14 @@ hmargin=3cm
 %----------
 %	RESUMEN Y PALABRAS CLAVE
 %----------	
-\renewcommand\abstractname{\large\uppercase{Summary}}
+\renewcommand\abstractname{\large\uppercase{Abstract}}
 \begin{abstract}
 \thispagestyle{plain}
 \setcounter{page}{3}
 	
-The aim of this Undergraduate Thesis is to analyse the performance of Entropy Triangles when applied to typical Deep Neural Datasets.
+The aim of this Bachelor's Thesis is to test the functionalities of the Entropy Triangle. The Entropy Triangle is a tool designed to analyse the flow of information on a variable after it has been processed by means of a transformation, a classification, or any other type method that may have shaped its informational characteristics. The appropriate environment has been created with the objective to obtain an accurate profile of such properties, selecting three different datasets with a wide variety of traits that allow for our tool to display its more interesting features. The experiments performed include an in-depth analysis of their results and its impacts on the data science field.
 	
-	\textbf{Keywords:}
+	\textbf{Keywords:} Deep Neural Networks, Information Bottleneck, Autoencoder, Entropy Triangle, classification, data science.
 	% Escribir las palabras clave aqu�
 	
 	\vfill
@@ -301,6 +302,16 @@ The aim of this Undergraduate Thesis is to analyse the performance of Entropy Tr
 %	DEDICATORIA
 %----------	
 \chapter*{Dedication}
+
+\begin{center}
+	\vspace*{\fill}
+	I would like to thank, firstly, my tutor Francisco for his support throughout the entire Bachelor's Thesis. Also, I'd like to thank my family, close friends and colleagues: Gabriel, Benjamin, Luengo, Miguel, Nacho, Angel, Rafael, Alex and Alvaro; and finally, a special mention to Laura L. Thank you so much for helping me!
+	
+	Adrian.
+	\vspace*{\fill}
+\end{center}
+\clearpage
+
 \input{fva_comments.tex} % FVA: comment this line when everything under it is taken care of. 
 
 
@@ -372,7 +383,7 @@ The aim of this Undergraduate Thesis is to analyse the performance of Entropy Tr
 
 \chapter{Theoretical Background}
 %\chapter{Basic Principles}
-\label{chap:BasicPrin}
+\label{chap:TheoreticalBackground}
 %\input{chBasicPrinciples.tex}
 \input{chBackground.tex}
 %\chapter{State of the Art}
@@ -383,11 +394,9 @@ The aim of this Undergraduate Thesis is to analyse the performance of Entropy Tr
 
 %\chapter{Development}
 \chapter{Experimental Results}
-\label{chap:Develop}
+\label{chap:ExpRes}
 \input{chDevelopment.tex}
 
-%\chapter{Results}
-\label{chap:Result}
 \input{chResults.tex}
 
 \chapter{Conclusion}

@@ -1,11 +1,9 @@
 
-In this chapter\ldots
-
-\todo[inline]{Include a paragraph explaining what you are doing in the chaper. Applicable to all chapters. }
+In this chapter we are going to be introducing some basic theoretical concepts about the processes included in this Bachelor's thesis. Some of the key aspects studied during the experiments are presented here.
 
 \section{Deep Neural Networks}
 
-To clearly explain what an Autoencoder is, we must first lay the foundations of one of its core concepts: \textbf{Deep Neural Networks} (DNN). DNN constitute the basis of Deep Learning and they have proven themselves to be complex enough to tackle many of the data challenges of today. \par
+To clearly explain what an Autoencoder is, we must first lay the foundations of one of its core concepts: \textbf{Deep Neural Networks} (DNN).\par
 %
 \begin{figure}[H]
 	\begin{subfigure}{0.65\linewidth}  
@@ -25,15 +23,12 @@ To clearly explain what an Autoencoder is, we must first lay the foundations of 
 	\label{fig:fig2}
 \end{figure}
 
-By analysing ~\subref{fig:fig2a}, it can be noted that DNNs are comprised of multiple layers of units (or neurons) with a relatively small computing power which is calculated using the weights from previous layers combined with an activation function as seen on Figure~\ref{fig:fig2}.~\subref{fig:fig2b}. It also has an input (usually denoted as $X$) which is feed-forwarded to the hidden layers in the network and subsequently transformed into an output (commonly denoted as $Y$). 
+DNN constitute the basis of Deep Learning and they have proven themselves to be complex enough to tackle many of the data challenges of today. By analysing ~\subref{fig:fig2a}, it can be noted that DNNs are comprised of multiple layers of units (or neurons) with a relatively small computing power which is calculated using the weights from previous layers combined with an activation function as seen on Figure~\ref{fig:fig2}.~\subref{fig:fig2b}. It also has an input (usually denoted as $X$) which is feed-forwarded to the hidden layers in the network and subsequently transformed into an output (commonly denoted as $Y$). 
 %
 \begin{equation}
 \label{eq:artificial neuron}
 Output = f( bias_j + \sum_{i = 0}^{n} w_{i}*x_i ) 
 \end{equation}
-\todo[inline]{use the mechanism of references for all figures and subfigures. e.g like done in the paragraph above. The paragraph below has several problems with references of this type.}
-
-
 
 Neurons inside of the network can be modelled  according to different types, although in this report we will be only taking into account two of them: the sigmoid $f(x) = \frac{1}{1 - e{-x}}$ (Figure a) and the relu $f(x) = max(0,x)$ (Figure b) neurons. I chose to use this type of neurons because their activation functions are excellent for minimizing the reconstruction loss inside of the Autoencoder. \newline
 %
@@ -52,13 +47,11 @@ Neurons inside of the network can be modelled  according to different types, alt
 
 As seen on Figure~\ref{fig:fig3}, the Relu function has a relatively simple representation, which makes it less computationally expensive when compared to the Sigmoid. The Sigmoid function takes values between 0 and 1, which makes it specially useful when we want to place a classifier as the next task after the transformation.\par 
 
-Once a certain DNN structure has been activated, the artificial neurons inside of the network will start to propagate the information in the inputs in a non-linear manner in order to try to achieve a given established task, which in our particular case consists in transforming the representation of our input into a smaller but informationally more compressed form. Other experts can use the same principles to achieve other goals including decision-making, visualization, etc~\cite{this-needs-a-citation}.\par
+Once a certain DNN structure has been activated, the artificial neurons inside of the network will start to propagate the information in the inputs in a non-linear manner in order to try to achieve a given established task, which in our particular case consists in transforming the representation of our input into a smaller but informationally more compressed form. Other experts can use the same principles to achieve other goals including decision-making, visualization, etc~\cite{Decision_making_DNN}.\par
 
 \section{Information Bottleneck Principle}
 
-\todo[inline]{All the notation below relates to random vectors, not to random variables. Accordingly, all variables have to be vectors such as $\overline X$. }
-
-The architecture of the Autoencoder is based upon the  Information Bottleneck (IB), a method proposed in~\cite{Inf_Bottleneck_first} whose principle relies on extracting the relevant information that an input random vector X contains about another output random variable Y. If we assume that there is some type of statistical dependency between X and Y, the relevant information can be defined as $I(X;Y)$.\par
+The architecture of the Autoencoder is based upon the  Information Bottleneck (IB), a method proposed in~\cite{Inf_Bottleneck_first} whose principle relies on extracting the relevant information that an input random vector $\overline X$ contains about another output random variable $\overline Y$. If we assume that there is some type of statistical dependency between $\overline X$ and $\overline Y$, the relevant information can be defined as $I(\overline X;\overline Y)$.\par
 %
 \begin{figure}[H]
 	\centering
@@ -67,15 +60,14 @@ The architecture of the Autoencoder is based upon the  Information Bottleneck (I
 	\label{fig:figure_info_bottle}
 \end{figure} 
 
-If we want to obtain the optimal representation of X, we would want to capture the relevant information of X that contributes to an accurate prediction of Y. This term is known as the \textbf{minimal sufficient statistics}~\cite{citationToThis}, or simply just the mapping of X that retains $I(X;Y)$. The compressed version of $X$ is denoted as $T$, and we can analyze the accuracy of our compression by comparing the prediction of $Y$ that both $T$ and $X$ do. Essentially,our goal is to fulfill the following equation: %\newline 
+If we want to obtain the optimal representation of $\overline X$, we would want to capture the relevant information of $\overline X$ that contributes to an accurate prediction of $\overline Y$. This term is known as the \textbf{minimal sufficient statistics}~\cite{Minimal_and_Autoencoder}, or simply just the mapping of X that retains $I(\overline X;\overline Y)$. The compressed version of $\overline X$ is denoted as $\overline T$, and we can analyse the accuracy of our compression by comparing the prediction of $\overline Y$ that both $\overline T$ and $\overline X$ do. Essentially, our goal is to fulfil the following equation: %\newline 
 %
 \begin{equation}
 \label{eq:Bottleneck_equation}
-\min\limits_{p(t|x)}  I(X;T) - \beta \times I(T;Y)
+\min\limits_{p(t|x)}  I(\overline X;\overline T) - \beta \times I(\overline T;\overline Y)
 \end{equation} \newline
 
-\todo[inline]{In the following paragraph the indexing is of layers is not done apropriately. You need to use $h_i$ and $h_{i-1} $ throughout.}
-During the compressing process, and as depicted in Figure~\ref{fig:figure_info_bottle}, the layers of a DNN only have access to the information that has been transferred to them via the previous layers of the system. This has a big effect on our network: the information not processed in the last immediate layer is essentially lost. This is the main reason why every layer should attempt to maximize $I(Y;hi)$ while trying to minimize $I(hi-1;hi)$, being $hi$ a random layer situated inside of the coding or compressing layer and $hi-1$ its immediate predecessor. Here, it is important to consider then that we want to reduce the length of the layer to the minimum possible without affecting the predictive features of our model. \par
+During the compressing process, and as depicted in Figure~\ref{fig:figure_info_bottle}, the layers of a DNN only have access to the information that has been transferred to them via the previous layers of the system. This has a big effect on our network: the information not processed in the last immediate layer is essentially lost. This is the main reason why every layer should attempt to maximize $I(\overline Y;h_i)$ while trying to minimize $I(h_{i-1};h_i)$, being $h_i$ a random layer situated inside of the coding or compressing layer and $h_{i-1}$ its immediate predecessor. Here, it is important to consider then that we want to reduce the length of the layer to the minimum possible without affecting the predictive features of our model. \par
 
 Each layer of our model should require shorter descriptions than the previous ones, being the first one with the longest description and the least compression. It must also be noted that every model will require a different set of layers and an architecture to fit its computational needs to the optimal level. \par
 
@@ -92,7 +84,7 @@ Applying the concepts introduced in both of the previous sections, the Autoencod
  \label{fig:figure_autoencoder}
 \end{figure} 
 
-The theory of Autoencoders has been around since the 1980s~\ref{Autoencoders_first_mention}. As seen in Figure \ref{fig:figure_autoencoder}, the goal of the Autoencoder is not only to copy the input data and then transmit it through the network, but to retain the most important features of the data fed to it and to try to optimize the process of learning them. For the purpose of my research, I will only be considering the back-propagated Autoencoders, although it must be noted that other variants of them exist, such as the recirculated Autoencoders~\cite{citation}. \par
+The theory of Autoencoders has been around since the 1980s~\cite{Autoencoders_first_mention}. As seen in Figure \ref{fig:figure_autoencoder}, the goal of the Autoencoder is not only to copy the input data and then transmit it through the network, but to retain the most important features of the data fed to it and to try to optimize the process of learning them. For the purpose of my research, I will only be considering the back-propagated Autoencoders, although it must be noted that other variants of them exist, such as the recirculated Autoencoders, which simply apply the concept of recirculated Neural Networks~\cite{Recirculated_NN}. \par
 
 In our case, we will be also using an under-complete Autoencoder. For learning purposes, most of the times an Autoencoder is implemented it is usually more interesting to focus on its data compression capabilities rather than trying to copy the input onto the output. That is why we want to force the Autoencoder to provide us with a smaller dimension in the output on the encoder, which for the purpose of this report we will call $\overline Z$. The learning process tries to minimize the quantity: 
 %
@@ -109,8 +101,6 @@ Taking into account this issue, the general rule to design them is just by using
 \subsection{Information Theorethic Learning on Autoencoders}
 
 The Information Theoretic Learning (ITL) concept was introduced in \cite{Principe_2000} to extend the Mean-Square error criterion to cost functions including information about the training data. The goal was to manipulate the information being carried in the data or, in other words, to find cost functions that would be able to directly influence information. The name ITL is a natural transition from the aforementioned process, as the machine learning function had to be independent from the informational transmission of data. 
-
-\todo[inline]{FVA: open up an ``abbreviation section'' and include ITL as abbrev. }
 
 The Autoencoder was first proposed to test the concepts of ITL on~\cite{Santana_2016}. Using similar information-theoretic measures as the Entropy Triangle---such as the Mutual Information and entropy---the work of the researchers consists of trying to prove the validity of their theories by using the Autoencoder. Particularly, they are looking at the representation of the $\hat{Z}$ and the reconstructed value of $\overline{X}$ to calculate the loss function.
 \begin{equation}
