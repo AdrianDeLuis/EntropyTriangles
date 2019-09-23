@@ -11,14 +11,14 @@ hmargin=3cm
 \renewcommand{\baselinestretch}{1.5}
 \parskip=6pt
 
-% DEFINICI√ìN DE COLORES para portada y listados de c√≥digo
+% DEFINICI”N DE COLORES para portada y listados de cÛdigo
 \usepackage[table]{xcolor}
 \definecolor{azulUC3M}{RGB}{0,0,102}
 \definecolor{gray97}{gray}{.97}
 \definecolor{gray75}{gray}{.75}
 \definecolor{gray45}{gray}{.45}
 
-% Soporte para GENERAR PDF/A --es importante de cara a su inclusi√≥n en e-Archivo porque es el formato √≥ptimo de preservaci√≥n y a la generaci√≥n de metadatos, tal y como se describe en http://uc3m.libguides.com/ld.php?content_id=31389625. En la carpeta inclu√≠mos el archivo plantilla_tfg_2017.xmpdata en el que puedes incluir los metadatos que se incorporar√°n al archivo PDF cuando lo compiles. Ese archivo debe llamarse igual que tu archivo .tex. Puedes ver un ejemplo en esta misma carpeta.
+% Soporte para GENERAR PDF/A --es importante de cara a su inclusiÛn en e-Archivo porque es el formato Ûptimo de preservaciÛn y a la generaciÛn de metadatos, tal y como se describe en http://uc3m.libguides.com/ld.php?content_id=31389625. En la carpeta incluÌmos el archivo plantilla_tfg_2017.xmpdata en el que puedes incluir los metadatos que se incorporar·n al archivo PDF cuando lo compiles. Ese archivo debe llamarse igual que tu archivo .tex. Puedes ver un ejemplo en esta misma carpeta.
 \usepackage{amssymb}
 \usepackage[a-1b]{pdfx}
 \usepackage{hyperref}
@@ -27,7 +27,7 @@ hmargin=3cm
 \renewcommand{\chapterautorefname}{Chapter}
 
 \hypersetup{colorlinks=true,
-	linkcolor=black, % enlaces a partes del documento (p.e. √≠ndice) en color negro
+	linkcolor=black, % enlaces a partes del documento (p.e. Ìndice) en color negro
 	urlcolor=blue} % enlaces a recursos fuera del documento en azul
 
 % EXPRESIONES MATEMATICAS
@@ -46,7 +46,7 @@ hmargin=3cm
 
 \input{prelude_fva.tex}% FVA: includes my suggestions for the prelude.
 
-% dise√±o de PIE DE P√ÅGINA
+% diseÒo de PIE DE P¡GINA
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -96,15 +96,15 @@ hmargin=3cm
 {\titlerule*[.7pc]{.}\contentspage}  
 
 
-% DISE√ëO DE TABLAS. Puedes elegir entre el estilo para ingenier√≠a o para ciencias sociales y humanidades. Por defecto, est√° activado el estilo de ingenier√≠a. Si deseas utilizar el otro, comenta las l√≠neas del dise√±o de ingenier√≠a y descomenta las del dise√±o de ciencias sociales y humanidades
+% DISE—O DE TABLAS. Puedes elegir entre el estilo para ingenierÌa o para ciencias sociales y humanidades. Por defecto, est· activado el estilo de ingenierÌa. Si deseas utilizar el otro, comenta las lÌneas del diseÒo de ingenierÌa y descomenta las del diseÒo de ciencias sociales y humanidades
 \usepackage{multirow} %permite combinar celdas 
-\usepackage{caption} %para personalizar el t√≠tulo de tablas y figuras
+\usepackage{caption} %para personalizar el tÌtulo de tablas y figuras
 \usepackage{floatrow} 
-\usepackage{array} % con este paquete podemos definir en la siguiente l√≠nea un nuevo tipo de columna para tablas: ancho personalizado y contenido centrado
+\usepackage{array} % con este paquete podemos definir en la siguiente lÌnea un nuevo tipo de columna para tablas: ancho personalizado y contenido centrado
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
 \DeclareCaptionFormat{upper}{#1#2\uppercase{#3}\par}
 
-% Dise√±o de tabla para ingenier√≠a
+% DiseÒo de tabla para ingenierÌa
 \captionsetup[table]{
 	format=upper,
 	justification=centering,
@@ -114,7 +114,7 @@ hmargin=3cm
 	font=small,
 }
 
-%Dise√±o de tabla para ciencias sociales y humanidades
+%DiseÒo de tabla para ciencias sociales y humanidades
 %\captionsetup[table]{
 %	justification=raggedright,
 %	labelsep=period,
@@ -124,12 +124,12 @@ hmargin=3cm
 %}
 
 
-% DISE√ëO DE FIGURAS. Puedes elegir entre el estilo para ingenier√≠a o para ciencias sociales y humanidades. Por defecto, est√° activado el estilo de ingenier√≠a. Si deseas utilizar el otro, comenta las l√≠neas del dise√±o de ingenier√≠a y descomenta las del dise√±o de ciencias sociales y humanidades
+% DISE—O DE FIGURAS. Puedes elegir entre el estilo para ingenierÌa o para ciencias sociales y humanidades. Por defecto, est· activado el estilo de ingenierÌa. Si deseas utilizar el otro, comenta las lÌneas del diseÒo de ingenierÌa y descomenta las del diseÒo de ciencias sociales y humanidades
 \usepackage{graphicx}
 \usepackage{subcaption}
-\graphicspath{{imagenes/}} %ruta a la carpeta de im√°genes
+\graphicspath{{imagenes/}} %ruta a la carpeta de im·genes
 
-% Dise√±o de figuras para ingenier√≠a
+% DiseÒo de figuras para ingenierÌa
 \captionsetup[figure]{
 	format=hang,
 	name=Fig.,
@@ -139,7 +139,7 @@ hmargin=3cm
 	font=small		
 }
 
-% Dise√±o de figuras para ciencias sociales y humanidades
+% DiseÒo de figuras para ciencias sociales y humanidades
 %\captionsetup[figure]{
 %	format=hang,
 %	name=Figure,
@@ -150,12 +150,12 @@ hmargin=3cm
 %}
 
 
-% NOTAS A PIE DE P√ÅGINA
-\usepackage{chngcntr} %para numeraci√≥n cont√≠nua de las notas al pie
+% NOTAS A PIE DE P¡GINA
+\usepackage{chngcntr} %para numeraciÛn contÌnua de las notas al pie
 \counterwithout{footnote}{chapter}
 
-% LISTADOS DE C√ìDIGO
-% soporte y estilo para listados de c√≥digo. M√°s informaci√≥n en https://es.wikibooks.org/wiki/Manual_de_LaTeX/Listados_de_c√≥digo/Listados_con_listings
+% LISTADOS DE C”DIGO
+% soporte y estilo para listados de cÛdigo. M·s informaciÛn en https://es.wikibooks.org/wiki/Manual_de_LaTeX/Listados_de_cÛdigo/Listados_con_listings
 \usepackage{listings}
 
 % definimos un estilo de listings
@@ -187,17 +187,17 @@ hmargin=3cm
 \captionsetup[lstlisting]{font=small, labelsep=period}
 % fijamos el estilo a utilizar 
 \lstset{style=estilo}
-\renewcommand{\lstlistingname}{\uppercase{C√≥digo}}
+\renewcommand{\lstlistingname}{\uppercase{CÛdigo}}
 
 
-%BIBLIOGRAF√çA - PUEDES ELEGIR ENTRE ESTILO IEEE O APA. POR DEFECTO EST√Å CONFIGURADO IEEE. SI DESEAS USAR APA, COMENTA LAS L√çNEA DE IEEE Y DESCOMENTA LAS DE APA. Si haces cambios en la configuraci√≥n de la bibliograf√≠a y no obtienes los resultados esperados, es recomendable limpiar los archivos auxiliares y volver a compilar en este orden: COMPILAR-BIBLIOGRAFIA-COMPILAR
-% Tienes m√°s informaci√≥n sobre c√≥mo generar bibliograf√≠a en http://tex.stackexchange.com/questions/154751/biblatex-with-biber-configuring-my-editor-to-avoid-undefined-citations , https://es.sharelatex.com/learn/Bibliography_management_in_LaTeX y en http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib
-% Tambi√©n te recomendamos consultar la gu√≠a tem√°tica de la Biblioteca sobre citas bibliogr√°ficas: http://uc3m.libguides.com/guias_tematicas/citas_bibliograficas/inicio
+%BIBLIOGRAFÕA - PUEDES ELEGIR ENTRE ESTILO IEEE O APA. POR DEFECTO EST¡ CONFIGURADO IEEE. SI DESEAS USAR APA, COMENTA LAS LÕNEA DE IEEE Y DESCOMENTA LAS DE APA. Si haces cambios en la configuraciÛn de la bibliografÌa y no obtienes los resultados esperados, es recomendable limpiar los archivos auxiliares y volver a compilar en este orden: COMPILAR-BIBLIOGRAFIA-COMPILAR
+% Tienes m·s informaciÛn sobre cÛmo generar bibliografÌa en http://tex.stackexchange.com/questions/154751/biblatex-with-biber-configuring-my-editor-to-avoid-undefined-citations , https://es.sharelatex.com/learn/Bibliography_management_in_LaTeX y en http://www.ctan.org/tex-archive/macros/latex/exptl/biblatex-contrib
+% TambiÈn te recomendamos consultar la guÌa tem·tica de la Biblioteca sobre citas bibliogr·ficas: http://uc3m.libguides.com/guias_tematicas/citas_bibliograficas/inicio
 
-% CONFIGURACI√ìN PARA LA BIBLIOGRAF√çA IEEE
-\usepackage[backend=biber, style=ieee, isbn=false,sortcites, maxbibnames=5, minbibnames=1]{biblatex} % Configuraci√≥n para el estilo de citas de IEEE, recomendado para el √°rea de ingenier√≠a. "maxbibnames" indica que a partir de 5 autores trunque la lista el primero (minbibnames) y a√±ada "et al." tal y como se utiliza en el estilo IEEE.
+% CONFIGURACI”N PARA LA BIBLIOGRAFÕA IEEE
+\usepackage[backend=biber, style=ieee, isbn=false,sortcites, maxbibnames=5, minbibnames=1]{biblatex} % ConfiguraciÛn para el estilo de citas de IEEE, recomendado para el ·rea de ingenierÌa. "maxbibnames" indica que a partir de 5 autores trunque la lista el primero (minbibnames) y aÒada "et al." tal y como se utiliza en el estilo IEEE.
 
-%CONFIGURACI√ìN PARA LA BIBLIOGRAF√çA APA
+%CONFIGURACI”N PARA LA BIBLIOGRAFÕA APA
 %\usepackage[style=apa, backend=biber, natbib=true, hyperref=true, uniquelist=false, sortcites]{biblatex}
 %\DeclareLanguageMapping{spanish}{spanish-apa}
 
@@ -211,179 +211,182 @@ hmargin=3cm
 \graphicspath {{Figuras_tfg/}}
 
 \begin{document}
-	\pagenumbering{roman} % Se utilizan cifras romanas en la numeraci√≥n de las p√°ginas previas al cuerpo del trabajo
+\pagenumbering{roman} % Se utilizan cifras romanas en la numeraciÛn de las p·ginas previas al cuerpo del trabajo
 	
-	%----------
-	%	PORTADA
-	%----------	
-	\begin{titlepage}
-		\begin{sffamily}
-			\color{azulUC3M}
-			\begin{center}
-				\begin{figure}[H] %incluimos el logotipo de la Universidad
-					\makebox[\textwidth][c]{\includegraphics[width=16cm]{Figuras_tfg/Portada_Logo.png}}
-				\end{figure}
-				\vspace{2.5cm}
-				\begin{Large}
-					Bachelor's Degree in Telecommunication Engineering\\			
-					Academic Year 2018-2019\\
-					\vspace{2cm}		
-					\textsl{Bachelor Thesis}
-					\bigskip
-					
-				\end{Large}
-				{\Huge Entropy Triangles:}\\
-				{\Large An application to measuring\\the transmission of entropy in Autoencoders}\\
-				\vspace*{0.5cm}
-				\rule{10.5cm}{0.1mm}\\
-				\vspace*{0.9cm}
-				{\LARGE Adrian Manuel de Luis Garc√≠a}\\ 
-				\vspace*{1cm}
-				\begin{Large}
-					Tutor: Francisco Jos\'e Valverde Albacete\\
-					%2nd Tutor complete name\\
-					Legan\'es, 10/23/2019\\
-				\end{Large}
-			\end{center}
-			\vfill
-			\color{black}
-			% si nuestro trabajo se va a publicar con una licencia Creative Commons, incluir estas l√≠neas. Es la opci√≥n recomendada.
-			\includegraphics[width=4.2cm]{imagenes/creativecommons.png}\\  %incluimos el logotipo de creativecommons
-			\emph{[Include this code in case you want your Bachelor Thesis published in Open Access University Repository]}\\ % BORRAR ESTA L√çNEA
-			This work is licensed under Creative Commons \textbf{Attribution ‚Äì Non Commercial ‚Äì Non Derivatives}
-		\end{sffamily}
-	\end{titlepage}
+%----------
+%	PORTADA
+%----------	
+\begin{titlepage}
+	\begin{sffamily}
+	\color{azulUC3M}
+	\begin{center}
+		\begin{figure}[H] %incluimos el logotipo de la Universidad
+			\makebox[\textwidth][c]{\includegraphics[width=16cm]{Figuras_tfg/Portada_Logo.png}}
+		\end{figure}
+		\vspace{2.5cm}
+		\begin{Large}
+			Bachelor's Degree in Telecommunication Engineering\\			
+			Academic Year 2018-2019\\
+			\vspace{2cm}		
+			\textsl{Bachelor Thesis}
+			\bigskip
+			
+		\end{Large}
+		 	{\Huge Entropy Triangles:}\\
+		 	{\Large An application to measuring\\the transmission of entropy in Autoencoders}\\
+		 	\vspace*{0.5cm}
+	 		\rule{10.5cm}{0.1mm}\\
+			\vspace*{0.9cm}
+			{\LARGE Adrian Manuel de Luis GarcÌa}\\ 
+			\vspace*{1cm}
+		\begin{Large}
+			Tutor: Francisco Jos\'e Valverde Albacete\\
+			%2nd Tutor complete name\\
+			Legan\'es, 10/23/2019\\
+		\end{Large}
+	\end{center}
+	\vfill
+	\color{black}
+	% si nuestro trabajo se va a publicar con una licencia Creative Commons, incluir estas lÌneas. Es la opciÛn recomendada.
+	\includegraphics[width=4.2cm]{imagenes/creativecommons.png}\\  %incluimos el logotipo de creativecommons
+	\emph{[Include this code in case you want your Bachelor Thesis published in Open Access University Repository]}\\ % BORRAR ESTA LÕNEA
+	This work is licensed under Creative Commons \textbf{Attribution ñ Non Commercial ñ Non Derivatives}
+	\end{sffamily}
+\end{titlepage}
+
+\newpage %p·gina en blanco o de cortesÌa
+\thispagestyle{empty}
+\mbox{}
+
+%----------
+%	RESUMEN Y PALABRAS CLAVE
+%----------	
+\renewcommand\abstractname{\large\uppercase{Summary}}
+\begin{abstract}
+\thispagestyle{plain}
+\setcounter{page}{3}
 	
-	\newpage %p√°gina en blanco o de cortes√≠a
-	\thispagestyle{empty}
-	\mbox{}
+The aim of this Undergraduate Thesis is to analyse the performance of Entropy Triangles when applied to typical Deep Neural Datasets.
 	
-	%----------
-	%	RESUMEN Y PALABRAS CLAVE
-	%----------	
-	\renewcommand\abstractname{\large\uppercase{Summary}}
-	\begin{abstract}
-		\thispagestyle{plain}
-		\setcounter{page}{3}
-		
-		The aim of this Undergraduate Thesis is to analyse the performance of Entropy Triangles when applied to typical Deep Neural Datasets.
-		
-		\textbf{Keywords:}
-		% Escribir las palabras clave aqu√≠
-		
-		\vfill
-	\end{abstract}
-	\newpage % p√°gina en blanco o de cortes√≠a
-	\thispagestyle{empty}
-	\mbox{}
-	
-	
-	%----------
-	%	DEDICATORIA
-	%----------	
-	\chapter*{Dedication}
-	\input{fva_comments.tex} % FVA: comment this line when everything under it is taken care of. 
-	
-	
-	\setcounter{page}{5}
-	
-	% ESCRIBIR LA DEDICATORIA AQU√ç	
+	\textbf{Keywords:}
+	% Escribir las palabras clave aquÌ
 	
 	\vfill
+\end{abstract}
+	\newpage % p·gina en blanco o de cortesÌa
+	\thispagestyle{empty}
+	\mbox{}
+
+
+%----------
+%	DEDICATORIA
+%----------	
+\chapter*{Dedication}
+\input{fva_comments.tex} % FVA: comment this line when everything under it is taken care of. 
+
+
+\setcounter{page}{5}
 	
-	\newpage % p√°gina en blanco o de cortes√≠a
+	% ESCRIBIR LA DEDICATORIA AQUÕ	
+		
+	\vfill
+	
+	\newpage % p·gina en blanco o de cortesÌa
 	\thispagestyle{empty}
 	\mbox{}
 	
-	
-	%----------
-	%	√çNDICES
-	%----------	
-	
-	%--
-	%√çndice general
-	%-
-	\tableofcontents
-	\thispagestyle{fancy}
-	
-	\newpage % p√°gina en blanco o de cortes√≠a
-	\thispagestyle{empty}
-	\mbox{}
-	
-	%--
-	% √çndice de figuras. Si no se incluyen, comenta las l√≠neas siguientes
-	%-
-	\listoffigures
-	\thispagestyle{fancy}
-	
-	\newpage % p√°gina en blanco o de cortes√≠a
-	\thispagestyle{empty}
-	\mbox{}
-	
-	%--
-	% √çndice de tablas. Si no se incluyen, comenta las l√≠neas siguientes
-	%-
-	\listoftables
-	\thispagestyle{fancy}
-	
-	\newpage % p√°gina en blanco o de cortes√≠a
-	\thispagestyle{empty}
-	\mbox{}
-	
-	
-	%----------
-	%	TRABAJO
-	%----------	
-	\clearpage
-	\pagenumbering{arabic} % numeraci√≥n con m√∫meros ar√°bigos para el resto de la publicaci√≥n	
-	
-	% COMENZAR A ESCRIBIR EL TRABAJO
-	
-	\chapter{Introduction}
-	\label{chap:Introduction}
-	\input{chIntroduction.tex}
-	
-	\chapter{Theoretical Background}
-	%\chapter{Basic Principles}
-	\label{chap:TheorethicalBackground}
-	%\input{chBasicPrinciples.tex}
-	\input{chBackground.tex}
-	%\chapter{State of the Art}
-	%\input{chStateArt.tex}
-	
-	\chapter{Development}
-	\label{chap:Develop}
-	\input{chDevelopment.tex}
-	
-	\chapter{Results}
-	\label{chap:Result}
-	\input{chResults.tex}
-	
-	\chapter{Conclusion}
-	\label{chap:Conclusion}
-	\input{chConclusion.tex}
-	
-	%----------
-	%	BIBLIOGRAF√çA
-	%----------	
-	
-	%\nocite{*} % Si quieres que aparezcan en la bibliograf√≠a todos los documentos que la componen (tambi√©n los que no est√©n citados en el texto) descomenta est√° l√≠na
-	
-	%\bibliography{entropy_triangles_tfg}
-	
-	\clearpage
-	%\addcontentsline{toc}{chapter}{Bibliography}
-	
-	
-	\printbibliography
-	%----------
-	%	ANEXOS
-	%----------	
-	
-	% Si tu trabajo incluye anexos, puedes descomentar las siguientes l√≠neas
-	%\chapter* {Appendix x}
-	%\pagenumbering{gobble} % Las p√°ginas de los anexos no se numeran
-	
-	
-	
+
+%----------
+%	ÕNDICES
+%----------	
+
+%--
+%Õndice general
+%-
+\tableofcontents
+\thispagestyle{fancy}
+
+\newpage % p·gina en blanco o de cortesÌa
+\thispagestyle{empty}
+\mbox{}
+
+%--
+% Õndice de figuras. Si no se incluyen, comenta las lÌneas siguientes
+%-
+\listoffigures
+\thispagestyle{fancy}
+
+\newpage % p·gina en blanco o de cortesÌa
+\thispagestyle{empty}
+\mbox{}
+
+%--
+% Õndice de tablas. Si no se incluyen, comenta las lÌneas siguientes
+%-
+\listoftables
+\thispagestyle{fancy}
+
+\newpage % p·gina en blanco o de cortesÌa
+\thispagestyle{empty}
+\mbox{}
+
+
+%----------
+%	TRABAJO
+%----------	
+\clearpage
+\pagenumbering{arabic} % numeraciÛn con m˙meros ar·bigos para el resto de la publicaciÛn	
+
+% COMENZAR A ESCRIBIR EL TRABAJO
+
+\chapter{Introduction}
+\label{chap:Introduction}
+\input{chIntroduction.tex}
+
+\chapter{Theoretical Background}
+%\chapter{Basic Principles}
+\label{chap:BasicPrin}
+%\input{chBasicPrinciples.tex}
+\input{chBackground.tex}
+%\chapter{State of the Art}
+\label{chap:StateArt}
+%\input{chStateArt.tex}
+
+\todo[inline]{SO FAR 22/09/2019}
+
+\chapter{Development}
+\label{chap:Develop}
+\input{chDevelopment.tex}
+
+\chapter{Results}
+\label{chap:Result}
+\input{chResults.tex}
+
+\chapter{Conclusion}
+\label{chap:Conclusion}
+\input{chConclusion.tex}
+
+%----------
+%	BIBLIOGRAFÕA
+%----------	
+
+%\nocite{*} % Si quieres que aparezcan en la bibliografÌa todos los documentos que la componen (tambiÈn los que no estÈn citados en el texto) descomenta est· lÌna
+
+%\bibliography{entropy_triangles_tfg}
+
+\clearpage
+%\addcontentsline{toc}{chapter}{Bibliography}
+
+
+\printbibliography
+%----------
+%	ANEXOS
+%----------	
+
+% Si tu trabajo incluye anexos, puedes descomentar las siguientes lÌneas
+%\chapter* {Appendix x}
+%\pagenumbering{gobble} % Las p·ginas de los anexos no se numeran
+
+
+
 \end{document}
