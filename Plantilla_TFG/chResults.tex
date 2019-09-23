@@ -1,11 +1,12 @@
 
-\todo[inline]{So far 20/09/2019}
+\section{Experiment setup}
+In this section we will be presenting the results regarding the different experiments performed over the datasets using the methods previously introduced. All the experiments will have different sets of requirements and levels of complexity, what will help us discern the capabilities of the tools involved. To be able to do so, we have to establish the same structured tests on every dataset\footnote{Due to the impossibility of using \texttt{caret::train} on MNIST (Every laptop I tried to use for this purpose would just get stuck and force the closing of RStudio), we will be not be using Knn to compare results on PCA and the Autoencoder. }.
 
-
-\section{Structure of the experiments}
-In this section we will be presenting the results regarding the different experiments performed over the datasets using the methods previously introduced. All the experiments will have different sets of requirements and levels of complexity, which will help us discern the capabilities of the tools involved. To be able to do so, we have to establish the same structured tests on every dataset\footnote{Due to the impossibility of using caret::train on MNIST (Every laptop I tried to use for this purpose would just get stuck and force the closing of RStudio), we will be not be using Knn to compare results on PCA and the Autoencoder. }.
-
-We will use the representation of our encoded data $\hat{Z}$ as the input for both the KNN and the MLP classifiers, as depicted in Figure \ref{fig:Autoencoder_architecture}. 
+We retake here the training scheme introduced in Chapter~\ref{chap:Introduction} and presented in Figure~\ref{fig:fig1}.\subref{fig:fig1a} where the \emph{first} half of the Autoencoder, the actual encoder, is used as a mechanism to obtain an efficient representation $\hat Z$ of the input data $\hat X$. 
+%
+We will use this representation  as the input for the classifier. 
+%
+In the following we use both a KNN and a MLP classifiers, as depicted in Figure~\ref{fig:Autoencoder_architecture}. 
 %
 \begin{figure}[H]
 \begin{subfigure}{1\linewidth}  
@@ -25,7 +26,10 @@ We will use the representation of our encoded data $\hat{Z}$ as the input for bo
  \label{fig:Autoencoder_architecture}
 \end{figure}
 
-If we compare both diagrams presented here, we can see in the images in Figure \ref{fig:PCA_architecture} that we will be using the output from the PCA as the input of the classifiers, as well as that we will have the same classifiers used in both architectures, with the aim to be able to compare their results. 
+We want to compare the effectiveness of the Autoencoder and PCA (see Section~\ref{tools:pca}) to obtain a ``good'' representation for the input. 
+%If we compare both diagrams presented here, we 
+We can see in Figure~\ref{fig:PCA_architecture} that we use the output from the PCA as the input of the same classifiers as before %, as well as that we will have the same classifiers used in both architectures, 
+with the aim to be able to compare their results. 
 %
 \begin{figure}[H]
 \begin{subfigure}{1\linewidth}  
@@ -45,16 +49,28 @@ If we compare both diagrams presented here, we can see in the images in Figure \
  \label{fig:PCA_architecture}
 \end{figure}
 
-As we are also concern about the reliability of them too, we will be including another technique to try to validate our results as much as possible: $k$-Fold validation~\cite{mur:12}. 
+To increase the reliability of the results we will use 
+%As we are also concern about the reliability of them too, we will be including another technique to try to validate our results as much as possible: 
+$k$-Fold validation~\cite{mur:12}. 
 %
-$k$-Fold is a method which is based on dividing a dataset into $k$ disjoint subsets of samples---or ``folds''. We are interested in measuring how each of the architectures performs in each fold of our datasets when training or ``fitting'' the classifiers involved in the other $k-1$ folds. By doing so we obtain---on less training data, that is the $k-1$ folds---an estimate of the performance of the system involved in the retained fold; by repeating this over all of the folds we can also estimate an average and the dispersion of these measures. 
+This is a technique
+%$k$-Fold is a method which is 
+based on dividing a dataset into $k$ disjoint subsets of samples---or ``folds''. We are interested in measuring how each of the architectures performs in each fold of our datasets when training or ``fitting'' the classifiers involved in the other $k-1$ folds. By doing so we obtain---on less training data, that is the $k-1$ folds---an estimate of the performance of the system involved in the retained fold; by repeating this over all of the folds we can also estimate an average and the dispersion of these measures. 
+%
+Importantly, we can use this technique \emph{on the whole data} at the cost of a slightly increase of the data-dependence of the results.
+Using $k=5$ means that we use 5 times $80\%$ of the data for training and $20\%$ of the data for testing. 
 
- them through the structures presented in both Figure~\ref{fig:Autoencoder_architecture} and~\ref{fig:PCA_architecture}. 
-Once we have each one of them complete the full training process, we will analyse the output plus the summation of the overall results. We expect our Folds to provide us with similar data and results in our plots when we use balanced datasets. However, if we have unbalanced datasets we expect to see more inconsistency through them.\par
+% them through the structures presented in both Figure~\ref{fig:Autoencoder_architecture} and~\ref{fig:PCA_architecture}. 
+%Once we have each one of them complete the full training process, we will analyse the output plus the summation of the overall results. 
 
-The Iris dataset experiment will be thoroughly described and explained as we will be using it as an example of to perform the methods and theory explained on the previous chapters of the report. The remaining experiments will avoid unnecessary explications regarding concepts re-used from the Iris experiment.\par
+Our hypothesis is that each fold experiment will  provide us with similar data and results in our plots when we use balanced datasets. However, if we have unbalanced datasets we expect to see more inconsistency through them.
+
+The Iris dataset experiment will be thoroughly described and explained as we will be using it as an example of to perform the methods and theory explained on the previous chapters of the report. The remaining experiments will avoid unnecessary explications regarding concepts re-used from the Iris experiment.
 
 At the end of each section, the overall performance of each dataset will be tested with the Entropy Triangle, which will be used to compare the entropy between the data of each Fold and the output of used classifier.
+
+\todo[inline]{So far 20/09/2019}
+
 
 \section{Iris Dataset}
 \subsection{Data Preparation}
