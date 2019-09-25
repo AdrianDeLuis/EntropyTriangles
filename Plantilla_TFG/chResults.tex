@@ -280,21 +280,22 @@ By looking at Figure \ref{fig:figure_ET_Total_Testing_Iris} the MLP classifier o
 	\label{fig:figure_ET_Total_Testing_Iris}
 \end{figure}
 
-\todo[inline]{So far 20/09/2019}
-
 \section{Ionosphere Dataset}
+
 \subsection{Data Preparation}
 
-The only pre-proccessing done for Ionosphere was explained in Subsection \ref{subsec:Ionosphere} referred to the datasets. No Box-Cox or other method was found to improve the performance on this particular case. We will only get rid of the column with no variance, which as mentioned before was a column with a constant value of 0 all throughout the set. As explained before, we expect this dataset to show more unbalancing in its results.
+The only pre-proccessing done for Ionosphere was explained in Subsection \ref{subsec:Ionosphere}. No Box-Cox or other method was found to improve the performance in this particular case. Columns with no variance were disposed of, since they lack predictive value.
+%, which as mentioned before was a column with a constant value of 0 all throughout the set. 
+As explained before, we expect this dataset to show more unbalanced in its results.
 
 \subsection{The Autoencoder}
 
-Ionosphere has more variables that Iris, but it is still a small Autoencoder compared to the structure that we are using for MNIST. Our architecture transforms the data provided by the package into 8 observations. We again are using an Autoencoder with the same amount layers structured as:  \newline
-
+Ionosphere has more variables that Iris, but it is still a small Autoencoder compared to the structure that we are using for MNIST. Our architecture transforms the data provided by the package into $8$ features. We again are using an Autoencoder with the same amount layers structured as:  
+%
 \begin{table}[H]
-	\caption{Ionosphere Autoencoder layers of the encoder.}
+	\caption{Ionosphere: layers of the encoder.}
+	\label{tab:table_Ionosphere_auto_encoder}
 	\begin{center}
-		\label{tab:table_Ionosphere_auto_encoder}
 		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
 			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
 			\hline
@@ -307,9 +308,9 @@ Ionosphere has more variables that Iris, but it is still a small Autoencoder com
 \end{table}
 
 \begin{table}[H]
-	\caption{Ionosphere Autoencoder layers of the decoder.}
+	\caption{Ionosphere:  layers of the decoder}
+	\label{tab:table_Ionosphere_auto_decoder}
 	\begin{center}
-		\label{tab:table_Ionosphere_auto_decoder}
 		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
 			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
 			\hline
@@ -321,101 +322,138 @@ Ionosphere has more variables that Iris, but it is still a small Autoencoder com
 	\end{center}
 \end{table}
 
-As seen of both Table \ref{tab:table_Ionosphere_auto_encoder} and Table \ref{tab:table_Ionosphere_auto_decoder}, with the aim to compare the results provided by both datasets, we are going to use the same compilation options and activation functions as in Iris. We think it would be interesting to test the same compilation environment for two datasets with completely different characteristics.\par
+As seen of both Table~\ref{tab:table_Ionosphere_auto_encoder} and Table~\ref{tab:table_Ionosphere_auto_decoder}, with the aim of  comparing the results provided by both datasets, we are going to use the same compilation options and activation functions as in Iris. We think it would be interesting to test the same compilation environment for two datasets with completely different characteristics.\par
 
-It is expected for Ionosphere to not be difficult to train, since it is very unbalanced and classifiers tend to just choose the predominant class in the dataset as their predicted value in most of the cases. Both the MLP and the KNN suffer from this unwanted tendency, but we want to reproduce that behavior on this experiment.
+We expect  Ionosphere  not be difficult to train, since it is very unbalanced and classifiers tend to just choose the predominant class in the dataset as their predicted value in most of the cases. Both the MLP and the KNN suffer from this unwanted tendency, but we want to reproduce that behavior on this experiment.
 
-\subsection{Knn on PCA and Autoencoder}
+\subsection{The Classifiers}
 
-We will follow the same process to present the results regarded from the Ionosphere dataset:
+We will follow the same process to present the results for  Ionosphere as used with the Iris dataset. 
+%
 
+\subsubsection{KNN on PCA and Autoencoder}
+
+Just by taking a simple look over Figure~\ref{fig:figure_Knn_Iono}.\subref{fig:figure_Knn_Iono_ET_Auto} and Figure~\ref{fig:figure_Knn_Iono}.\subref{fig:figure_Knn_Iono_ET_PCA} 
+we can clearly see that the output of the encode in the Autoencoder acts as a better representation for classification in this task, as the Mutual Information in the tests averages around $40\%$ of the maximum, while for PCA this only averages around $20\%$.
+% 
+Moreover, both are bad figures so, in this instance, it is noticeable that the imbalance in the dataset has affected the outcome of our experiments. 
+%
+%The coordinates of the entropies from our KNN Folds tells us that our predictions have been inaccurate and the transmission of information either by means of the Virtual Information or the Mutual Information have degraded a lot from the results gathered from the Iris dataset.
+% FVA: This is the correct analysis
+%
 \begin{figure}[H]
+\begin{subfigure}{\textwidth}  
 	\centering
 	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iono_Auto_Knn}
-	\caption{Entropy Triangle using Autoencoder + Knn in Ionosphere}
+	\caption{Entropy Triangle for $5$-fold validation using the encoder in the Autoencoder}
 	\label{fig:figure_Knn_Iono_ET_Auto}
-\end{figure}
+\end{subfigure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iono_Auto_Knn_Confidence}
-	\caption{Entropy Triangle confidence interval using Autoencoder + Knn in Ionosphere}
-	\label{fig:figure_Knn_Iono_ET_Auto_Confidence}
-\end{figure}
-
-\begin{figure}[H]
+\begin{subfigure}{\textwidth}  
 	\centering
 	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iono_PCA_Knn}
-	\caption{Entropy Triangle using PCA + Knn in Ionosphere}
+	\caption{Entropy Triangle for $5$-fold validation using PCA}
 	\label{fig:figure_Knn_Iono_ET_PCA}
+\end{subfigure}
+
+\caption{Entropy triangle results on Ionosphere using AE and PCA as encoders and KNN as classifier}
+\label{fig:figure_Knn_Iono}
 \end{figure}
 
+Since we have presented the results of the $5$-folds in the validation it is possible to obtain a representation of the dispersion of the measures. 
+In fact Figures~\ref{fig:figure_Knn_Iono_Confidence}.\subref{fig:figure_Knn_Iono_ET_Auto_Confidence} and~\ref{fig:figure_Knn_Iono_Confidence}.\subref{fig:figure_Knn_Iono_ET_PCA_Confidence}, 
+ with a reduced dispersion area, 
+suggest that the results results mentioned above are quite consistent. 
+%point to us that sparsity of possible new test values is not very big, which basically is indicating that our classifications can't greatly vary their inaccurate predictions.\par 
+%
 \begin{figure}[H]
+\begin{subfigure}{\textwidth}  
+	\centering
+	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iono_Auto_Knn_Confidence}
+	\caption{Confidence isoclines for the Autoencoder }
+	\label{fig:figure_Knn_Iono_ET_Auto_Confidence}
+\end{subfigure}
+%
+\begin{subfigure}{\textwidth}  
 	\centering
 	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iono_PCA_Knn_Confidence}
-	\caption{Entropy Triangle confidence interval using PCA + Knn in Ionosphere}
+	\caption{Confidence isoclines using PCA }
 	\label{fig:figure_Knn_Iono_ET_PCA_Confidence}
+\end{subfigure}
+\caption{Confidence isoclines for PCA}
+\label{fig:figure_Knn_Iono_Confidence}
 \end{figure}
 
-Just by taking a simple look over Figure \ref{fig:figure_Knn_Iono_ET_Auto} and Figure \ref{fig:figure_Knn_Iono_ET_PCA} it is noticeable that the unbalancing of the dataset has affected the outcome of our experiments. The coordinates of the entropies from our Knn Folds tells us that our predictions have been inaccurate and the transmission of information either by means of the Virtual Information or the Mutual Information have degraded a lot from the results gathered from the Iris dataset. \par
+We can also notice in the figure how the dispersion of the training results is smaller than that of the testing results. 
 
-On the other hand, Figure \ref{fig:figure_Knn_Iono_ET_Auto_Confidence} and Figure \ref{fig:figure_Knn_Iono_ET_PCA_Confidence} point to us that sparsity of possible new test values is not very big, which basically is indicating that our classifications can't greatly vary their inaccurate predictions.\par 
+\subsubsection{MLP on PCA and Autoencoder}
 
-\subsection{MLP on PCA and Autoencoder}
+%To completely assess the Ionosphere dataset classification process we must now assess the performance of the MLP:
+For comparison we next present the results of running both intermediate representations through an MLP as a classifier.
 
-To completely asses the Ionosphere dataset classification process we must now asses the performance of the MLP:
 
-\begin{figure}[H]
+As seen on the Iris dataset, the dispersion of our points is greater when using the MLP. This behavior is clearly recognizable in Figure \ref{fig:figure_Mlp_Iono_ET_Auto} and Figure \ref{fig:figure_Mlp_Iono_ET_PCA}.
+%
+\begin{figure}
+\begin{subfigure}{\textwidth}  
 	\centering
 	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iono_Auto_Mlp}
 	\caption{Entropy Triangle using Autoencoder + MLP in Ionosphere}
 	\label{fig:figure_Mlp_Iono_ET_Auto}
-\end{figure}
+\end{subfigure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iono_Auto_Mlp_Confidence}
-	\caption{Entropy Triangle confidence interval using Autoencoder + MLP in Ionosphere}
-	\label{fig:figure_Mlp_Iono_ET_Auto_Confidence}
-\end{figure}
-
-\begin{figure}[H]
+\begin{subfigure}{\textwidth}  
 	\centering
 	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iono_PCA_Mlp}
 	\caption{Entropy Triangle using PCA + Mlp in Ionosphere}
 	\label{fig:figure_Mlp_Iono_ET_PCA}
+\end{subfigure}
+
+
+\caption{Performance of $5$-fold validation on Ionosphere with MLP for a classifier}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
+\begin{subfigure}{\textwidth}  
+	\centering
+	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iono_Auto_Mlp_Confidence}
+	\caption{Entropy Triangle confidence interval using Autoencoder + MLP in Ionosphere}
+	\label{fig:figure_Mlp_Iono_ET_Auto_Confidence}
+\end{subfigure}
+
+\begin{subfigure}{\textwidth}  
 	\centering
 	\includegraphics[width=\linewidth]{Figuras_tfg/ET_Iono_PCA_Mlp_Confidence}
 	\caption{Entropy Triangle confidence interval using PCA + Mlp in Ionosphere}
 	\label{fig:figure_Mlp_Iono_ET_PCA_Confidence}
+\end{subfigure}
+\caption{Dispersion of $5$-fold validation on Ionosphere with MLP for a classifier}
+\label{fig:figure_Mlp_Iono_Confidence}
 \end{figure}
 
-As seen on the Iris dataset, the sparsity of our points is greater when using the MLP. This behavior is clearly recognizable in Figure \ref{fig:figure_Mlp_Iono_ET_Auto} and Figure \ref{fig:figure_Mlp_Iono_ET_PCA}. We can also see that the degradation of results when compared to the Iris dataset is noticeable. Both the PCA and the Autoencoder don't seem to outperform each other by a great margin. They do seem to improve the outcome of the predictions from the Knn, but the unbalancing of the dataset is affecting its performance. \par
+
+ We can also see that the degradation of results when compared to the Iris dataset is noticeable. Neither  PCA nor the Autoencoder  seem to outperform each other by a great margin. They do seem to improve the outcome of the predictions from the KNN, but the imbalance of the dataset is affecting its performance. \par
 
 \subsection{Results discussion}
 
-If we want to further analyze the best classifier + transformation we must once again plot the total testing fold coordinates:
-
+If we want to further analyse the best combination of classifier and  transformation we must consider the average performances for testing and training. 
+Figure \ref{fig:figure_Total_Ionosphere_ET} shows that the Autoencoder is more reliable to classify for Ionosphere as both the MLP and the KNN seem to be close to each other in the ET, while the differences for PCA as used on Ionosphere are big. 
+%too great to consider that the Knn can be used to classify Ionosphere.\par
+%
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{Figuras_tfg/ET_Iono_Total_Results}
-	\caption{Entropy Triangle in Ionosphere with the total test fold value}
+	\caption{Entropy Triangle in Ionosphere with averages}
 	\label{fig:figure_Total_Ionosphere_ET}
 \end{figure}
 
-In Ionosphere, Figure \ref{fig:figure_Total_Ionosphere_ET} shows that the Autoencoder is more reliable to classify Ionosphere as both the MLP and the Knn seem to be close to each other in the ET, while the differences in the PCA are 
-too great to consider that the Knn can be used to classify Ionosphere.\par
-
-In the particular case of Ionosphere, it is interesting to take a look at the confusion matrices from the folds, as well as the accuracy of the training. We can also use some of the data acquired from the training of Iris to compare them. \par
-
-For example, we can compare the third fold from the MLP in the Autoencoder from  Iris and in Ionosphere we are taking the first fold from the MLP in the PCA:
-
+In the particular case of Ionosphere, it is interesting to take a look at the confusion matrices from the folds, as well as the accuracy of the training. We can also use some of the data acquired from the training of Iris to compare them. %\par
+% 
+For example, we can compare the third fold from the MLP in the Autoencoder from  Iris and in Ionosphere we are taking the first fold from the MLP in the PCA as shown in Table \ref{tab:Iris_vs_Ionosphere}. 
+%
 \begin{table}[H]
-	\label{tab:Iris_vs_Ionosphere}
 	\caption{Comparison of Iris and Ionosphere confusion matrices}
+	\label{tab:Iris_vs_Ionosphere}
 	\begin{tabular}{@{}cc@{}}
 	\begin{minipage}{.5\linewidth}
 		\subcaption{Iris confusion matrix}
@@ -449,7 +487,9 @@ For example, we can compare the third fold from the MLP in the Autoencoder from 
 \end{tabular}
 \end{table}
 
-From analyzing Table \ref{tab:Iris_vs_Ionosphere}, we get more or less the same accuracies on both instances of the folds, but only in case of the Iris MLP we are getting results with that level of certainty. The Ionosphere dataset is so unbalanced and that its observations, regardless of the level of accuracy shown, are forcing errors on our predictor. This is an example of the \textbf{accuracy paradox} mentioned on \autoref{chap:TheorethicalBackground}.
+We get more or less the same accuracies on both instances of the folds, but only in case of the Iris MLP we are getting results with that level of certainty. The Ionosphere dataset is so unbalanced and that its observations, regardless of the level of accuracy shown, are forcing errors on our predictor. This is an example of the \textbf{accuracy paradox} mentioned on Chapter~\ref{chap:TheoreticalBackground}.
+
+\todo[inline]{So far 20/09/2019}
 
 \section{MNIST Dataset}
 \subsection{Data Preparation}
