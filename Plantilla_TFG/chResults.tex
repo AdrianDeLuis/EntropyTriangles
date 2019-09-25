@@ -489,20 +489,23 @@ For example, we can compare the third fold from the MLP in the Autoencoder from 
 
 We get more or less the same accuracies on both instances of the folds, but only in case of the Iris MLP we are getting results with that level of certainty. The Ionosphere dataset is so unbalanced and that its observations, regardless of the level of accuracy shown, are forcing errors on our predictor. This is an example of the \textbf{accuracy paradox} mentioned on Chapter~\ref{chap:TheoreticalBackground}.
 
-\todo[inline]{So far 20/09/2019}
-
 \section{MNIST Dataset}
+
+We now turn to a complex, big dataset, the MNIST Datataset. 
+
 \subsection{Data Preparation}
 
-All the necessary processes needed to transform our data into a valuable representation of it for the purpose of the Bachelor Thesis have been explained on Section \ref{subsec:MNIST}.
+All the necessary processes needed to transform our data into a valuable representation of it  have been explained on Section~\ref{subsec:MNIST}.
 
 \subsection{The Autoencoder}
-The Autoencoder used for the MNIST dataset has the most complex structure in terms of computational power out of all of the considered implementations for the sake of this thesis. 
+%The Autoencoder used for the MNIST dataset has the most complex structure in terms of computational power out of all of the considered implementations in this thesis. 
 
+Tables~\ref{tab:table_MNIST_auto_encoder}
+and~\ref{tab:table_MNIST_auto_decoder} describe the parameters of the encoder and decoder sub-architectures  resulting in the most complex Autoencoder architecture in this thesis so far. 
 \begin{table}[H]
 	\caption{MNIST Autoencoder layers of the encoder.}
-	\begin{center}
 		\label{tab:table_MNIST_auto_encoder}
+	\begin{center}
 		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
 			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
 			\hline
@@ -517,8 +520,8 @@ The Autoencoder used for the MNIST dataset has the most complex structure in ter
 
 \begin{table}[H]
 	\caption{MNIST layers of the decoder.}
+	\label{tab:table_MNIST_auto_decoder}
 	\begin{center}
-		\label{tab:table_MNIST_auto_decoder}
 		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
 			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
 			\hline
@@ -531,17 +534,16 @@ The Autoencoder used for the MNIST dataset has the most complex structure in ter
 	\end{center}
 \end{table}
 
-The Autocoder has a large amount of observations (Around 287.1 megabits only for the $X$ training component), so we expect the training time to be longer than the previous datasets. We are also going to keep the same configuration for the activation functions of the architecture, as the other Autoencoders  have proven successful to the transference of information.
+The Autoencoder has a large amount of observations (Around $287.1Mb$ only for the $X$ layer), so we expect the training time to be longer than the previous datasets. We are also going to keep the same configuration for the activation functions of the architecture, as the other Autoencoders  have proven successful for the transference of information from input to output. 
 
 \subsection{MLP on PCA and Autoencoder}
 
-The structure implemented for the MLP in the Autoencoder and in the PCA will be completely different. As seen in both Table \ref{tab:table_MNIST_auto_encoder} and Table \ref{tab:table_MNIST_auto_decoder}, the size of our variables is 64 in the $\hat{Z}$ from the Autoencoder, but the PCA creates a matrix with the same measures as the input $\hat{X}$, which makes us have to increase the size of our MLP greatly, thus making us add an extra layer to improve it's performance.
-\par	
-
+The structure implemented for the MLP in the Autoencoder and in the PCA will be completely different. As seen in both Table \ref{tab:table_MNIST_auto_encoder} and Table \ref{tab:table_MNIST_auto_decoder}, the size of the encoded representation layer $\hat Z$ in the Autoencoder is $64$, but the PCA creates a matrix with the same measures as the input $\hat{X}$, which makes us have to increase the size of our MLP greatly, thus making us add an extra layer to improve it's performance.
+%
 \begin{table}[H]
 	\caption{MNIST MLP layers of the Autoencoder}
-	\begin{center}
 		\label{tab:table_MNIST_MLP_auto}
+	\begin{center}
 		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
 			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
 			\hline
@@ -553,10 +555,12 @@ The structure implemented for the MLP in the Autoencoder and in the PCA will be 
 	\end{center}
 \end{table}
 
+From Table \ref{tab:table_MNIST_MLP_pca} the PCA MLP has the advantage of being composed by a greater amount of neurons, making it more computationally powerful and thus having an advantage towards the smaller Autoencoder MLP. 
+%
 \begin{table}[H]
 	\caption{MNIST MLP layers of the PCA}
-	\begin{center}
 		\label{tab:table_MNIST_MLP_pca}
+	\begin{center}
 		\begin{tabular}{c|c|c} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
 			\textbf{Number of Layers} & \textbf{Size} & \textbf{Activation Function} \\
 			\hline
@@ -569,43 +573,55 @@ The structure implemented for the MLP in the Autoencoder and in the PCA will be 
 	\end{center}
 \end{table}
 
-As we can see on Table \ref{tab:table_MNIST_MLP_pca} the PCA MLP has the advantage of being composed by a greater amount of neurons, making it more computationally powerful and thus having an advantage towards the smaller Autoencoder MLP. 
 
-
+After plotting both Figure~\ref{fig:figure_Mlp_MNIST_ET_Auto}.\subref{fig:figure_Mlp_MNIST_ET_Auto} and Figure~\ref{fig:figure_Mlp_MNIST_ET_Auto}.\subref{fig:figure_Mlp_MNIST_ET_PCA} we can clearly see that the PCA  proves to be the best choice to classify MNIST with an MLP. Its training folds have placed in the tip of the ET, and although the test folds have performed worst than them, they are still placed highly. On the other hand, the MLP classifier on the Autoencoder has good informational characteristic, but it lacks the predictive power of the PCA.
+%
 \begin{figure}[H]
+\begin{subfigure}{\textwidth}
 	\centering
 	\includegraphics[width=1\linewidth]{Figuras_tfg/MNIST_Autoencoder_mlp}
-	\caption{Entropy Triangle using Autoencoder + Mlp in MNIST}
+	\caption{Using the Autoencoder for encoding}
 	\label{fig:figure_Mlp_MNIST_ET_Auto}
-\end{figure}
+\end{subfigure}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=1\linewidth]{Figuras_tfg/MNIST_Autoencoder_mlp_Confidence}
-	\caption{Entropy Triangle confidence interval using Autoencoder + Mlp in MNIST}
-    \label{fig:figure_Mlp_MNIST_ET_Auto_Confidence}
-\end{figure}
-
-\begin{figure}[H]
+\begin{subfigure}{\textwidth}
 	\centering
 	\includegraphics[width=1\linewidth]{Figuras_tfg/MNIST_PCA_mlp}
-	\caption{Entropy Triangle using PCA + Mlp in MNIST}
+	\caption{Using PCA for encoding}
 	\label{fig:figure_Mlp_MNIST_ET_PCA}
+\end{subfigure}
+\caption{Entropy triangles for MNIST using an MLP classifier}
+\label{fig:figure_Mlp_MNIST_ET}
 \end{figure}
 
+
+The Figures~\ref{fig:figure_Mlp_MNIST_ET_Confidence}.\subref{fig:figure_Mlp_MNIST_ET_Auto_Confidence} and~\ref{fig:figure_Mlp_MNIST_ET_Confidence}.\subref{fig:figure_Mlp_MNIST_ET_PCA_Confidence} representing the confidence intervals in this dataset don't provide a lot of information about them. Practically both of them are moving along the $VI'_{P_{XY}}$ line, but regarding delta of the entropies to be constant and the Mutual Information as variable. 
+%
 \begin{figure}[H]
+\begin{subfigure}{\textwidth}
+	\centering
+	\includegraphics[width=1\linewidth]{Figuras_tfg/MNIST_Autoencoder_mlp_Confidence}
+	\caption{Using the Autoencoder representation}
+    \label{fig:figure_Mlp_MNIST_ET_Auto_Confidence}
+\end{subfigure}
+
+
+\begin{subfigure}{\textwidth}
 	\centering
 	\includegraphics[width=1\linewidth]{Figuras_tfg/MNIST_PCA_mlp_Confidence}
-	\caption{Entropy Triangle confidence interval using PCA + Mlp in MNIST}
+	\caption{Using the PCA representation}
 	\label{fig:figure_Mlp_MNIST_ET_PCA_Confidence}
+\end{subfigure}
+
+\caption{Confidence isoclines for MNIST on the entropy triangle for an MLP Classifier. Most of the details are lost since the measures are so concentrated on the $VI'_{P_{XY}}$ line}
+	\label{fig:figure_Mlp_MNIST_ET_Confidence}
 \end{figure}
 
-After plotting both Figure \ref{fig:figure_Mlp_MNIST_ET_Auto} and Figure \ref{fig:figure_Mlp_MNIST_ET_PCA} we can clearly see that the PCA has proven to be the best choice to classify MNIST. Its training folds have placed in the tip of the ET, and although the test folds have performed worst than them, they are still placed highly. On the other hand, the MLP classifier on the Autoencoder has good informational characteristic, but it lacks the predictive power of the PCA.\par
-
-The Figures representing the confidence intervals in this dataset don't provide a lot of information about them. Practically both of them are moving along the $VI'_{P_{XY}}$ line, but regarding delta of the entropies to be constant and the Mutual Information as variable.\par
 
 \subsection{Results discussion} 
 
+By looking at Figure~\ref{fig:figure_Total_MNIST_ET} it is confirmed that our previous assertions about MNIST were correct. The PCA has outperformed the Autoencoder and the test fold has placed the highest out of all the experiment performed in this Bachelor Thesis. \par
+%
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{Figuras_tfg/MNIST_performance_test}
@@ -613,7 +629,6 @@ The Figures representing the confidence intervals in this dataset don't provide 
 	\label{fig:figure_Total_MNIST_ET}
 \end{figure}
 
-By looking at Figure \ref{fig:figure_Total_MNIST_ET} it is confirmed that our previous affirmations about MNIST were correct. The PCA has outperformed the Autoencoder and the test fold has placed the highest out of all the experiment performed in this Bachelor Thesis. \par
 
 We knew from our investigation before the experiments that great results on the classification of MNIST had been achieved throughout the years, and it has proven to be the most reliable source for the prediction of values to us. It can be due to the fact that it has the greatest number of observations, and despite of its size it can allow for structures such as the MLP to get plenty of data to be trained with and thus get better results at predicting the test folds. \par
 
