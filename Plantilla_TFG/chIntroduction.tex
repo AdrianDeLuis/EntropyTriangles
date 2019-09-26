@@ -7,7 +7,9 @@ Information has usually been referred to as one of the key aspects that every le
 
 During the last few years, the topic of Big Data has become increasingly more important in our society. It is currently being used or developed in almost every industry in the world~\cite{article_Big_Data} and it is growing faster every day. While methods like Deep Neural Networks are beginning to be  widely available,  researchers tend to use the same approaches and steps to get their results. Rather than trying new methods, it is an industry standard to use a certain set of techniques when presented with a type of problem and then to try to optimize them. It is just assumed that these methods are powerful enough to find a suitable answer. 
 
-A conceptual diagram of this model can be found in Figure~\ref{fig:fig1}.\subref{fig:fig1b}, where each block represents a different function inside an end-to-end informational model. Suppose we could only take measures outside each of the blocks and the contents or the methods being used inside are outside of the scope of the task. By not being able to access each one of the blocks to evaluate the processes inside them, we may only fix or change their inputs to try to improve our results.
+In this thesis, we subject one of these methods to scrutiny, specifically we plan to use part of the Autoencoder~\cite{mur:12}  as a transformation block for a multiclass classification task. 
+%
+A conceptual diagram of this model can be found in Figure~\ref{fig:fig1}.\subref{fig:fig1b}, where each block represents a different function inside an end-to-end informational model (see Section~\ref{sec:ae}).
 %
 \begin{figure}[H]
 	\begin{subfigure}{1\textwidth}  
@@ -27,24 +29,51 @@ A conceptual diagram of this model can be found in Figure~\ref{fig:fig1}.\subref
 	\label{fig:fig1}
 \end{figure}
 
+Suppose we were unable to access each one of the blocks to evaluate the processes inside them and we could only take measures outside each of the block. In such case, we may only fix or change the  inputs to the blocks to try to improve our results.
+%
+In this situation, we may use the encoding part of the Autoencoder to obtain an intermediate representation of the signal that is capable of improving classification~\cite{Yu_2019}. This scheme is represented in  Figure~\ref{fig:fig1}.\subref{fig:fig1a}. 
+
+What principle may we use to support this reasoning?
+The architecture of the Autoencoder is based upon the  Information Bottleneck (IB), a method proposed in~\cite{Inf_Bottleneck_first} whose principle relies on extracting the relevant information that an input random vector $\overline X$ contains about another output random variable $\overline Y$. If we assume that there is some type of statistical dependency between $\overline X$ and $\overline Y$, and thus the relevant information can be defined as $I(\overline X;\overline Y)$. 
+%
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{Informational_Bottleneck.jpg}
+	\caption{Conceptual drawing of the Information Bottleneck.}
+	\label{fig:figure_info_bottle}
+\end{figure} 
+
+If we want to obtain the optimal representation of $\overline X$, we would want to capture the relevant information of $\overline X$ that contributes to an accurate prediction of $\overline Y$. This term is known as the \textbf{minimal sufficient statistics}~\cite{Minimal_and_Autoencoder}, or simply just the mapping of $\overline X$  that retains $I(\overline X;\overline Y)$. The compressed version of $\overline X$ is denoted as $\overline Z$, and we can analyse the performance of our compression by comparing the prediction of $\overline Y$ that both $\overline Z$ and $\overline X$ do. Essentially, our goal is to optimise the following expression: %\newline 
+%
+\begin{equation}
+\label{eq:Bottleneck_equation}
+\min\limits_{p(t|x)}  I(\overline X;\overline Z) - \beta \times I(\overline Z;\overline Y)
+\end{equation} \newline
+
+
+
 \section{Objective}
 
-The model that I will be implementing will be an adaptation of the scheme on Figure~\ref{fig:fig1}.\subref{fig:fig1a}. To further investigate on the boundaries of Information transmission , I am using an \textbf{Autoencoder} to test the Information Bottleneck Principle~\cite{Inf_Bottleneck_first}.
+\emph{\textbf{The objective of this thesis is to test the validity of the previous assumption by means of a specialised tool, the Entropy Triangle designed to assess classifier schemes slike those above}} (see Section~\ref{sec:et}). 
 
-In this report, I designed the following model which provides reliable information about the process of data compression and the limits of quantifiable information:
-+
+The model that I will be implementing will be an adaptation of the scheme on Figure~\ref{fig:fig1}.\subref{fig:fig1a}, 
+%To further investigate on the boundaries of Information transmission , I am using an \textbf{Autoencoder} to test the Information Bottleneck Principle~\cite{Inf_Bottleneck_first}.
+%
+%In this report, I follow the model below 
+which provides reliable information about the process of data compression and the limits of quantifiable information:
+%s
 \begin{itemize}
 	\item  We have a random source $K$ generating observations. Through a process of measurements, our system then will be provided with vectors of random observations $\overline{X}$. 
 	
 	\item The output observations  are then fed to the Autoencoder, which will then reduce the $\overline X$ into another vector $\overline Z$ with a different length but retaining the information from the input vector in a compressed from. 
 	
-	\item The Autoencoder also provides an output, which should be a reconstruction of the observations used to feed the Deep Learning structure. 
+	\item The Autoencoder also provides an output, which should be a reconstruction of the observations used to feed the Deep Learning structure $\hat X$. 
 	
 	\item The $\overline Z$ is then used for the classifying task of choice to output the predicted labels using a classifier of our choice. 
 	
 \end{itemize}
 
-Note that Figure~\ref{fig:fig1a} follows a similar model to that of Figure \ref{fig:fig1}, but its transformation block is used to access the inside content of it rather than to provide a typical representation of an end-to-end transformation scheme. Although both of them typify a MIMO (Multiple Input Multiple Output) block, the Autoencoder is essentially an unsupervised transformation method, while the transformation block can be either composed by supervised or unsupervised task.\par
+Note that Figure~\ref{fig:fig1}.\subref{fig:fig1a} follows a similar model to that of Figure~\ref{fig:fig1}.\subref{fig:fig1b}, but its transformation block is used to access the inside content of it rather than to provide a typical representation of an end-to-end transformation scheme. Although both of them typify a MIMO (Multiple Input Multiple Output) block, the Autoencoder is essentially an unsupervised transformation method, while the transformation block can be either composed by supervised or unsupervised task.\par
 
 
 \section{Outline}

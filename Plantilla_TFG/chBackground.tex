@@ -49,29 +49,14 @@ As seen on Figure~\ref{fig:fig3}, the Relu function has a relatively simple repr
 
 Once a certain DNN structure has been activated, the artificial neurons inside of the network will start to propagate the information in the inputs in a non-linear manner in order to try to achieve a given established task, which in our particular case consists in transforming the representation of our input into a smaller but informationally more compressed form. Other experts can use the same principles to achieve other goals including decision-making, visualization, etc~\cite{Decision_making_DNN}.\par
 
-\section{Information Bottleneck Principle}
-
-The architecture of the Autoencoder is based upon the  Information Bottleneck (IB), a method proposed in~\cite{Inf_Bottleneck_first} whose principle relies on extracting the relevant information that an input random vector $\overline X$ contains about another output random variable $\overline Y$. If we assume that there is some type of statistical dependency between $\overline X$ and $\overline Y$, and thus the relevant information can be defined as $I(\overline X;\overline Y)$.\par
-%
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\linewidth]{Informational_Bottleneck.jpg}
-	\caption{Conceptual drawing of the Information Bottleneck.}
-	\label{fig:figure_info_bottle}
-\end{figure} 
-
-If we want to obtain the optimal representation of $\overline X$, we would want to capture the relevant information of $\overline X$ that contributes to an accurate prediction of $\overline Y$. This term is known as the \textbf{minimal sufficient statistics}~\cite{Minimal_and_Autoencoder}, or simply just the mapping of X that retains $I(\overline X;\overline Y)$. The compressed version of $\overline X$ is denoted as $\overline T$, and we can analyse the accuracy of our compression by comparing the prediction of $\overline Y$ that both $\overline T$ and $\overline X$ do. Essentially, our goal is to fulfil the following equation: %\newline 
-%
-\begin{equation}
-\label{eq:Bottleneck_equation}
-\min\limits_{p(t|x)}  I(\overline X;\overline T) - \beta \times I(\overline T;\overline Y)
-\end{equation} \newline
+\section{The Information Bottleneck Principle in the Autoencoders}
 
 During the compressing process, and following the concept depicted in Figure~\ref{fig:figure_info_bottle}, the layers of a DNN only have access to the information that has been transferred to them via the previous layers of the system, as the direction of the compression goes from the input to the bottleneck of our system. This has a big effect on our network: the information not processed in the last immediate layer is essentially lost. This is the main reason why every layer should attempt to maximize $I(\overline Y;\overline h_i)$ while trying to minimize $I(\overline h_{i-1}; \overline h_i)$, being $\overline h_i$ a random layer situated inside of the coding or compressing layer and $\overline h_{i-1}$ its immediate predecessor. Here it is important to consider that we want to reduce the length of the layer to the minimum possible without affecting the predictive features of our model. \par
 
 Each layer of our model should require shorter descriptions than the previous ones, having the first one the longest description and the least compression. It must also be noted that every model will require a different set of layers and an appropriate architecture to fit its computational needs to the optimal level. \par
 
 \section{The Autoencoder}
+\label{sec:ae}
 
 \subsection{The Autoencoder Architecture}
 
@@ -124,6 +109,8 @@ In~\cite{Yu_2019} the authors expand on the use of Autoencoders and explore some
 
 
 \section{The Entropy Triangle}
+\label{sec:et}
+
 \subsection{Motivation}
 
 In the previous section I have talked about how accuracy can be used to asses the validity of our model. In reality, the accuracy value can be somewhat misleading depending of the task that we are implementing it to check if we are carrying out our data analysis correctly. This statement is specially true when talking about Classification~\cite{val:pel:14a}.\par
